@@ -8,6 +8,8 @@
 <meta property="og:title" content="柴崎凌兵 | サイト制作・プロデュース・出張撮影">
 <meta property="og:description" content="レンタル業界のすべての立場を知る柴崎凌兵が、お店とキャストのサイト制作・プロデュース・撮影を引き受けます。">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://shibasaki-warmrelation.github.io/img/portrait-desk.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#140C22">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +44,7 @@
   }
   a { color: inherit; }
   h1, h2, h3, p, li { word-break: auto-phrase; text-wrap: pretty; }
-  img { display: block; max-width: 100%; }
+  img { display: block; max-width: 100%; height: auto; }
   ::selection { background: var(--tape-lilac); color: var(--ink); }
   :focus-visible { outline: 2px solid var(--tape); outline-offset: 3px; }
   .wrap { width: min(1080px, 100% - 48px); margin-inline: auto; }
@@ -96,18 +98,29 @@
     clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
     filter: blur(2px);
   }
-  .mark-spot { position: absolute; right: calc(4% + 80px); top: 300px; width: 220px; height: 220px; }
+  .hero-inner { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+  .hero-text { position: relative; }
+  /* 写真：テープで留めた宣材写真 */
+  .hero-photo { position: relative; margin: 0; justify-self: end; width: min(100%, 420px); }
+  .hero-photo img {
+    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .8), 0 0 0 1px rgba(196, 168, 255, .2);
+    transform: rotate(1.5deg);
+  }
+  .hero-photo::before, .hero-photo::after { /* 写真を留めるテープ */
+    content: ""; position: absolute; z-index: 1; width: 96px; height: 26px; background: rgba(196, 168, 255, .78);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+  }
+  .hero-photo::before { left: -18px; top: 22px; transform: rotate(-38deg); }
+  .hero-photo::after { right: -18px; bottom: 30px; transform: rotate(-38deg); background: rgba(226, 93, 168, .75); }
+  .mark-spot { position: absolute; left: -64px; bottom: -36px; width: 120px; height: 120px; z-index: 2; }
   .mark-spot::before { /* 床に落ちた光の輪 */
-    content: ""; position: absolute; left: -60px; right: -60px; top: 60px; height: 120px; border-radius: 50%;
+    content: ""; position: absolute; left: -40px; right: -40px; top: 30px; height: 60px; border-radius: 50%;
     background: radial-gradient(closest-side, rgba(255, 233, 184, .34), transparent);
   }
   .mark-spot .t { position: absolute; background: var(--tape-lilac); box-shadow: 0 0 18px rgba(196, 168, 255, .6); }
-  .mark-spot .h { left: 30px; right: 30px; top: 104px; height: 12px; transform: rotate(-1.5deg); }
-  .mark-spot .v { top: 30px; bottom: 30px; left: 104px; width: 12px; transform: rotate(1deg); }
-  .mark-spot span {
-    position: absolute; left: 50%; top: 200px; transform: translateX(-50%);
-    font-size: 13px; font-weight: 700; color: var(--light); white-space: nowrap; letter-spacing: .08em;
-  }
+  .mark-spot .h { left: 10px; right: 10px; top: 54px; height: 10px; transform: rotate(-1.5deg); }
+  .mark-spot .v { top: 10px; bottom: 10px; left: 55px; width: 10px; transform: rotate(1deg); }
   .hero h1 {
     position: relative; margin: 0; max-width: 11em;
     font-family: var(--mincho); font-weight: 800;
@@ -146,20 +159,26 @@
   .dark .sec-lead, .dark p { color: var(--on-dark-dim); }
 
   /* 歩み：客席から舞台袖まで、立ち位置が移っていく */
-  .career { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; counter-reset: c; }
+  .career-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
+  .career-photo { position: sticky; top: 96px; margin: 0; }
+  .career-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px; }
+  .career-photo figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-dim); }
+  .career { list-style: none; margin: 0; padding: 0; position: relative; counter-reset: c; }
   .career::before { /* 4つをつなぐ床のテープ */
-    content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 6px; border-radius: 2px;
-    background: linear-gradient(90deg, var(--tape-lilac), var(--tape) 55%, var(--tape-rose));
+    content: ""; position: absolute; left: 18px; top: 0; bottom: 0; width: 6px; border-radius: 2px;
+    background: linear-gradient(180deg, var(--tape-lilac), var(--tape) 55%, var(--tape-rose));
   }
-  .career li { counter-increment: c; position: relative; padding: 64px 24px 0 0; }
+  .career li { counter-increment: c; position: relative; padding: 0 0 48px 72px; }
+  .career li:last-child { padding-bottom: 0; }
   .career li::before {
-    content: counter(c); position: absolute; left: 0; top: 4px; width: 42px; height: 42px; border-radius: 50%;
+    content: counter(c); position: absolute; left: 0; top: 0; width: 42px; height: 42px; border-radius: 50%;
     background: var(--paper); color: var(--tape-deep); box-shadow: inset 0 0 0 3px var(--tape);
     display: grid; place-items: center; font-family: var(--mincho); font-weight: 800; font-size: 18px;
   }
   .career li:last-child::before { background: var(--tape-deep); color: #fff; box-shadow: 0 0 0 6px rgba(139, 92, 246, .22); }
   .career small { display: block; font-size: 12px; font-weight: 700; color: var(--ink-dim); letter-spacing: .08em; margin-bottom: 2px; }
   .career b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 24px; line-height: 1.4; margin-bottom: 8px; }
+  .career span.nw { display: inline; white-space: nowrap; font-size: inherit; }
   .career span { display: block; color: var(--ink-dim); font-size: 15px; }
   .career li:last-child b { color: var(--tape-deep); }
 
@@ -177,6 +196,8 @@
   .role:first-child > * { position: relative; }
   .role:first-child p { color: var(--on-dark-dim); }
   .role:first-child h3 { font-size: 30px; }
+  .role-photo { display: grid; grid-template-columns: 140px 1fr; column-gap: 24px; align-items: start; }
+  .role-photo img { grid-row: span 3; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
   .role h3 { margin: 0 0 10px; font-family: var(--mincho); font-weight: 800; font-size: 22px; line-height: 1.4; }
   .role p { margin: 0 0 16px; color: var(--ink-dim); font-size: 15px; }
   .role ul { margin: 0; padding: 0; list-style: none; font-size: 15px; font-weight: 700; }
@@ -259,7 +280,12 @@
   .contact dd { margin: 0; color: var(--on-dark); word-break: break-all; }
   .contact .btn { background: var(--on-dark); color: var(--tape-deep); box-shadow: none; }
   .contact .btn:hover { background: #fff; }
-  .price { display: grid; grid-template-columns: 1fr 1.3fr; gap: 12px; margin: 28px 0; }
+  .who { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  .who .pname { margin: 0; }
+  .avatar { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--paper), 0 0 0 6px var(--tape); flex: none; }
+  .price { display: grid; grid-template-columns: .9fr 1.1fr; grid-template-rows: 1fr 1fr; gap: 12px; margin: 28px 0; }
+  .price img { grid-row: span 2; width: 100%; height: 100%; min-height: 240px; object-fit: cover; border-radius: 6px; }
+  .price p { display: flex; flex-direction: column; justify-content: center; }
   .price p { margin: 0; padding: 18px 20px; border-radius: 6px; }
   .price small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; }
   .price b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 28px; line-height: 1.4; }
@@ -298,14 +324,12 @@
   @media (max-width: 960px) {
     .bar nav a:not(.cta) { display: none; }
     .beam { right: -40px; width: 260px; height: 420px; }
-    .mark-spot { width: 150px; height: 150px; top: 230px; right: 20px; }
-    .mark-spot .h { left: 20px; right: 20px; top: 69px; height: 10px; } .mark-spot .v { top: 20px; bottom: 20px; left: 70px; width: 10px; }
-    .mark-spot span { top: 140px; font-size: 12px; }
-    .career { grid-template-columns: 1fr; }
-    .career::before { left: 18px; right: auto; top: 0; bottom: 0; width: 6px; height: auto; background: linear-gradient(180deg, var(--tape-lilac), var(--tape) 55%, var(--tape-rose)); }
-    .career li { padding: 0 0 36px 68px; }
-    .career li:last-child { padding-bottom: 0; }
-    .career li::before { top: 0; }
+    .hero-inner { grid-template-columns: 1fr; gap: 64px; padding-bottom: 112px; }
+    .hero-photo { justify-self: center; width: min(78%, 360px); }
+    .mark-spot { left: -44px; bottom: -28px; transform: scale(.8); }
+    .career-wrap { grid-template-columns: 1fr; gap: 48px; }
+    .career-photo { position: static; width: min(100%, 420px); }
+    .career-photo img { aspect-ratio: 4 / 3; object-position: 50% 20%; }
     .roles { grid-template-columns: 1fr; }
     .role:first-child { grid-row: auto; min-height: 0; }
     .two, .challenge { grid-template-columns: 1fr; gap: 40px; }
@@ -322,16 +346,14 @@
     .hero-inner { padding: 56px 0 88px; }
     .hero h1 { font-size: 36px; }
     .beam { right: -70px; width: 200px; height: 330px; opacity: .8; }
-    .mark-spot { width: 92px; height: 92px; top: 6px; right: 4px; }
-    .mark-spot::before { left: -30px; right: -30px; top: 24px; height: 50px; }
-    .mark-spot .h { left: 12px; right: 12px; top: 42px; height: 7px; } .mark-spot .v { top: 12px; bottom: 12px; left: 43px; width: 7px; }
-    .mark-spot span { display: none; }
-    .role-line { margin-right: 84px; }
     .role, .role:first-child { padding: 28px 24px; }
+    .role-photo { grid-template-columns: 1fr; }
+    .role-photo img { grid-row: auto; aspect-ratio: 4 / 3; object-position: 50% 25%; margin-bottom: 20px; }
     .role:first-child h3 { font-size: 26px; }
     .steps { grid-template-columns: 1fr; }
     .training { grid-template-columns: 1fr; }
-    .price { grid-template-columns: 1fr; }
+    .price { grid-template-columns: 1fr; grid-template-rows: none; }
+    .price img { grid-row: auto; aspect-ratio: 4 / 3; height: auto; min-height: 0; object-position: 50% 30%; }
     .contact { padding: 30px 24px; }
     .contact h3 { font-size: 25px; }
     .site-list a { padding: 24px 4px; }
@@ -358,7 +380,7 @@
 <header class="hero">
   <div class="beam" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <div class="mark-spot" aria-hidden="true"><i class="t h"></i><i class="t v"></i><span>ここに立つのは、キャスト</span></div>
+    <div class="hero-text">
     <p class="role-line"><span>レンタル彼氏 WarmRelation 代表</span><span>レンタル彼女 Lily プロデューサー</span><span>出張撮影カメラマン</span></p>
     <h1><span>レンタル業界の、</span><span><em>すべての立場</em>を</span><span>知っています。</span></h1>
     <p class="lead">利用者として始まり、キャスト、マネージャー、そして運営へ。それぞれの立場で見てきたことを活かして、レンタル彼氏・レンタル彼女のお店とキャストのサイト制作、プロデュース、撮影を引き受けます。</p>
@@ -366,6 +388,11 @@
       <a class="btn" href="#contact">相談する</a>
       <a class="btn line" href="#works">実績を見る</a>
     </div>
+    </div>
+    <figure class="hero-photo">
+      <img src="img/portrait-desk.jpg" width="900" height="1125" alt="カフェのデスクでマグカップを手に座る柴崎凌兵">
+      <div class="mark-spot" aria-hidden="true"><i class="t h"></i><i class="t v"></i></div>
+    </figure>
   </div>
 </header>
 
@@ -374,12 +401,17 @@
     <div class="wrap">
       <div class="sec-head reveal"><span class="bami" aria-hidden="true"></span><h2>歩み</h2></div>
       <p class="sec-lead reveal">客席から舞台へ、そして舞台袖へ。立つ場所を変えながら、レンタルの仕事を内側から見てきました。</p>
+      <div class="career-wrap">
+      <figure class="career-photo reveal">
+        <img src="img/stage-suit.jpg" width="900" height="1200" loading="lazy" alt="スーツ姿で、映像が映る床の上に立つ柴崎凌兵">
+      </figure>
       <ol class="career">
         <li class="reveal"><small>客席</small><b>利用者</b><span>レンタル彼女のユーザーとして、この業界に出会う</span></li>
-        <li class="reveal"><small>舞台</small><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ。1時間0円でも誰も借りてくれなかった、底辺レンタル彼氏時代から</span></li>
+        <li class="reveal"><small>舞台</small><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ。<span class="nw">1時間0円</span>でも誰も借りてくれなかった、底辺レンタル彼氏時代から</span></li>
         <li class="reveal"><small>舞台袖</small><b>マネージャー</b><span>キャストを支え、育てる側にまわる</span></li>
         <li class="reveal"><small>劇場をつくる</small><b>プロデューサー・代表</b><span>レンタル彼氏の運営に携わり、WarmRelationの代表に。レンタル彼女Lilyのプロデュースも担当</span></li>
       </ol>
+      </div>
     </div>
   </section>
 
@@ -405,7 +437,8 @@
             <li>お店の運営や集客の相談</li>
           </ul>
         </div>
-        <div class="role reveal">
+        <div class="role role-photo reveal">
+          <img src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="カメラを構える柴崎凌兵">
           <h3>写真を撮る</h3>
           <p>出張撮影のカメラマンとして、サイトに載せるキャスト写真も自分で撮れます。</p>
           <ul>
@@ -463,7 +496,7 @@
     <div class="wrap two">
       <div class="reveal">
         <div class="sec-head"><span class="bami" aria-hidden="true"></span><h2>プロフィール</h2></div>
-        <p class="pname">柴崎 凌兵</p>
+        <div class="who"><img class="avatar" src="img/illust.jpg" width="566" height="566" loading="lazy" alt="柴崎凌兵の似顔絵イラスト"><p class="pname">柴崎 凌兵</p></div>
         <ul class="titles">
           <li>レンタル彼氏 WarmRelation 代表</li>
           <li>レンタル彼女 Lily プロデューサー</li>
@@ -472,6 +505,7 @@
         <p>レンタル彼女の利用者から始まり、レンタル彼氏のキャスト、マネージャーを経て、運営に携わるようになりました。今は13年続くレンタル彼氏WarmRelationの代表として、キャストひとりひとりの良さを見つけ、お客様に届く形にしています。</p>
         <p>自分が前に出るのではなく、キャストが主役として立てる場所を整えるのが仕事だと考えています。</p>
         <div class="price">
+          <img src="img/cafe.jpg" width="800" height="1000" loading="lazy" alt="カフェでグラスを手にする柴崎凌兵">
           <p class="price-then"><small>キャストを始めたころ</small><b>1時間0円</b><span>それでも、誰も借りてくれなかった</span></p>
           <p class="price-now"><small>今</small><b>1時間8,000円</b><span>柴崎凌兵本人をレンタルできます</span></p>
         </div>
