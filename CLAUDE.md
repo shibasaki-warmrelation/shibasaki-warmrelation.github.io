@@ -8,6 +8,7 @@ main ブランチに push すると数分で反映される（ビルド工程な
 - レンタル彼氏 WarmRelation 代表、レンタル彼女 Lily プロデューサー、出張撮影カメラマン
 - 歩み：レンタル彼女の**利用者** → レンタル彼氏の**キャスト** → **マネージャー** → **プロデューサーとして運営**に携わり、WarmRelationの代表に。「レンタル業界のすべての立場を知っている」のが強み
 - 連絡先：shibasakiryohei.wr@gmail.com
+- 本人のレンタルは1時間8,000円。キャストを始めたころは1時間0円でも誰も借りてくれなかった（本人談）
 - 仕事のほかに、SASUKE出場を目指してトレーニング中（ボルダリング・水泳・縄跳び・整体）
 
 ## ファイル
@@ -23,7 +24,7 @@ main ブランチに push すると数分で反映される（ビルド工程な
 | レンタル彼氏 WarmRelation | https://warmrelation.com/ |
 | レンタル彼氏 CROSS ROAD | https://crossroad24.com/ |
 | レンタルフレンド by WarmRelation | https://womens-ribbon.com/ |
-| Via Photo | **URL未定**（`data-todo="URL"` で「URL準備中」と表示中） |
+| Via Photo | https://via-photo.com/ |
 
 ## デザインの決まりごと
 
@@ -45,7 +46,6 @@ main ブランチに push すると数分で反映される（ビルド工程な
 
 ## まだ決まっていないもの
 
-- [ ] Via Photo のURL
-- [ ] 料金の載せ方（今は「準備中」の注記）
+- [ ] サイト制作・プロデュース・撮影の料金の載せ方（連絡先に「準備中」の注記）
 - [ ] SASUKEを目指すきっかけと、目標の大会
 - [ ] 撮影した写真の作例

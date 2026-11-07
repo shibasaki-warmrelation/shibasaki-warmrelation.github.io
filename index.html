@@ -259,6 +259,16 @@
   .contact dd { margin: 0; color: var(--on-dark); word-break: break-all; }
   .contact .btn { background: var(--on-dark); color: var(--tape-deep); box-shadow: none; }
   .contact .btn:hover { background: #fff; }
+  .price { display: grid; grid-template-columns: 1fr 1.3fr; gap: 12px; margin: 28px 0; }
+  .price p { margin: 0; padding: 18px 20px; border-radius: 6px; }
+  .price small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; }
+  .price b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 28px; line-height: 1.4; }
+  .price span { display: block; font-size: 13px; }
+  .price-then { background: var(--floor); color: var(--ink-dim) !important; }
+  .price-then b { text-decoration: line-through; text-decoration-color: var(--tape-rose); text-decoration-thickness: 3px; }
+  .price-now { background: var(--stage); color: var(--on-dark) !important; box-shadow: inset 4px 0 0 var(--tape-lilac); }
+  .price-now small, .price-now span { color: var(--on-dark-dim); }
+  .price-now b { color: #fff; }
   .todo { display: inline-block; font-size: 12px; font-weight: 700; color: var(--tape-lilac); }
 
   footer { padding: 40px 0 48px; font-size: 13px; color: var(--on-dark-dim); background: var(--night); }
@@ -321,6 +331,7 @@
     .role:first-child h3 { font-size: 26px; }
     .steps { grid-template-columns: 1fr; }
     .training { grid-template-columns: 1fr; }
+    .price { grid-template-columns: 1fr; }
     .contact { padding: 30px 24px; }
     .contact h3 { font-size: 25px; }
     .site-list a { padding: 24px 4px; }
@@ -365,7 +376,7 @@
       <p class="sec-lead reveal">客席から舞台へ、そして舞台袖へ。立つ場所を変えながら、レンタルの仕事を内側から見てきました。</p>
       <ol class="career">
         <li class="reveal"><small>客席</small><b>利用者</b><span>レンタル彼女のユーザーとして、この業界に出会う</span></li>
-        <li class="reveal"><small>舞台</small><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ</span></li>
+        <li class="reveal"><small>舞台</small><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ。1時間0円でも誰も借りてくれなかった、底辺レンタル彼氏時代から</span></li>
         <li class="reveal"><small>舞台袖</small><b>マネージャー</b><span>キャストを支え、育てる側にまわる</span></li>
         <li class="reveal"><small>劇場をつくる</small><b>プロデューサー・代表</b><span>レンタル彼氏の運営に携わり、WarmRelationの代表に。レンタル彼女Lilyのプロデュースも担当</span></li>
       </ol>
@@ -415,7 +426,7 @@
         <li class="reveal"><a href="https://warmrelation.com/" target="_blank" rel="noopener"><b>レンタル彼氏 WarmRelation<small>warmrelation.com</small></b><span>感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span><i aria-hidden="true"></i></a></li>
         <li class="reveal"><a href="https://crossroad24.com/" target="_blank" rel="noopener"><b>レンタル彼氏 CROSS ROAD<small>crossroad24.com</small></b><span>30〜50代の大人の女性向けレンタル彼氏の公式サイト</span><i aria-hidden="true"></i></a></li>
         <li class="reveal"><a href="https://womens-ribbon.com/" target="_blank" rel="noopener"><b>レンタルフレンド by WarmRelation<small>womens-ribbon.com</small></b><span>外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span><i aria-hidden="true"></i></a></li>
-        <li class="reveal"><a href="#" data-todo="URL"><b>Via Photo</b><span>出張撮影のサイト</span><i aria-hidden="true"></i></a></li>
+        <li class="reveal"><a href="https://via-photo.com/" target="_blank" rel="noopener"><b>Via Photo<small>via-photo.com</small></b><span>出張撮影のサイト</span><i aria-hidden="true"></i></a></li>
       </ul>
     </div>
   </section>
@@ -460,6 +471,10 @@
         </ul>
         <p>レンタル彼女の利用者から始まり、レンタル彼氏のキャスト、マネージャーを経て、運営に携わるようになりました。今は13年続くレンタル彼氏WarmRelationの代表として、キャストひとりひとりの良さを見つけ、お客様に届く形にしています。</p>
         <p>自分が前に出るのではなく、キャストが主役として立てる場所を整えるのが仕事だと考えています。</p>
+        <div class="price">
+          <p class="price-then"><small>キャストを始めたころ</small><b>1時間0円</b><span>それでも、誰も借りてくれなかった</span></p>
+          <p class="price-now"><small>今</small><b>1時間8,000円</b><span>柴崎凌兵本人をレンタルできます</span></p>
+        </div>
         <p class="press">WarmRelationは、Time Out Tokyo の記事「<a href="https://www.timeout.com/tokyo/things-to-do/quick-guide-to-japans-rental-romance-agencies" target="_blank" rel="noopener">A quick guide to Japan's rental romance agencies</a>」で紹介されています。</p>
       </div>
       <div class="contact reveal">
