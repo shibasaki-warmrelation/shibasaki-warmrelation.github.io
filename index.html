@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>柴崎凌兵 | サイト制作・プロデュース・出張撮影</title>
+<meta name="description" content="レンタル彼氏WarmRelation代表・柴崎凌兵のポートフォリオ。キャストや配信者が主役になれるように、サイト制作・プロデュース・撮影を引き受けます。">
+<meta property="og:title" content="柴崎凌兵 | サイト制作・プロデュース・出張撮影">
+<meta property="og:description" content="キャストや配信者が主役になれるように、サイト制作・プロデュース・撮影を引き受けます。">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#E9EBEE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --floor: #E9EBEE;       /* 舞台の床 */
+    --floor-line: #D5D9DF;
+    --paper: #F7F8FA;
+    --ink: #1C1F26;
+    --ink-dim: #5B6170;
+    --tape: #F2A900;        /* バミリのテープ（黄） */
+    --tape-blue: #2F6FDE;   /* バミリのテープ（青） */
+    --tape-red: #D9452B;    /* バミリのテープ（赤） */
+    --stage: #23262E;       /* 舞台袖 */
+    --mincho: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    --gothic: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; font-family: var(--gothic); font-weight: 500; font-size: 16px; line-height: 1.85;
+    color: var(--ink); background: var(--floor); -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  h1, h2, h3, p, li { word-break: auto-phrase; text-wrap: pretty; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 2px solid var(--tape-blue); outline-offset: 3px; }
+  .wrap { width: min(1040px, 100% - 48px); margin-inline: auto; }
+
+  /* バミリ（舞台の立ち位置を示すテープ） */
+  .bami { position: relative; display: inline-block; width: 28px; height: 28px; flex: none; }
+  .bami::before, .bami::after { content: ""; position: absolute; background: var(--tape); border-radius: 1px; }
+  .bami::before { left: 0; right: 0; top: 11px; height: 6px; }
+  .bami::after { top: 0; bottom: 0; left: 11px; width: 6px; }
+  .bami.blue::before, .bami.blue::after { background: var(--tape-blue); }
+  .bami.red::before, .bami.red::after { background: var(--tape-red); }
+
+  /* ヘッダー */
+  .bar { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .name { font-family: var(--mincho); font-weight: 800; font-size: 20px; text-decoration: none; letter-spacing: .06em; }
+  .bar nav { display: flex; gap: 28px; font-size: 14px; font-weight: 700; }
+  .bar nav a { text-decoration: none; }
+  .bar nav a:hover { text-decoration: underline; text-underline-offset: 6px; }
+
+  /* ヒーロー：舞台の床と立ち位置 */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      linear-gradient(90deg, var(--floor-line) 1px, transparent 1px) 0 0 / 120px 120px,
+      var(--floor);
+  }
+  .hero-inner { position: relative; padding: 88px 0 120px; }
+  .mark-spot {
+    position: absolute; right: 6%; top: 64px; width: 220px; height: 220px;
+  }
+  .mark-spot .t { position: absolute; background: var(--tape); }
+  .mark-spot .h { left: 0; right: 0; top: 104px; height: 12px; transform: rotate(-1.5deg); }
+  .mark-spot .v { top: 0; bottom: 0; left: 104px; width: 12px; transform: rotate(1deg); }
+  .mark-spot span {
+    position: absolute; left: 124px; top: 124px; font-size: 13px; font-weight: 700; color: var(--ink-dim);
+    white-space: nowrap;
+  }
+  .hero h1 {
+    position: relative; margin: 0; max-width: 11em;
+    font-family: var(--mincho); font-weight: 800;
+    font-size: clamp(40px, 6.6vw, 76px); line-height: 1.32; letter-spacing: .02em;
+  }
+  .hero h1 span { display: inline-block; }
+  .role-line { position: relative; display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0 0 18px; font-size: 14px; font-weight: 700; color: var(--ink-dim); max-width: 44em; }
+  .hero .lead { position: relative; margin: 28px 0 0; max-width: 31em; font-size: clamp(16px, 1.8vw, 18px); color: var(--ink-dim); }
+  .actions { position: relative; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+  .btn {
+    display: inline-block; padding: 14px 26px; border-radius: 4px; font-weight: 700; text-decoration: none;
+    background: var(--ink); color: var(--paper);
+  }
+  .btn:hover { background: #000; }
+  .btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .btn.line:hover { background: var(--ink); color: var(--paper); }
+
+  /* セクション共通 */
+  section { padding: 104px 0; }
+  .paper { background: var(--paper); }
+  .sec-head { display: flex; gap: 16px; align-items: center; margin-bottom: 40px; }
+  .sec-head h2 { margin: 0; font-family: var(--mincho); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.3; }
+  .sec-lead { margin: -24px 0 44px 44px; color: var(--ink-dim); max-width: 36em; }
+
+  /* できること */
+  .roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--floor-line); }
+  .role { padding: 32px 32px 8px 0; }
+  .role + .role { padding-left: 32px; border-left: 1px solid var(--floor-line); }
+  .role h3 { margin: 0 0 10px; font-size: 20px; font-weight: 700; }
+  .role p { margin: 0 0 14px; color: var(--ink-dim); font-size: 15px; }
+  .role ul { margin: 0; padding-left: 1.1em; font-size: 15px; }
+  .role li { margin-bottom: 4px; }
+
+  /* 実績 */
+  .case { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: start; }
+  .shot { position: relative; }
+  .shot img { border-radius: 4px; box-shadow: 0 1px 0 var(--floor-line); width: 100%; }
+  .shot::before {
+    content: ""; position: absolute; left: 18px; top: -10px; width: 92px; height: 22px;
+    background: var(--tape); opacity: .9; transform: rotate(-4deg);
+  }
+  .shot figcaption { font-size: 13px; color: var(--ink-dim); margin-top: 10px; }
+  .case h3 { margin: 0 0 6px; font-family: var(--mincho); font-weight: 800; font-size: 30px; }
+  .case .who { margin: 0 0 22px; color: var(--ink-dim); font-size: 15px; }
+  .case dl { margin: 0; }
+  .case dt { font-weight: 700; margin-top: 18px; }
+  .case dd { margin: 4px 0 0; color: var(--ink-dim); font-size: 15px; }
+  .case dd ul { margin: 6px 0 0; padding-left: 1.1em; }
+  .case .visit { margin-top: 28px; }
+
+  .log { margin-top: 72px; border-top: 1px solid var(--floor-line); }
+  .log h3 { font-size: 18px; margin: 28px 0 16px; }
+  .log table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .log td { padding: 12px 0; border-bottom: 1px solid var(--floor-line); vertical-align: top; }
+  .log td:first-child { width: 7.5em; font-weight: 700; color: var(--tape-blue); font-variant-numeric: tabular-nums; }
+
+  .sites { margin-top: 72px; }
+  .sites h3 { font-size: 18px; margin: 0 0 16px; }
+  .site-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 32px; }
+  .site-list a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 18px 0;
+    border-bottom: 1px solid var(--floor-line); text-decoration: none; }
+  .site-list b { font-size: 17px; }
+  .site-list span { font-size: 13px; color: var(--ink-dim); text-align: right; max-width: 20em; }
+  .site-list a:hover b { text-decoration: underline; text-underline-offset: 5px; }
+  .site-list a[data-todo]::after { content: "URL準備中"; font-size: 11px; font-weight: 700; color: var(--tape-red); white-space: nowrap; }
+
+  /* 進め方（順番がある） */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: step; }
+  .steps li { counter-increment: step; padding-top: 22px; border-top: 6px solid var(--tape); }
+  .steps li:nth-child(2) { border-color: var(--tape-blue); }
+  .steps li:nth-child(3) { border-color: var(--tape-red); }
+  .steps li:nth-child(4) { border-color: var(--ink); }
+  .steps li::before { content: counter(step); font-family: var(--mincho); font-weight: 800; font-size: 30px; line-height: 1; display: block; margin-bottom: 12px; }
+  .steps h3 { margin: 0 0 6px; font-size: 17px; }
+  .steps p { margin: 0; font-size: 14px; color: var(--ink-dim); }
+
+  /* プロフィールと相談 */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+  .two p { color: var(--ink-dim); }
+  .contact { background: var(--stage); color: var(--paper); border-radius: 6px; padding: 36px; }
+  .contact h3 { margin: 0 0 8px; font-family: var(--mincho); font-weight: 800; font-size: 26px; }
+  .contact p { color: #C5CAD3; margin: 0 0 20px; }
+  .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; margin: 0 0 24px; }
+  .contact dt { font-weight: 700; }
+  .contact dd { margin: 0; color: #C5CAD3; }
+  .contact .btn { background: var(--tape); color: var(--ink); }
+  .contact .btn:hover { background: #FFC233; }
+  .pname { font-family: var(--mincho); font-weight: 800; font-size: 28px; color: var(--ink) !important; margin: 0 0 6px; }
+  .pname small { font-family: var(--gothic); font-size: 13px; font-weight: 500; color: var(--ink-dim); margin-left: 12px; }
+  .titles { list-style: none; padding: 0; margin: 0 0 20px; font-weight: 700; font-size: 15px; }
+  .titles li { padding: 2px 0; }
+  .press { font-size: 14px; }
+  .contact dd { word-break: break-all; }
+  .todo { display: inline-block; font-size: 12px; font-weight: 700; color: var(--tape-red); }
+
+  .challenge { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .challenge p { color: var(--ink-dim); }
+  .training { list-style: none; margin: 8px 0 0; padding: 0; border-top: 1px solid var(--floor-line); }
+  .training li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--floor-line); }
+  .training b { font-size: 18px; }
+  .training span { font-size: 14px; color: var(--ink-dim); text-align: right; }
+
+  footer { padding: 36px 0 48px; font-size: 13px; color: var(--ink-dim); }
+
+  @media (max-width: 860px) {
+    .bar nav { display: none; }
+    .mark-spot { width: 140px; height: 140px; top: 24px; right: 4%; opacity: .7; }
+    .mark-spot .h { top: 64px; } .mark-spot .v { left: 64px; }
+    .mark-spot span { display: none; }
+    .roles { grid-template-columns: 1fr; }
+    .role, .role + .role { padding: 24px 0; border-left: 0; border-bottom: 1px solid var(--floor-line); }
+    .case, .two, .challenge { grid-template-columns: 1fr; gap: 32px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .site-list { grid-template-columns: 1fr; }
+    .sec-lead { margin-left: 0; }
+  }
+  @media (max-width: 520px) {
+    .wrap { width: calc(100% - 32px); }
+    section { padding: 72px 0; }
+    .hero-inner { padding: 112px 0 72px; }
+    .hero h1 { font-size: 34px; }
+    .mark-spot { width: 84px; height: 84px; top: 8px; right: 16px; }
+    .mark-spot .h { top: 38px; height: 8px; } .mark-spot .v { left: 38px; width: 8px; }
+    .steps { grid-template-columns: 1fr; }
+    .contact { padding: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap bar">
+    <a class="name" href="#">柴崎凌兵</a>
+    <nav aria-label="ページ内リンク">
+      <a href="#roles">できること</a>
+      <a href="#works">実績</a>
+      <a href="#flow">進め方</a>
+      <a href="#challenge">挑戦中</a>
+      <a href="#contact">相談する</a>
+    </nav>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="mark-spot" aria-hidden="true"><i class="t h"></i><i class="t v"></i><span>ここに立つのは、あなた</span></div>
+    <p class="role-line"><span>レンタル彼氏 WarmRelation 代表</span><span>レンタル彼女 Lily プロデューサー</span><span>出張撮影カメラマン</span></p>
+    <h1><span>主役が立つ場所を、</span><span>整える仕事。</span></h1>
+    <p class="lead">レンタル彼氏の店でキャストを輝かせてきた経験で、サイト制作、プロデュース、写真撮影を引き受けます。キャストにも、配信者にも、お店にも。</p>
+    <div class="actions">
+      <a class="btn" href="#contact">相談する</a>
+      <a class="btn line" href="#works">実績を見る</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="roles" class="paper">
+    <div class="wrap">
+      <div class="sec-head"><span class="bami" aria-hidden="true"></span><h2>できること</h2></div>
+      <div class="roles">
+        <div class="role">
+          <h3>サイトを作る</h3>
+          <p>お店、キャスト、配信者の公式サイト。作って終わりにせず、手間をかけずに育つ仕組みまで用意します。</p>
+          <ul>
+            <li>お店やサービスの公式サイト</li>
+            <li>キャスト・配信者のプロフィールサイト</li>
+            <li>動画やお知らせの自動更新</li>
+          </ul>
+        </div>
+        <div class="role">
+          <h3>主役を育てる</h3>
+          <p>キャストのプロデュースで身につけた「その人らしさを見つけて伝える」力で、方針から一緒に考えます。</p>
+          <ul>
+            <li>キャスト・配信者のプロデュース</li>
+            <li>YouTubeチャンネルの方針とロードマップ</li>
+            <li>概要欄や企画の改善</li>
+          </ul>
+        </div>
+        <div class="role">
+          <h3>写真を撮る</h3>
+          <p>出張撮影のカメラマンとして、サイトやSNSで使う写真も自分で撮れます。</p>
+          <ul>
+            <li>プロフィール写真・宣材写真</li>
+            <li>キャスト写真</li>
+            <li>サイト用の撮影から公開まで一括で</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="works">
+    <div class="wrap">
+      <div class="sec-head"><span class="bami blue" aria-hidden="true"></span><h2>実績</h2></div>
+      <p class="sec-lead">いちばん新しい事例と、これまでに作ったサイトです。</p>
+      <div class="case">
+        <figure class="shot" style="margin:0">
+          <img src="img/rurugame-hero.jpg" alt="るるゲーム公式サイトのトップページ。草原の上で城とユニットが戦うミニゲームがある" width="960" height="540">
+          <figcaption>トップページのミニバトルは、実際に遊べます。</figcaption>
+        </figure>
+        <div>
+          <h3>るるゲーム</h3>
+          <p class="who">にゃんこ大戦争の生配信チャンネル。プロデュースを担当（2026年10月〜）</p>
+          <dl>
+            <dt>相談されたこと</dt>
+            <dd>にゃんこ大戦争だけでは、登録者10万人は難しいのではないか。</dd>
+            <dt>やったこと</dt>
+            <dd>
+              <ul>
+                <li>競合チャンネルと比べた現状分析と、10万人までのロードマップ</li>
+                <li>公式サイトの企画・制作（遊べるミニバトル、にゃんこ検定、実績解除つき）</li>
+                <li>新しい動画を1時間ごとに自動で取り込む仕組み</li>
+                <li>概要欄から動画ごとの攻略ページを自動で作り、検索からの入口を用意</li>
+                <li>概要欄の書き方と、新しいゲームへの広げ方の提案</li>
+              </ul>
+            </dd>
+          </dl>
+          <div class="visit"><a class="btn line" href="https://rurugame.github.io/" target="_blank" rel="noopener">サイトを見る</a></div>
+        </div>
+      </div>
+
+      <div class="sites">
+        <h3>サイト制作</h3>
+        <ul class="site-list">
+          <li><a href="https://warmrelation.com/" target="_blank" rel="noopener"><b>レンタル彼氏 WarmRelation</b><span>感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span></a></li>
+          <li><a href="https://crossroad24.com/" target="_blank" rel="noopener"><b>レンタル彼氏 CROSS ROAD</b><span>30〜50代の大人の女性向けレンタル彼氏の公式サイト</span></a></li>
+          <li><a href="https://womens-ribbon.com/" target="_blank" rel="noopener"><b>レンタルフレンド by WarmRelation</b><span>外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span></a></li>
+          <li><a href="https://rurugame.github.io/" target="_blank" rel="noopener"><b>るるゲーム</b><span>にゃんこ大戦争の生配信チャンネルの公式サイト</span></a></li>
+          <li><a href="#" data-todo="URL"><b>Via Photo</b><span>出張撮影のサイト</span></a></li>
+        </ul>
+      </div>
+
+      <div class="log">
+        <h3>るるゲーム、最初の1週間</h3>
+        <table>
+          <tr><td>10月30日</td><td>相談を受けて、現状分析とロードマップを作成</td></tr>
+          <tr><td>11月4日</td><td>公式サイトを公開。動画の自動更新と、動画ごとの攻略ページを追加</td></tr>
+          <tr><td>11月5日</td><td>トップを遊べるミニバトルにし、にゃんこ検定・実績・初心者向けの案内を追加</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="flow" class="paper">
+    <div class="wrap">
+      <div class="sec-head"><span class="bami red" aria-hidden="true"></span><h2>進め方</h2></div>
+      <p class="sec-lead">いきなり作り始めず、まず話を聞いて数字を見るところから始めます。</p>
+      <ol class="steps">
+        <li><h3>話を聞く</h3><p>始めたきっかけ、続けている理由、目標。その人の芯になるところを聞きます。</p></li>
+        <li><h3>今を見る</h3><p>予約や登録者の増え方、反応が良かったものの共通点を一緒に確認します。</p></li>
+        <li><h3>計画を立てる</h3><p>目標までの道のりを、時期ごとのやることに分けます。</p></li>
+        <li><h3>作って、直し続ける</h3><p>サイトや写真を整え、結果を見ながら手を入れていきます。</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="challenge">
+    <div class="wrap challenge">
+      <div>
+        <div class="sec-head"><span class="bami red" aria-hidden="true"></span><h2>挑戦中：SASUKE出場</h2></div>
+        <p>仕事のほかに、SASUKEへの出場を目指してトレーニングを続けています。</p>
+      </div>
+      <ul class="training">
+        <li><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
+        <li><b>水泳</b><span>全身の持久力</span></li>
+        <li><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
+        <li><b>整体</b><span>続けられる体を整える</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap two">
+      <div>
+        <div class="sec-head"><span class="bami" aria-hidden="true"></span><h2>プロフィール</h2></div>
+        <p class="pname">柴崎 凌兵</p>
+        <ul class="titles">
+          <li>レンタル彼氏 WarmRelation 代表</li>
+          <li>レンタル彼女 Lily プロデューサー</li>
+          <li>出張撮影カメラマン</li>
+        </ul>
+        <p>13年続くレンタル彼氏のお店の代表として、キャストひとりひとりの良さを見つけ、お客様に届く形にしてきました。その延長で、サイト制作と写真撮影も自分で手がけています。</p>
+        <p>自分が前に出るのではなく、主役が立つ場所を整えるのが仕事だと考えています。</p>
+        <p class="press">WarmRelationは、Time Out Tokyo の記事「<a href="https://www.timeout.com/tokyo/things-to-do/quick-guide-to-japans-rental-romance-agencies" target="_blank" rel="noopener">A quick guide to Japan's rental romance agencies</a>」で紹介されています。</p>
+      </div>
+      <div class="contact">
+        <h3>まずは話を聞かせてください</h3>
+        <p>サイト制作、プロデュース、撮影、どれからでも相談できます。今の状況と、目指したいところを教えてください。</p>
+        <dl>
+          <dt>メール</dt><dd>shibasakiryohei.wr@gmail.com</dd>
+        </dl>
+        <a class="btn" href="mailto:shibasakiryohei.wr@gmail.com?subject=%E3%81%94%E7%9B%B8%E8%AB%87">メールで相談する</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">&copy; <span id="year"></span> 柴崎凌兵</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
