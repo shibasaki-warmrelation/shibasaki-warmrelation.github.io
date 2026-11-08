@@ -30,7 +30,6 @@ main ブランチに push すると数分で反映される（ビルド工程な
 | レンタル彼氏 CROSS ROAD | https://crossroad24.com/ | https://crossroad24.com/recruit/ |
 | レンタルフレンド by WarmRelation | https://womens-ribbon.com/ | https://womens-ribbon.com/recruit-women/ |
 | レンタル彼女 Lily | https://renkano-lily.com/ | https://renkano-lily.com/recruit/ |
-| Via Photo | https://via-photo.com/ | （なし） |
 
 ## デザインの決まりごと
 
@@ -42,7 +41,7 @@ main ブランチに push すると数分で反映される（ビルド工程な
 - 色は `:root` の変数だけ：白 `--white`、文字 `--ink #222`、薄紫の白 `--mist`、紫 `--purple #7B4FD8`・濃紫 `--purple-deep`・写真の裏の面 `--block #B9A2F2`、フッター `--night #222`
 - 字体：英字の大見出しは Playfair Display、手書き風は Allura、英字ラベルは Lexend Deca、日本語は Noto Sans JP（細めで字間を広く）
 - 英字見出しの下や近くに、必ず日本語の見出しか説明を添える
-- 実績の表紙：WarmRelationはバナー、CROSS ROAD・レンタルフレンドはサイト画面、Lilyはロゴ、Via Photoは文字だけ（Via Photoの画面のモデルは了承未確認）
+- 実績の表紙：WarmRelationはバナー、CROSS ROAD・レンタルフレンドはサイト画面、Lilyはロゴ
 - カフェでワインを飲む写真、緑の背景でカメラを持つ写真は使わない（2026年11月、小林さん経由で指示）。プロフィールはビックリマン風イラストを大きく載せる
 - スマホ表示（幅390px）でも必ず確認する
 
@@ -58,4 +57,5 @@ main ブランチに push すると数分で反映される（ビルド工程な
 - [ ] サイト制作・プロデュース・撮影の料金の載せ方（連絡先に「準備中」の注記）
 - [ ] SASUKEを目指すきっかけ
 - [ ] 名前の英字表記のゆれ：サイトとLilyの名刺は shibasaki、WarmRelationの名刺は SHIBAZAKI
+- [ ] Via Photo（https://via-photo.com/）を実績に戻すか（2026年11月、いったん外した）
 - [ ] 撮影した写真の作例（今サイトにある写真は柴崎さん本人のもの）
