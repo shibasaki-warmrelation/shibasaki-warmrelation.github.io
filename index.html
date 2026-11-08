@@ -10,416 +10,423 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://shibasaki-warmrelation.github.io/img/portrait-desk.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#140C22">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="img/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Lexend+Deca:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
-    --night: #140C22;       /* 開演前の客席（いちばん深い紫） */
-    --stage: #21143A;       /* 舞台袖 */
-    --stage-2: #2C1B4C;
-    --stage-line: #3E2A63;
-    --floor: #EFEAF7;       /* 照明の当たった舞台の床 */
-    --floor-line: #DCD2EC;
-    --paper: #F9F7FC;
-    --ink: #1D1430;
-    --ink-dim: #5E5374;
-    --on-dark: #F4EFFC;
-    --on-dark-dim: #BFB3D6;
-    --tape: #8B5CF6;        /* バミリのテープ（紫） */
-    --tape-lilac: #C4A8FF;  /* バミリのテープ（藤色） */
-    --tape-rose: #E25DA8;   /* バミリのテープ（赤紫） */
-    --tape-deep: #5B21B6;   /* 明るい背景で使う濃い紫 */
-    --light: #FFE9B8;       /* スポットライト */
-    --mincho: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", serif;
-    --gothic: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    --white: #FFFFFF;
+    --ink: #222222;
+    --ink-dim: #707070;
+    --line: #E4E4E4;
+    --mist: #F6F4FA;        /* ごく薄い紫の白 */
+    --purple: #7B4FD8;      /* 差し色の紫 */
+    --purple-deep: #5626B0;
+    --block: #B9A2F2;       /* 写真の裏に敷く紫の面 */
+    --night: #222222;       /* フッター */
+    --serif: "Playfair Display", "Times New Roman", serif;
+    --script: "Allura", cursive;
+    --label: "Lexend Deca", "Helvetica Neue", Arial, sans-serif;
+    --sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0; font-family: var(--gothic); font-weight: 500; font-size: 16px; line-height: 1.85;
-    color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased;
+    margin: 0; font-family: var(--sans); font-weight: 400; font-size: 15px; line-height: 2.1; letter-spacing: .06em;
+    color: var(--ink); background: var(--white); -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; }
   h1, h2, h3, p, li { word-break: auto-phrase; text-wrap: pretty; }
   img { display: block; max-width: 100%; height: auto; }
-  ::selection { background: var(--tape-lilac); color: var(--ink); }
-  :focus-visible { outline: 2px solid var(--tape); outline-offset: 3px; }
-  .wrap { width: min(1080px, 100% - 48px); margin-inline: auto; }
+  ::selection { background: var(--block); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+  .wrap { width: min(1120px, 100% - 80px); margin-inline: auto; }
 
-  /* バミリ（舞台の立ち位置を示すテープ） */
-  .bami { position: relative; display: inline-block; width: 28px; height: 28px; flex: none; }
-  .bami::before, .bami::after { content: ""; position: absolute; background: var(--tape); border-radius: 1px; }
-  .bami::before { left: 0; right: 0; top: 11px; height: 6px; transform: rotate(-2deg); }
-  .bami::after { top: 0; bottom: 0; left: 11px; width: 6px; transform: rotate(1.5deg); }
-  .bami.lilac::before, .bami.lilac::after { background: var(--tape-lilac); }
-  .bami.rose::before, .bami.rose::after { background: var(--tape-rose); }
+  /* 英字の大見出し */
+  .big {
+    margin: 0; font-family: var(--serif); font-weight: 900; line-height: 1; letter-spacing: .14em;
+    font-size: clamp(64px, 11vw, 150px); color: var(--ink);
+  }
+  .label { font-family: var(--label); font-size: 11px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; }
+  .script { font-family: var(--script); font-weight: 400; color: var(--purple); line-height: 1; white-space: nowrap; pointer-events: none; }
+  .jp-head { margin: 0; font-weight: 300; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.8; letter-spacing: .2em; }
 
-  /* ヘッダー（スクロールしても上に残る） */
-  .bar-wrap {
-    position: sticky; top: 0; z-index: 20;
-    background: rgba(20, 12, 34, .72); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(196, 168, 255, .14); color: var(--on-dark);
-  }
-  .bar { display: flex; justify-content: space-between; align-items: center; height: 64px; }
-  .name { display: flex; align-items: center; gap: 10px; font-family: var(--mincho); font-weight: 800; font-size: 19px; text-decoration: none; letter-spacing: .08em; }
-  .name .bami { width: 18px; height: 18px; }
-  .name .bami::before { top: 7px; height: 4px; } .name .bami::after { left: 7px; width: 4px; }
-  .bar nav { display: flex; gap: 26px; font-size: 14px; font-weight: 700; }
-  .bar nav a { text-decoration: none; color: var(--on-dark-dim); transition: color .2s; }
-  .bar nav a:hover { color: var(--on-dark); }
-  .bar nav a.cta { color: var(--ink); background: var(--tape-lilac); padding: 6px 16px; border-radius: 999px; }
-  .bar nav a.cta:hover { background: #fff; }
+  /* ── 矢印つきの小さなリンク（線＋文字） ── */
+  .more { display: inline-flex; align-items: center; gap: 18px; text-decoration: none; font-family: var(--label); font-size: 13px; letter-spacing: .35em; }
+  .more::before { content: ""; width: 64px; height: 1px; background: currentColor; transition: width .35s; }
+  .more:hover::before { width: 96px; }
+  .more span { position: relative; }
 
-  /* ヒーロー：暗い舞台に、立ち位置だけ照らす */
-  .hero {
-    position: relative; overflow: hidden; color: var(--on-dark);
-    background:
-      radial-gradient(ellipse 520px 640px at 82% -4%, rgba(255, 233, 184, .20), transparent 68%),
-      radial-gradient(ellipse 900px 520px at 10% 110%, rgba(139, 92, 246, .38), transparent 70%),
-      linear-gradient(180deg, var(--night) 0%, var(--stage) 100%);
-    margin-top: -65px; padding-top: 65px;
+  /* ── ロゴとメニュー ── */
+  .logo {
+    position: absolute; z-index: 30; left: 40px; top: 28px; display: block; width: 76px;
+    transform: rotate(-6deg); transition: transform .3s;
   }
-  /* 舞台の床板 */
-  .hero::before {
-    content: ""; position: absolute; inset: auto 0 0 0; height: 46%;
-    background: repeating-linear-gradient(90deg, rgba(196, 168, 255, .07) 0 1px, transparent 1px 120px);
-    -webkit-mask-image: linear-gradient(180deg, transparent, #000 60%);
-            mask-image: linear-gradient(180deg, transparent, #000 60%);
-    transform: perspective(600px) rotateX(38deg); transform-origin: bottom;
+  .logo:hover { transform: rotate(0) scale(1.06); }
+  .logo img { width: 100%; border-radius: 10px; box-shadow: 0 6px 18px rgba(60, 20, 120, .28); }
+  .menu-btn {
+    position: fixed; z-index: 50; right: 28px; top: 26px; width: 52px; height: 52px; border: 0; border-radius: 50%;
+    background: rgba(255, 255, 255, .9); cursor: pointer; display: grid; place-items: center;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, .08);
   }
-  .hero-inner { position: relative; padding: 104px 0 140px; }
-  /* スポットライトの光の筋 */
-  .beam {
-    position: absolute; right: 4%; top: -65px; width: 380px; height: 560px; pointer-events: none;
-    background: linear-gradient(180deg, rgba(255, 233, 184, .22), rgba(255, 233, 184, 0) 92%);
-    clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
-    filter: blur(2px);
+  .menu-btn i, .menu-btn i::before, .menu-btn i::after { display: block; width: 24px; height: 1px; background: var(--ink); position: relative; transition: transform .3s, background .3s; }
+  .menu-btn i::before, .menu-btn i::after { content: ""; position: absolute; left: 0; }
+  .menu-btn i::before { top: -7px; } .menu-btn i::after { top: 7px; }
+  .menu-open .menu-btn i { background: transparent; }
+  .menu-open .menu-btn i::before { transform: translateY(7px) rotate(45deg); }
+  .menu-open .menu-btn i::after { transform: translateY(-7px) rotate(-45deg); }
+  .menu {
+    position: fixed; z-index: 40; inset: 0; background: var(--white); display: grid; place-items: center;
+    opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s;
   }
-  .hero-inner { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
-  .hero-text { position: relative; }
-  /* 写真：テープで留めた宣材写真 */
-  .hero-photo { position: relative; margin: 0; justify-self: end; width: min(100%, 420px); }
-  .hero-photo img {
-    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px;
-    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .8), 0 0 0 1px rgba(196, 168, 255, .2);
-    transform: rotate(1.5deg);
+  .menu-open .menu { opacity: 1; visibility: visible; }
+  .menu ul { list-style: none; margin: 0; padding: 0; text-align: center; }
+  .menu a { display: block; padding: 6px 0; text-decoration: none; font-family: var(--serif); font-weight: 700; font-size: clamp(28px, 4vw, 38px); letter-spacing: .14em; line-height: 1.5; }
+  .menu a small { display: block; font-family: var(--sans); font-size: 11px; font-weight: 400; letter-spacing: .2em; color: var(--ink-dim); line-height: 1; margin-bottom: 8px; }
+  .menu a:hover { color: var(--purple); }
+  .menu-open { overflow: hidden; }
+
+  /* ── ヒーロー ── */
+  .hero { position: relative; min-height: 100svh; padding: 0 0 80px; }
+  .hero-photo { position: absolute; right: 0; top: 0; width: 58%; height: 88svh; min-height: 560px; margin: 0; overflow: hidden; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 20%; }
+  .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(34, 34, 34, .28), transparent 45%); }
+  .hero-en {
+    position: absolute; z-index: 2; right: 6%; top: 58%; margin: 0; color: #fff; text-align: right;
+    font-family: var(--serif); font-weight: 700; font-size: clamp(22px, 2.6vw, 34px); letter-spacing: .08em; line-height: 1.4;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, .35);
   }
-  .hero-photo::before, .hero-photo::after { /* 写真を留めるテープ */
-    content: ""; position: absolute; z-index: 1; width: 96px; height: 26px; background: rgba(196, 168, 255, .78);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
-  }
-  .hero-photo::before { left: -18px; top: 22px; transform: rotate(-38deg); }
-  .hero-photo::after { right: -18px; bottom: 30px; transform: rotate(-38deg); background: rgba(226, 93, 168, .75); }
-  .mark-spot { position: absolute; left: -64px; bottom: -36px; width: 120px; height: 120px; z-index: 2; }
-  .mark-spot::before { /* 床に落ちた光の輪 */
-    content: ""; position: absolute; left: -40px; right: -40px; top: 30px; height: 60px; border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(255, 233, 184, .34), transparent);
-  }
-  .mark-spot .t { position: absolute; background: var(--tape-lilac); box-shadow: 0 0 18px rgba(196, 168, 255, .6); }
-  .mark-spot .h { left: 10px; right: 10px; top: 54px; height: 10px; transform: rotate(-1.5deg); }
-  .mark-spot .v { top: 10px; bottom: 10px; left: 55px; width: 10px; transform: rotate(1deg); }
-  .hero h1 {
-    position: relative; margin: 0; max-width: 11em;
-    font-family: var(--mincho); font-weight: 800;
-    font-size: clamp(40px, 6.8vw, 82px); line-height: 1.3; letter-spacing: .02em;
-  }
+  .hero-block { position: absolute; z-index: -1; left: 34%; top: 24svh; width: 20%; height: 64svh; background: var(--block); }
+  .hero-text { position: relative; z-index: 3; padding-top: 30svh; width: min(520px, 46%); margin-left: 40px; }
+  .hero-text .label { color: var(--ink-dim); display: block; margin-bottom: 28px; }
+  .hero h1 { margin: 0; font-weight: 300; font-size: clamp(30px, 3.7vw, 50px); line-height: 1.75; letter-spacing: .16em; }
   .hero h1 span { display: inline-block; }
-  .hero h1 em {
-    font-style: normal; position: relative; z-index: 0;
-    background: linear-gradient(100deg, #fff 10%, var(--tape-lilac) 60%, var(--tape-rose));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .hero h1 em::after { /* 言葉の下に貼ったテープ */
-    content: ""; position: absolute; z-index: -1; left: -.08em; right: -.08em; bottom: .06em; height: .2em;
-    background: var(--tape); opacity: .55; transform: rotate(-1deg); border-radius: 1px;
-  }
-  .role-line { position: relative; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; font-size: 13px; font-weight: 700; max-width: 44em; }
-  .role-line span { padding: 4px 14px; border-radius: 999px; border: 1px solid rgba(196, 168, 255, .35); color: var(--on-dark-dim); background: rgba(139, 92, 246, .12); }
-  .hero .lead { position: relative; margin: 32px 0 0; max-width: 31em; font-size: clamp(16px, 1.8vw, 18px); color: var(--on-dark-dim); }
-  .actions { position: relative; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
-  .btn {
-    display: inline-block; padding: 15px 30px; border-radius: 999px; font-weight: 700; text-decoration: none;
-    background: var(--tape); color: #fff; box-shadow: 0 10px 30px -10px rgba(139, 92, 246, .8);
-    transition: transform .2s, box-shadow .2s, background .2s;
-  }
-  .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -10px rgba(139, 92, 246, .95); background: #9B71F8; }
-  .btn.line { background: transparent; color: var(--on-dark); box-shadow: inset 0 0 0 1.5px rgba(244, 239, 252, .5); }
-  .btn.line:hover { box-shadow: inset 0 0 0 1.5px var(--on-dark); background: rgba(244, 239, 252, .06); }
+  .hero h1 em { font-style: normal; font-weight: 500; color: var(--purple-deep); }
+  .hero-script { position: absolute; z-index: 3; left: 24%; top: calc(30svh - 90px); font-size: clamp(54px, 6vw, 92px); transform: rotate(-10deg); }
+  .hero-quote { position: relative; z-index: 3; margin: 40px 0 0 40px; max-width: 34em; font-size: 13px; line-height: 2.3; letter-spacing: .14em; }
+  .hero-quote::before { content: "\201C"; display: block; font-family: var(--serif); font-size: 40px; line-height: .6; margin-bottom: 8px; }
+  .roles-line { list-style: none; margin: 32px 0 0 40px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 28px; font-size: 12px; letter-spacing: .14em; color: var(--ink-dim); }
+  .roles-line li::before { content: ""; display: inline-block; width: 14px; height: 1px; background: var(--purple); vertical-align: middle; margin-right: 10px; }
+  .scroll { position: absolute; right: 26px; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; writing-mode: vertical-rl; text-decoration: none; color: var(--ink-dim); }
+  .scroll::after { content: ""; width: 1px; height: 80px; background: var(--ink); animation: drip 2.4s ease-in-out infinite; transform-origin: top; }
+  @keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 50.1% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
-  /* セクション共通 */
-  section { padding: 112px 0; position: relative; }
-  .lav { background: var(--floor); }
-  .dark { background: var(--stage); color: var(--on-dark); }
-  .sec-head { display: flex; gap: 16px; align-items: center; margin-bottom: 40px; }
-  .sec-head h2 { margin: 0; font-family: var(--mincho); font-weight: 800; font-size: clamp(30px, 3.8vw, 44px); line-height: 1.3; }
-  .sec-lead { margin: -24px 0 48px 44px; color: var(--ink-dim); max-width: 36em; }
-  .dark .sec-lead, .dark p { color: var(--on-dark-dim); }
+  section { position: relative; padding: 140px 0; overflow-x: clip; }
+  header, footer { overflow-x: clip; }
 
-  /* 歩み：客席から舞台袖まで、立ち位置が移っていく */
-  .career-wrap { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: start; }
-  .career-photo { position: sticky; top: 96px; margin: 0; }
-  .career-photo img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px; }
-  .career-photo figcaption { margin-top: 10px; font-size: 13px; color: var(--ink-dim); }
-  .career { list-style: none; margin: 0; padding: 0; position: relative; counter-reset: c; }
-  .career::before { /* 4つをつなぐ床のテープ */
-    content: ""; position: absolute; left: 18px; top: 0; bottom: 0; width: 6px; border-radius: 2px;
-    background: linear-gradient(180deg, var(--tape-lilac), var(--tape) 55%, var(--tape-rose));
-  }
-  .career li { counter-increment: c; position: relative; padding: 0 0 48px 72px; }
-  .career li:last-child { padding-bottom: 0; }
-  .career li::before {
-    content: counter(c); position: absolute; left: 0; top: 0; width: 42px; height: 42px; border-radius: 50%;
-    background: var(--paper); color: var(--tape-deep); box-shadow: inset 0 0 0 3px var(--tape);
-    display: grid; place-items: center; font-family: var(--mincho); font-weight: 800; font-size: 18px;
-  }
-  .career li:last-child::before { background: var(--tape-deep); color: #fff; box-shadow: 0 0 0 6px rgba(139, 92, 246, .22); }
-  .career small { display: block; font-size: 12px; font-weight: 700; color: var(--ink-dim); letter-spacing: .08em; margin-bottom: 2px; }
-  .career b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 24px; line-height: 1.4; margin-bottom: 8px; }
-  .career span.nw { display: inline; white-space: nowrap; font-size: inherit; }
-  .career span { display: block; color: var(--ink-dim); font-size: 15px; }
-  .career li:last-child b { color: var(--tape-deep); }
+  /* ── CAREER（歩み） ── */
+  .career-sec { padding-top: 120px; }
+  .career-stage { position: relative; display: grid; grid-template-columns: 50% 1fr; min-height: 700px; }
+  .career-photo { position: relative; margin: 0; }
+  .career-photo img { width: 100%; height: 640px; object-fit: cover; object-position: 50% 30%; position: relative; z-index: 1; }
+  .career-photo::before { content: ""; position: absolute; left: 25%; top: -60px; width: 100%; height: calc(100% + 120px); background: var(--mist); }
+  .career-body { position: relative; z-index: 2; padding: 220px 40px 0 0; margin-left: -12%; }
+  .career-body .big { position: absolute; left: 0; top: 70px; color: var(--ink); }
+  .career-body .big span { color: #fff; }
+  .career-script { position: absolute; z-index: 3; left: 18%; top: -10px; font-size: clamp(48px, 5.4vw, 80px); transform: rotate(-12deg); }
+  .career-text { padding-left: 22%; }
+  .career-text p { margin: 24px 0 0; color: var(--ink); }
+  .steps-c { list-style: none; margin: 56px 0 0; padding: 0; counter-reset: c; border-top: 1px solid var(--line); }
+  .steps-c li { counter-increment: c; display: grid; grid-template-columns: 52px 11em 1fr; gap: 12px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .steps-c li::before { content: "0" counter(c); font-family: var(--label); font-size: 12px; letter-spacing: .2em; color: var(--purple); }
+  .steps-c b { font-weight: 500; font-size: 17px; letter-spacing: .12em; }
+  .steps-c span { font-size: 13px; color: var(--ink-dim); line-height: 1.95; }
+  .steps-c .nw { white-space: nowrap; }
+  .steps-c li:last-child b { color: var(--purple-deep); }
 
-  /* できること：大きさを変えて、主になる仕事を前に */
-  .roles { display: grid; grid-template-columns: 1.25fr 1fr; grid-template-rows: auto auto; gap: 20px; }
-  .role { position: relative; padding: 36px; border-radius: 6px; background: var(--paper); border: 1px solid var(--floor-line); }
-  .role:first-child {
-    grid-row: span 2; background: var(--stage); color: var(--on-dark); border: 0; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: flex-end; min-height: 440px;
-  }
-  .role:first-child::before {
-    content: ""; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 340px 300px at 80% 0%, rgba(196, 168, 255, .35), transparent 70%);
-  }
-  .role:first-child > * { position: relative; }
-  .role:first-child p { color: var(--on-dark-dim); }
-  .role:first-child h3 { font-size: 30px; }
-  .role-photo { display: grid; grid-template-columns: 140px 1fr; column-gap: 24px; align-items: start; }
-  .role-photo img { grid-row: span 3; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 4px; }
-  .role h3 { margin: 0 0 10px; font-family: var(--mincho); font-weight: 800; font-size: 22px; line-height: 1.4; }
-  .role p { margin: 0 0 16px; color: var(--ink-dim); font-size: 15px; }
-  .role ul { margin: 0; padding: 0; list-style: none; font-size: 15px; font-weight: 700; }
-  .role li { padding: 7px 0 7px 22px; position: relative; border-top: 1px solid var(--floor-line); }
-  .role:first-child li { border-color: var(--stage-line); }
-  .role li::before { content: ""; position: absolute; left: 0; top: 50%; width: 10px; height: 4px; background: var(--tape); transform: translateY(-50%) rotate(-3deg); }
-  .role:nth-child(3) li::before { background: var(--tape-rose); }
-  .role:first-child li::before { background: var(--tape-lilac); }
+  /* ── SERVICE（できること） ── */
+  .service-head { text-align: right; margin-bottom: 72px; overflow: hidden; }
+  .service-head .big { margin-right: -.12em; }
+  .service-head p { margin: 18px 0 0; font-size: 13px; color: var(--ink-dim); letter-spacing: .2em; }
+  .service-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 40px; padding: 0 0 0 0; }
+  .service-grid::before { content: ""; position: absolute; z-index: -1; left: -40vw; right: 32%; top: 110px; bottom: -80px; background: var(--block); }
+  .svc { position: relative; padding-right: 26px; }
+  .svc-label { position: absolute; right: 0; top: 0; writing-mode: vertical-rl; color: #BDBDBD; }
+  .svc-figure { position: relative; margin: 0 0 22px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--ink); }
+  .svc-figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
+  .svc:hover .svc-figure img { transform: scale(1.05); }
+  .svc-figure.type { display: grid; place-items: center; text-align: center; color: #fff; padding: 24px; }
+  .svc-figure.type b { font-family: var(--serif); font-weight: 900; font-size: clamp(30px, 3.4vw, 46px); letter-spacing: .08em; line-height: 1.15; }
+  .svc-figure.type b i { display: block; font-family: var(--script); font-weight: 400; font-style: normal; color: var(--block); font-size: .9em; letter-spacing: 0; margin-top: 6px; }
+  .svc-figure.type.site { background: var(--ink); }
+  .svc-figure.type.cast { background: var(--purple-deep); }
+  .svc h3 { margin: 0 0 8px; font-size: 18px; font-weight: 500; letter-spacing: .14em; line-height: 1.6; }
+  .svc h3::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 10px; background: var(--purple); border-radius: 50%; vertical-align: 1px; }
+  .svc p { margin: 0 0 12px; font-size: 13px; line-height: 2; }
+  .svc ul { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+  .svc li { padding: 6px 0; border-top: 1px dashed rgba(34, 34, 34, .25); line-height: 1.8; }
 
-  /* 実績：サイト一覧 */
-  .site-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--stage-line); counter-reset: none; }
-  .site-list a {
-    position: relative; display: grid; grid-template-columns: 1fr minmax(0, 24em) 36px; align-items: center; gap: 24px;
-    padding: 30px 8px; border-bottom: 1px solid var(--stage-line); text-decoration: none; overflow: hidden;
-    transition: padding .25s, background .25s;
+  /* ── WORKS（実績） ── */
+  .works-sec { padding-top: 180px; }
+  .works-sec .big { margin-left: -.06em; }
+  .works-list { list-style: none; margin: 100px 0 0; padding: 0; }
+  .work { position: relative; margin-bottom: 110px; }
+  .work::before { /* 背景を横切る、波打つ点線 */
+    content: ""; position: absolute; left: -50vw; right: -50vw; top: 50%; height: 8px; z-index: -1;
+    background: radial-gradient(circle, #CFCFCF 1px, transparent 1.4px) 0 0 / 8px 8px;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 4 Q10 0 20 4 T40 4' fill='none' stroke='black' stroke-width='3'/%3E%3C/svg%3E") 0 0 / 40px 8px repeat-x;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 4 Q10 0 20 4 T40 4' fill='none' stroke='black' stroke-width='3'/%3E%3C/svg%3E") 0 0 / 40px 8px repeat-x;
   }
-  .site-list a::before { /* なぞると、テープが貼られる */
-    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--tape-lilac);
-    transform: scaleY(0); transform-origin: top; transition: transform .25s;
+  .work a.cover-link { display: block; width: min(680px, 100%); margin-inline: auto; text-decoration: none; }
+  .cover {
+    position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; text-align: center; overflow: hidden;
+    color: #fff; transition: transform .5s;
   }
-  .site-list a:hover { background: rgba(139, 92, 246, .14); padding-left: 28px; }
-  .site-list a:hover::before { transform: scaleY(1); }
-  .site-list b { font-family: var(--mincho); font-weight: 800; font-size: clamp(20px, 2.6vw, 30px); line-height: 1.35; color: var(--on-dark); }
-  .site-list span { font-size: 14px; color: var(--on-dark-dim); }
-  .site-list i { /* 外のサイトに移ることを示す印 */
-    width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--stage-line); position: relative; transition: background .25s, border-color .25s;
-  }
-  .site-list i::before { content: ""; position: absolute; left: 12px; top: 12px; width: 10px; height: 10px; border-top: 2px solid var(--on-dark); border-right: 2px solid var(--on-dark); }
-  .site-list a:hover i { background: var(--tape); border-color: var(--tape); }
-  .site-list small { display: block; margin-top: 4px; font-family: var(--gothic); font-size: 13px; font-weight: 500; color: var(--tape-lilac); letter-spacing: .03em; }
-  .site-list a[data-todo] { cursor: default; }
-  .site-list a[data-todo] i { display: none; }
-  .site-list a[data-todo]::after { content: "URL準備中"; justify-self: end; font-size: 12px; font-weight: 700; color: var(--tape-rose); white-space: nowrap; }
-  .site-list a[data-todo]:hover { background: none; padding-left: 8px; }
-  .site-list a[data-todo]:hover::before { transform: scaleY(0); }
+  .cover-link:hover .cover { transform: translateY(-6px); }
+  .cover b { position: relative; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 4.2vw, 50px); letter-spacing: .16em; line-height: 1.2; }
+  .cover b small { display: block; font-family: var(--sans); font-weight: 300; font-size: 12px; letter-spacing: .4em; margin-bottom: 14px; }
+  .cover::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(255, 255, 255, .45); pointer-events: none; }
+  .cover.wr { background: linear-gradient(135deg, #FDFBFF, #EDE7F8); color: var(--ink); }
+  .cover.wr::after { border-color: rgba(34, 34, 34, .18); }
+  .cover.cr { background: radial-gradient(ellipse at 50% 120%, #4B5578, #1E2333 70%); }
+  .cover.rf { background: linear-gradient(135deg, #FFF3F6, #F9DDE6); color: #8E3A55; }
+  .cover.rf::after { border-color: rgba(142, 58, 85, .25); }
+  .cover.vp { background: linear-gradient(160deg, #EEF1F4, #C9D2DA); color: #2A2F35; }
+  .cover.vp::after { border-color: rgba(42, 47, 53, .2); }
+  .work-cap { width: min(680px, 100%); margin: 18px auto 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+  .work-cap b { font-size: 17px; font-weight: 500; letter-spacing: .12em; }
+  .work-cap span { font-size: 11px; color: var(--ink-dim); letter-spacing: .12em; }
+  .work .more { position: absolute; right: 0; top: calc(50% - 40px); }
+  .work-url { font-family: var(--label); font-size: 11px; color: var(--purple); letter-spacing: .1em; }
 
-  /* 進め方（順番がある） */
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: step; }
-  .steps li { counter-increment: step; padding-top: 22px; border-top: 6px solid var(--tape-lilac); }
-  .steps li:nth-child(2) { border-color: var(--tape); }
-  .steps li:nth-child(3) { border-color: var(--tape-deep); }
-  .steps li:nth-child(4) { border-color: var(--tape-rose); }
-  .steps li::before { content: counter(step); font-family: var(--mincho); font-weight: 800; font-size: 44px; line-height: 1; display: block; margin-bottom: 14px; color: var(--tape-deep); }
-  .steps h3 { margin: 0 0 6px; font-size: 18px; }
-  .steps p { margin: 0; font-size: 14px; color: var(--ink-dim); }
+  /* ── FLOW（進め方） ── */
+  .flow-sec { background: var(--mist); }
+  .flow-top { display: flex; justify-content: space-between; align-items: end; gap: 40px; flex-wrap: wrap; margin-bottom: 72px; }
+  .flow-top .big { font-size: clamp(54px, 8vw, 110px); }
+  .flow-top p { margin: 0; max-width: 24em; font-size: 14px; }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); counter-reset: step; }
+  .steps li { counter-increment: step; position: relative; padding: 0 28px 0 0; }
+  .steps li + li { padding-left: 28px; border-left: 1px solid #DAD3E8; }
+  .steps li::before { content: "0" counter(step); display: block; font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 54px; line-height: 1; color: var(--purple); margin-bottom: 20px; }
+  .steps h3 { margin: 0 0 8px; font-size: 16px; font-weight: 500; letter-spacing: .14em; }
+  .steps p { margin: 0; font-size: 13px; color: var(--ink-dim); }
 
-  /* 挑戦中：SASUKE */
-  .challenge-sec { overflow: hidden; }
-  .challenge-sec::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse 600px 400px at 0% 100%, rgba(226, 93, 168, .22), transparent 70%);
-  }
-  .challenge { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  .training { list-style: none; margin: 8px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .training li { padding: 22px 22px 20px; border-radius: 6px; background: rgba(244, 239, 252, .05); border: 1px solid var(--stage-line); transition: border-color .25s, transform .25s; }
-  .training li:hover { border-color: var(--tape-lilac); transform: translateY(-3px); }
-  .training b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 22px; margin-bottom: 4px; }
-  .training span { display: block; font-size: 14px; color: var(--on-dark-dim); }
+  /* ── SASUKE ── */
+  .sasuke-sec { overflow: hidden; }
+  .sasuke-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items: start; }
+  .sasuke-title { position: relative; }
+  .sasuke-title .big { font-size: clamp(60px, 9vw, 128px); }
+  .sasuke-title .script { position: absolute; left: 42%; top: 96px; font-size: clamp(44px, 4.6vw, 70px); transform: rotate(-8deg); }
+  .sasuke-title h2 { margin: 72px 0 16px; font-weight: 300; font-size: 22px; letter-spacing: .2em; line-height: 1.8; }
+  .sasuke-title p { margin: 0; font-size: 14px; }
+  .training { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .training::before { content: ""; position: absolute; z-index: -1; left: 40px; right: -40vw; top: 40px; bottom: -40px; background: var(--block); }
+  .training li { position: relative; background: var(--white); padding: 36px 30px 32px; min-height: 190px; box-shadow: 0 1px 0 var(--line); }
+  .training .label { position: absolute; right: 14px; top: 16px; writing-mode: vertical-rl; color: #C4C4C4; font-size: 10px; }
+  .training b { display: block; font-size: 20px; font-weight: 500; letter-spacing: .16em; margin-bottom: 8px; }
+  .training span { font-size: 13px; color: var(--ink-dim); }
 
-  /* プロフィールと相談 */
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-  .two p { color: var(--ink-dim); }
-  .pname { font-family: var(--mincho); font-weight: 800; font-size: 32px; color: var(--ink) !important; margin: 0 0 10px; letter-spacing: .06em; }
-  .titles { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-wrap: wrap; gap: 8px; font-weight: 700; font-size: 13px; }
-  .titles li { padding: 4px 14px; border-radius: 999px; background: var(--floor); color: var(--tape-deep); }
-  .press { font-size: 14px; padding: 16px 20px; border-left: 4px solid var(--tape); background: var(--floor); border-radius: 0 6px 6px 0; }
-  .press a { color: var(--tape-deep); font-weight: 700; }
-  .contact {
-    position: relative; overflow: hidden; color: var(--on-dark); border-radius: 8px; padding: 44px;
-    background:
-      radial-gradient(ellipse 360px 260px at 100% 0%, rgba(226, 93, 168, .35), transparent 70%),
-      radial-gradient(ellipse 420px 320px at 0% 100%, rgba(139, 92, 246, .55), transparent 70%),
-      var(--stage);
-    box-shadow: 0 30px 60px -30px rgba(33, 20, 58, .7);
-  }
-  .contact h3 { margin: 0 0 12px; font-family: var(--mincho); font-weight: 800; font-size: 30px; line-height: 1.4; }
-  .contact p { color: var(--on-dark-dim); margin: 0 0 24px; }
-  .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; margin: 0 0 28px; padding: 16px 0; border-top: 1px solid var(--stage-line); border-bottom: 1px solid var(--stage-line); }
-  .contact dt { font-weight: 700; }
-  .contact dd { margin: 0; color: var(--on-dark); word-break: break-all; }
-  .contact .btn { background: var(--on-dark); color: var(--tape-deep); box-shadow: none; }
-  .contact .btn:hover { background: #fff; }
-  .who { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
-  .who .pname { margin: 0; }
-  .avatar { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 3px var(--paper), 0 0 0 6px var(--tape); flex: none; }
-  .price { display: grid; grid-template-columns: .9fr 1.1fr; grid-template-rows: 1fr 1fr; gap: 12px; margin: 28px 0; }
-  .price img { grid-row: span 2; width: 100%; height: 100%; min-height: 240px; object-fit: cover; border-radius: 6px; }
-  .price p { display: flex; flex-direction: column; justify-content: center; }
-  .price p { margin: 0; padding: 18px 20px; border-radius: 6px; }
-  .price small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .06em; }
-  .price b { display: block; font-family: var(--mincho); font-weight: 800; font-size: 28px; line-height: 1.4; }
-  .price span { display: block; font-size: 13px; }
-  .price-then { background: var(--floor); color: var(--ink-dim) !important; }
-  .price-then b { text-decoration: line-through; text-decoration-color: var(--tape-rose); text-decoration-thickness: 3px; }
-  .price-now { background: var(--stage); color: var(--on-dark) !important; box-shadow: inset 4px 0 0 var(--tape-lilac); }
-  .price-now small, .price-now span { color: var(--on-dark-dim); }
-  .price-now b { color: #fff; }
-  .todo { display: inline-block; font-size: 12px; font-weight: 700; color: var(--tape-lilac); }
+  /* ── PROFILE ── */
+  .profile-sec { padding-bottom: 160px; }
+  .profile { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .profile-photos { position: relative; padding: 0 0 80px 0; }
+  .profile-photos .main { width: 82%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .profile-photos .sub { position: absolute; right: 0; bottom: 0; width: 44%; aspect-ratio: 1 / 1; object-fit: cover; border: 8px solid var(--white); box-shadow: 0 16px 40px -14px rgba(60, 20, 120, .4); transform: rotate(4deg); }
+  .profile-photos::before { content: ""; position: absolute; z-index: -1; left: -40vw; right: 30%; top: 60px; bottom: 30px; background: var(--mist); }
+  .profile .big { font-size: clamp(54px, 7.6vw, 104px); margin-bottom: 48px; }
+  .pname { margin: 0; font-size: 30px; font-weight: 300; letter-spacing: .3em; }
+  .pname-en { display: block; font-family: var(--label); font-size: 11px; letter-spacing: .4em; color: var(--ink-dim); margin: 6px 0 24px; }
+  .titles { list-style: none; margin: 0 0 28px; padding: 0; font-size: 13px; letter-spacing: .12em; }
+  .titles li { padding: 2px 0; }
+  .titles li::before { content: ""; display: inline-block; width: 14px; height: 1px; background: var(--purple); vertical-align: middle; margin-right: 10px; }
+  .profile p { margin: 0 0 16px; font-size: 14px; }
+  .price { display: grid; grid-template-columns: 1fr 1fr; margin: 40px 0 32px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .price div { padding: 22px 0; }
+  .price div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+  .price small { display: block; font-size: 11px; letter-spacing: .2em; color: var(--ink-dim); }
+  .price b { display: block; font-family: var(--serif); font-weight: 700; font-size: 34px; letter-spacing: .04em; line-height: 1.5; }
+  .price b span { font-family: var(--sans); font-size: 14px; font-weight: 400; margin-right: 4px; }
+  .price .then b { color: #A9A9A9; text-decoration: line-through; text-decoration-thickness: 1px; }
+  .price .now b { color: var(--purple-deep); }
+  .price p { margin: 0; font-size: 12px; color: var(--ink-dim); }
+  .press { font-size: 12px !important; color: var(--ink-dim); }
+  .press a { color: var(--ink); }
 
-  footer { padding: 40px 0 48px; font-size: 13px; color: var(--on-dark-dim); background: var(--night); }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  footer a { text-decoration: none; }
-  footer a:hover { color: var(--on-dark); }
+  /* ── フッター（相談） ── */
+  footer { background: var(--night); color: #EDEDED; padding: 130px 0 48px; }
+  .contact { display: grid; grid-template-columns: auto 1fr; gap: 72px; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
+  .contact-photo { width: 260px; aspect-ratio: 5 / 6; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
+  .contact .big { color: #fff; font-size: clamp(46px, 6vw, 80px); letter-spacing: .1em; }
+  .contact-quote { margin: 26px 0 30px; font-size: 13px; line-height: 2.3; letter-spacing: .14em; color: #CFCFCF; }
+  .contact-quote::before { content: "\201C"; display: block; font-family: var(--serif); font-size: 40px; line-height: .6; margin-bottom: 6px; color: #fff; }
+  .contact-mail { display: inline-flex; align-items: center; gap: 18px; padding: 18px 34px; border: 1px solid rgba(255, 255, 255, .5); text-decoration: none; font-size: 14px; letter-spacing: .14em; transition: background .3s, color .3s; }
+  .contact-mail:hover { background: #fff; color: var(--ink); }
+  .contact-mail svg { width: 18px; height: 18px; }
+  .contact-addr { display: block; margin-top: 14px; font-family: var(--label); font-size: 12px; letter-spacing: .1em; color: #A8A8A8; word-break: break-all; }
+  .todo { display: block; margin-top: 10px; font-size: 11px; color: #A8A8A8; }
+  .foot { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-top: 130px; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: 4px 26px; }
+  .foot nav a { text-decoration: none; font-family: var(--label); font-size: 11px; letter-spacing: .25em; color: #CFCFCF; }
+  .foot nav a:hover { color: #fff; }
+  .foot small { font-family: var(--label); font-size: 10px; letter-spacing: .3em; color: #8C8C8C; }
 
-  /* 見えたところから順に出てくる（JSが動く時だけ） */
-  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  /* ── 出てくる動き（JSが動く時だけ） ── */
+  .js .reveal { opacity: 0; transform: translateY(36px); transition: opacity 1s ease, transform 1s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
-  .js .career li.reveal:nth-child(2), .js .steps li.reveal:nth-child(2) { transition-delay: .1s; }
-  .js .career li.reveal:nth-child(3), .js .steps li.reveal:nth-child(3) { transition-delay: .2s; }
-  .js .career li.reveal:nth-child(4), .js .steps li.reveal:nth-child(4) { transition-delay: .3s; }
-  .js .hero .mark-spot .t { transform-origin: left center; animation: tape .9s .3s ease-out both; }
-  .js .hero .mark-spot .v { transform-origin: center top; animation-name: tapev; animation-delay: .6s; }
-  @keyframes tape { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-  @keyframes tapev { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
-  .beam { animation: flicker 6s ease-in-out infinite; }
-  @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: .78; } }
+  .js .reveal-img { clip-path: inset(0 100% 0 0); transition: clip-path 1.3s cubic-bezier(.77, 0, .18, 1); }
+  .js .reveal-img.in { clip-path: inset(0 0 0 0); }
+  .js .script.reveal { transform: rotate(var(--rot, -10deg)) translateY(20px); }
+  .js .script.reveal.in { transform: rotate(var(--rot, -10deg)); }
+  .js .steps li.reveal:nth-child(2), .js .svc.reveal:nth-child(2), .js .training li.reveal:nth-child(2) { transition-delay: .12s; }
+  .js .steps li.reveal:nth-child(3), .js .svc.reveal:nth-child(3), .js .training li.reveal:nth-child(3) { transition-delay: .24s; }
+  .js .steps li.reveal:nth-child(4), .js .training li.reveal:nth-child(4) { transition-delay: .36s; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .js .reveal { opacity: 1; transform: none; transition: none; }
-    .js .hero .mark-spot .t, .beam { animation: none; }
-    .btn, .site-list a, .training li { transition: none; }
+    .js .reveal, .js .script.reveal { opacity: 1; transform: none; transition: none; }
+    .js .script.reveal { transform: rotate(var(--rot, -10deg)); }
+    .js .reveal-img { clip-path: none; transition: none; }
+    .scroll::after { animation: none; }
   }
 
+  /* ── タブレット ── */
   @media (max-width: 960px) {
-    .bar nav a:not(.cta) { display: none; }
-    .beam { right: -40px; width: 260px; height: 420px; }
-    .hero-inner { grid-template-columns: 1fr; gap: 64px; padding-bottom: 112px; }
-    .hero-photo { justify-self: center; width: min(78%, 360px); }
-    .mark-spot { left: -44px; bottom: -28px; transform: scale(.8); }
-    .career-wrap { grid-template-columns: 1fr; gap: 48px; }
-    .career-photo { position: static; width: min(100%, 420px); }
-    .career-photo img { aspect-ratio: 4 / 3; object-position: 50% 20%; }
-    .roles { grid-template-columns: 1fr; }
-    .role:first-child { grid-row: auto; min-height: 0; }
-    .two, .challenge { grid-template-columns: 1fr; gap: 40px; }
-    .steps { grid-template-columns: 1fr 1fr; }
-    .site-list a { grid-template-columns: 1fr 36px; gap: 6px 16px; }
-    .site-list a > span { grid-column: 1; grid-row: 2; }
-    .site-list i { grid-column: 2; grid-row: 1 / span 2; }
-    .site-list a[data-todo]::after { grid-column: 2; grid-row: 1 / span 2; }
-    .sec-lead { margin-left: 0; }
+    .wrap { width: calc(100% - 64px); }
+    .hero-photo { width: 64%; }
+    .hero-text { width: 56%; }
+    .career-stage { grid-template-columns: 1fr; min-height: 0; }
+    .career-photo { width: 78%; }
+    .career-photo img { height: 520px; }
+    .career-body { margin-left: 0; padding: 0 32px; margin-top: -90px; }
+    .career-body .big { position: relative; top: 0; margin-left: 24px; }
+    .career-script { left: 40%; top: -60px; }
+    .career-text { padding: 40px 0 0 0; }
+    .service-grid { grid-template-columns: 1fr 1fr; }
+    .service-grid::before { right: 20%; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 48px 0; }
+    .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
+    .sasuke-wrap, .profile { grid-template-columns: 1fr; gap: 64px; }
+    .profile-photos { width: min(560px, 100%); }
+    .contact { grid-template-columns: 1fr; gap: 40px; justify-items: center; text-align: center; }
+    .contact-photo { width: 200px; }
+    .contact-quote::before { margin-inline: auto; }
   }
-  @media (max-width: 520px) {
-    .wrap { width: calc(100% - 32px); }
-    section { padding: 80px 0; }
-    .hero-inner { padding: 56px 0 88px; }
-    .hero h1 { font-size: 36px; }
-    .beam { right: -70px; width: 200px; height: 330px; opacity: .8; }
-    .role, .role:first-child { padding: 28px 24px; }
-    .role-photo { grid-template-columns: 1fr; }
-    .role-photo img { grid-row: auto; aspect-ratio: 4 / 3; object-position: 50% 25%; margin-bottom: 20px; }
-    .role:first-child h3 { font-size: 26px; }
-    .steps { grid-template-columns: 1fr; }
+
+  /* ── スマホ ── */
+  @media (max-width: 600px) {
+    body { font-size: 14px; letter-spacing: .04em; }
+    .wrap { width: calc(100% - 40px); }
+    .big { letter-spacing: .08em; }
+    .logo { left: 16px; top: 16px; width: 60px; }
+    .menu-btn { right: 14px; top: 16px; width: 48px; height: 48px; }
+    .hero { min-height: 0; padding-bottom: 72px; }
+    .hero-photo { position: relative; width: calc(100% - 20px); margin-left: 20px; height: 64svh; min-height: 420px; }
+    .hero-photo::after { background: linear-gradient(180deg, transparent 50%, rgba(34, 34, 34, .45)); }
+    .hero-en { right: 20px; top: calc(64svh - 92px); font-size: 20px; }
+    .hero-block { left: 0; top: 34svh; width: 46%; height: 46svh; }
+    .hero-text { width: auto; padding-top: 76px; margin: 0 20px; }
+    .hero h1 { font-size: 27px; letter-spacing: .12em; }
+    .hero-script { left: auto; right: 10px; top: calc(64svh + 8px); font-size: 48px; }
+    .hero-quote, .roles-line { margin-left: 20px; margin-right: 20px; }
+    .scroll { display: none; }
+    section { padding: 96px 0; }
+    .career-photo { width: 88%; }
+    .career-photo img { height: 420px; }
+    .career-photo::before { top: -30px; height: calc(100% + 60px); }
+    .career-body { margin-top: -56px; padding: 0 20px; }
+    .career-body .big { margin-left: 8px; }
+    .career-script { left: 30%; top: -54px; font-size: 46px; }
+    .steps-c li { grid-template-columns: 40px 1fr; gap: 2px 8px; }
+    .steps-c li span { grid-column: 2; }
+    .service-head { margin-bottom: 48px; }
+    .service-grid { grid-template-columns: 1fr; gap: 56px; }
+    .svc-figure { aspect-ratio: 16 / 10; }
+    .svc-figure img { object-position: 50% 30%; }
+    .service-grid::before { right: 18%; top: 140px; bottom: -40px; }
+    .works-sec { padding-top: 110px; }
+    .works-list { margin-top: 64px; }
+    .work { margin-bottom: 72px; }
+    .work .more { position: static; margin-top: 14px; }
+    .work-cap { margin-top: 14px; }
+    .steps { grid-template-columns: 1fr; gap: 36px; }
+    .steps li, .steps li + li { padding: 0; border-left: 0; }
+    .steps li { display: grid; grid-template-columns: 64px 1fr; }
+    .steps li::before { grid-row: span 2; font-size: 40px; margin: 0; }
     .training { grid-template-columns: 1fr; }
-    .price { grid-template-columns: 1fr; grid-template-rows: none; }
-    .price img { grid-row: auto; aspect-ratio: 4 / 3; height: auto; min-height: 0; object-position: 50% 30%; }
-    .contact { padding: 30px 24px; }
-    .contact h3 { font-size: 25px; }
-    .site-list a { padding: 24px 4px; }
-    .btn { padding: 14px 26px; }
+    .training::before { left: 24px; top: 24px; bottom: -24px; }
+    .training li { min-height: 0; padding: 26px 24px; }
+    .sasuke-title .script { left: 38%; top: 50px; }
+    .profile-photos { padding-bottom: 60px; }
+    .price b { font-size: 26px; }
+    .price div + div { padding-left: 18px; }
+    footer { padding-top: 96px; }
+    .contact-photo { width: 170px; }
+    .contact-mail { padding: 16px 26px; }
+    .foot { margin-top: 90px; flex-direction: column; align-items: start; }
   }
 </style>
 </head>
 <body>
 
-<div class="bar-wrap">
-  <div class="wrap bar">
-    <a class="name" href="#"><span class="bami lilac" aria-hidden="true"></span>柴崎凌兵</a>
-    <nav aria-label="ページ内リンク">
-      <a href="#career">歩み</a>
-      <a href="#roles">できること</a>
-      <a href="#works">実績</a>
-      <a href="#flow">進め方</a>
-      <a href="#challenge">SASUKE</a>
-      <a class="cta" href="#contact">相談する</a>
-    </nav>
-  </div>
-</div>
+<a class="logo" href="#" aria-label="柴崎凌兵 ページの先頭へ"><img src="img/logo.jpg" width="240" height="240" alt="WR柴崎凌兵のシール風イラスト"></a>
+<button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="menu"><i></i></button>
+<nav class="menu" id="menu" aria-label="メニュー">
+  <ul>
+    <li><a href="#career"><small>歩み</small>CAREER</a></li>
+    <li><a href="#service"><small>できること</small>SERVICE</a></li>
+    <li><a href="#works"><small>実績</small>WORKS</a></li>
+    <li><a href="#flow"><small>進め方</small>FLOW</a></li>
+    <li><a href="#sasuke"><small>挑戦中</small>SASUKE</a></li>
+    <li><a href="#profile"><small>プロフィール</small>PROFILE</a></li>
+    <li><a href="#contact"><small>相談する</small>CONTACT</a></li>
+  </ul>
+</nav>
 
 <header class="hero">
-  <div class="beam" aria-hidden="true"></div>
-  <div class="wrap hero-inner">
-    <div class="hero-text">
-    <p class="role-line"><span>レンタル彼氏 WarmRelation 代表</span><span>レンタル彼女 Lily プロデューサー</span><span>出張撮影カメラマン</span></p>
+  <figure class="hero-photo reveal-img">
+    <img src="img/portrait-desk.jpg" width="900" height="1125" alt="カフェのデスクでマグカップを手に座る柴崎凌兵">
+  </figure>
+  <p class="hero-en">I know every side<br>of this business.</p>
+  <div class="hero-block" aria-hidden="true"></div>
+  <span class="script hero-script reveal" style="--rot:-10deg" aria-hidden="true">from the audience</span>
+  <div class="hero-text">
+    <span class="label">Shibasaki Ryohei</span>
     <h1><span>レンタル業界の、</span><span><em>すべての立場</em>を</span><span>知っています。</span></h1>
-    <p class="lead">利用者として始まり、キャスト、マネージャー、そして運営へ。それぞれの立場で見てきたことを活かして、レンタル彼氏・レンタル彼女のお店とキャストのサイト制作、プロデュース、撮影を引き受けます。</p>
-    <div class="actions">
-      <a class="btn" href="#contact">相談する</a>
-      <a class="btn line" href="#works">実績を見る</a>
-    </div>
-    </div>
-    <figure class="hero-photo">
-      <img src="img/portrait-desk.jpg" width="900" height="1125" alt="カフェのデスクでマグカップを手に座る柴崎凌兵">
-      <div class="mark-spot" aria-hidden="true"><i class="t h"></i><i class="t v"></i></div>
-    </figure>
   </div>
+  <p class="hero-quote">利用者として始まり、キャスト、マネージャー、そして運営へ。<br>それぞれの立場で見てきたことを活かして、レンタル彼氏・レンタル彼女のお店とキャストのサイト制作、プロデュース、撮影を引き受けます。</p>
+  <ul class="roles-line">
+    <li>レンタル彼氏 WarmRelation 代表</li>
+    <li>レンタル彼女 Lily プロデューサー</li>
+    <li>出張撮影カメラマン</li>
+  </ul>
+  <a class="scroll label" href="#career">Scroll</a>
 </header>
 
 <main>
-  <section id="career">
-    <div class="wrap">
-      <div class="sec-head reveal"><span class="bami" aria-hidden="true"></span><h2>歩み</h2></div>
-      <p class="sec-lead reveal">客席から舞台へ、そして舞台袖へ。立つ場所を変えながら、レンタルの仕事を内側から見てきました。</p>
-      <div class="career-wrap">
-      <figure class="career-photo reveal">
+  <section id="career" class="career-sec">
+    <div class="career-stage">
+      <figure class="career-photo reveal-img">
         <img src="img/stage-suit.jpg" width="900" height="1200" loading="lazy" alt="スーツ姿で、映像が映る床の上に立つ柴崎凌兵">
       </figure>
-      <ol class="career">
-        <li class="reveal"><small>客席</small><b>利用者</b><span>レンタル彼女のユーザーとして、この業界に出会う</span></li>
-        <li class="reveal"><small>舞台</small><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ。<span class="nw">1時間0円</span>でも誰も借りてくれなかった、底辺レンタル彼氏時代から</span></li>
-        <li class="reveal"><small>舞台袖</small><b>マネージャー</b><span>キャストを支え、育てる側にまわる</span></li>
-        <li class="reveal"><small>劇場をつくる</small><b>プロデューサー・代表</b><span>レンタル彼氏の運営に携わり、WarmRelationの代表に。レンタル彼女Lilyのプロデュースも担当</span></li>
-      </ol>
+      <div class="career-body">
+        <span class="script career-script reveal" style="--rot:-12deg" aria-hidden="true">to the stage.</span>
+        <h2 class="big reveal">CAREER</h2>
+        <div class="career-text">
+          <h3 class="jp-head reveal">客席から舞台へ、<br>そして舞台袖へ。</h3>
+          <p class="reveal">立つ場所を変えながら、レンタルの仕事を内側から見てきました。</p>
+          <ol class="steps-c">
+            <li class="reveal"><b>利用者</b><span>レンタル彼女のユーザーとして、この業界に出会う</span></li>
+            <li class="reveal"><b>キャスト</b><span>レンタル彼氏のキャストとして、お客様と過ごす側に立つ。<span class="nw">1時間0円</span>でも誰も借りてくれなかった、底辺レンタル彼氏時代から</span></li>
+            <li class="reveal"><b>マネージャー</b><span>キャストを支え、育てる側にまわる</span></li>
+            <li class="reveal"><b>プロデューサー・代表</b><span>レンタル彼氏の運営に携わり、WarmRelationの代表に。レンタル彼女Lilyのプロデュースも担当</span></li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="roles" class="lav">
+  <section id="service">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="bami rose" aria-hidden="true"></span><h2>できること</h2></div>
-      <div class="roles">
-        <div class="role reveal">
+      <div class="service-head">
+        <h2 class="big reveal">SERVICE</h2>
+        <p class="reveal">できること</p>
+      </div>
+      <div class="service-grid">
+        <article class="svc reveal">
+          <span class="label svc-label">#Website</span>
+          <div class="svc-figure type site" aria-hidden="true"><b>Website<i>for your shop</i></b></div>
           <h3>お店のサイトを作る</h3>
           <p>利用者が何を見て予約を決めるかを知っているから、迷わず予約まで進めるサイトを作れます。</p>
           <ul>
@@ -427,8 +434,10 @@
             <li>キャストの一覧とプロフィールページ</li>
             <li>料金・ルール・予約までの案内</li>
           </ul>
-        </div>
-        <div class="role reveal">
+        </article>
+        <article class="svc reveal">
+          <span class="label svc-label">#Produce</span>
+          <div class="svc-figure type cast" aria-hidden="true"><b>Produce<i>for your cast</i></b></div>
           <h3>キャストを育てる</h3>
           <p>キャストとマネージャーの両方を経験したから、その人らしさを見つけて、お客様に届く形にできます。</p>
           <ul>
@@ -436,9 +445,10 @@
             <li>プロフィール文の作成</li>
             <li>お店の運営や集客の相談</li>
           </ul>
-        </div>
-        <div class="role role-photo reveal">
-          <img src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="カメラを構える柴崎凌兵">
+        </article>
+        <article class="svc reveal">
+          <span class="label svc-label">#Photo</span>
+          <figure class="svc-figure"><img src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="カメラを構える柴崎凌兵"></figure>
           <h3>写真を撮る</h3>
           <p>出張撮影のカメラマンとして、サイトに載せるキャスト写真も自分で撮れます。</p>
           <ul>
@@ -446,28 +456,45 @@
             <li>お店やサービスのイメージ写真</li>
             <li>撮影からサイト公開まで一括で</li>
           </ul>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section id="works" class="dark">
+  <section id="works" class="works-sec">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="bami lilac" aria-hidden="true"></span><h2>実績</h2></div>
-      <p class="sec-lead reveal">これまでに作ったサイトです。</p>
-      <ul class="site-list">
-        <li class="reveal"><a href="https://warmrelation.com/" target="_blank" rel="noopener"><b>レンタル彼氏 WarmRelation<small>warmrelation.com</small></b><span>感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span><i aria-hidden="true"></i></a></li>
-        <li class="reveal"><a href="https://crossroad24.com/" target="_blank" rel="noopener"><b>レンタル彼氏 CROSS ROAD<small>crossroad24.com</small></b><span>30〜50代の大人の女性向けレンタル彼氏の公式サイト</span><i aria-hidden="true"></i></a></li>
-        <li class="reveal"><a href="https://womens-ribbon.com/" target="_blank" rel="noopener"><b>レンタルフレンド by WarmRelation<small>womens-ribbon.com</small></b><span>外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span><i aria-hidden="true"></i></a></li>
-        <li class="reveal"><a href="https://via-photo.com/" target="_blank" rel="noopener"><b>Via Photo<small>via-photo.com</small></b><span>出張撮影のサイト</span><i aria-hidden="true"></i></a></li>
+      <h2 class="big reveal">WORKS</h2>
+      <ul class="works-list">
+        <li class="work reveal">
+          <a class="cover-link" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 WarmRelation のサイトを開く"><div class="cover wr"><b><small>レンタル彼氏</small>WARMRELATION</b></div></a>
+          <a class="more" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
+          <p class="work-cap"><b>WarmRelation</b><span>Website ─ 感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span><span class="work-url">warmrelation.com</span></p>
+        </li>
+        <li class="work reveal">
+          <a class="cover-link" href="https://crossroad24.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 CROSS ROAD のサイトを開く"><div class="cover cr"><b><small>レンタル彼氏</small>CROSS ROAD</b></div></a>
+          <a class="more" href="https://crossroad24.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
+          <p class="work-cap"><b>CROSS ROAD</b><span>Website ─ 30〜50代の大人の女性向けレンタル彼氏の公式サイト</span><span class="work-url">crossroad24.com</span></p>
+        </li>
+        <li class="work reveal">
+          <a class="cover-link" href="https://womens-ribbon.com/" target="_blank" rel="noopener" aria-label="レンタルフレンド by WarmRelation のサイトを開く"><div class="cover rf"><b><small>レンタルフレンド</small>by WarmRelation</b></div></a>
+          <a class="more" href="https://womens-ribbon.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
+          <p class="work-cap"><b>レンタルフレンド by WarmRelation</b><span>Website ─ 外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span><span class="work-url">womens-ribbon.com</span></p>
+        </li>
+        <li class="work reveal">
+          <a class="cover-link" href="https://via-photo.com/" target="_blank" rel="noopener" aria-label="Via Photo のサイトを開く"><div class="cover vp"><b><small>出張撮影</small>VIA PHOTO</b></div></a>
+          <a class="more" href="https://via-photo.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
+          <p class="work-cap"><b>Via Photo</b><span>Website ─ 出張撮影のサイト</span><span class="work-url">via-photo.com</span></p>
+        </li>
       </ul>
     </div>
   </section>
 
-  <section id="flow">
+  <section id="flow" class="flow-sec">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="bami" aria-hidden="true"></span><h2>進め方</h2></div>
-      <p class="sec-lead reveal">いきなり作り始めず、まずお店やキャストの話を聞くところから始めます。</p>
+      <div class="flow-top">
+        <h2 class="big reveal">FLOW</h2>
+        <p class="reveal">いきなり作り始めず、まずお店やキャストの話を聞くところから始めます。</p>
+      </div>
       <ol class="steps">
         <li class="reveal"><h3>話を聞く</h3><p>お店のコンセプト、どんなお客様に来てほしいか、キャストの個性を聞きます。</p></li>
         <li class="reveal"><h3>今を見る</h3><p>今のサイトや予約の流れを、利用者の目線で一緒に確認します。</p></li>
@@ -477,59 +504,84 @@
     </div>
   </section>
 
-  <section id="challenge" class="dark challenge-sec">
-    <div class="wrap challenge">
-      <div class="reveal">
-        <div class="sec-head"><span class="bami rose" aria-hidden="true"></span><h2>挑戦中：SASUKE出場</h2></div>
-        <p>仕事のほかに、SASUKEへの出場を目指してトレーニングを続けています。</p>
+  <section id="sasuke" class="sasuke-sec">
+    <div class="wrap sasuke-wrap">
+      <div class="sasuke-title">
+        <h2 class="big reveal" aria-label="SASUKE">SASUKE</h2>
+        <span class="script reveal" style="--rot:-8deg" aria-hidden="true">keep climbing.</span>
+        <h3 class="jp-head reveal" style="margin-top:72px">挑戦中：SASUKE出場</h3>
+        <p class="reveal" style="margin-top:16px">仕事のほかに、SASUKEへの出場を目指してトレーニングを続けています。</p>
       </div>
       <ul class="training">
-        <li class="reveal"><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
-        <li class="reveal"><b>水泳</b><span>全身の持久力</span></li>
-        <li class="reveal"><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
-        <li class="reveal"><b>整体</b><span>続けられる体を整える</span></li>
+        <li class="reveal"><span class="label">Bouldering</span><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
+        <li class="reveal"><span class="label">Swimming</span><b>水泳</b><span>全身の持久力</span></li>
+        <li class="reveal"><span class="label">Jump rope</span><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
+        <li class="reveal"><span class="label">Body care</span><b>整体</b><span>続けられる体を整える</span></li>
       </ul>
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap two">
-      <div class="reveal">
-        <div class="sec-head"><span class="bami" aria-hidden="true"></span><h2>プロフィール</h2></div>
-        <div class="who"><img class="avatar" src="img/illust.jpg" width="566" height="566" loading="lazy" alt="柴崎凌兵の似顔絵イラスト"><p class="pname">柴崎 凌兵</p></div>
-        <ul class="titles">
+  <section id="profile" class="profile-sec">
+    <div class="wrap profile">
+      <div class="profile-photos">
+        <img class="main reveal-img" src="img/cafe.jpg" width="800" height="1000" loading="lazy" alt="カフェでグラスを手にする柴崎凌兵">
+        <img class="sub reveal" src="img/illust.jpg" width="566" height="566" loading="lazy" alt="柴崎凌兵の似顔絵イラスト">
+      </div>
+      <div>
+        <h2 class="big reveal">PROFILE</h2>
+        <p class="pname reveal">柴崎 凌兵</p>
+        <span class="pname-en reveal">SHIBASAKI RYOHEI</span>
+        <ul class="titles reveal">
           <li>レンタル彼氏 WarmRelation 代表</li>
           <li>レンタル彼女 Lily プロデューサー</li>
           <li>出張撮影カメラマン</li>
         </ul>
-        <p>レンタル彼女の利用者から始まり、レンタル彼氏のキャスト、マネージャーを経て、運営に携わるようになりました。今は13年続くレンタル彼氏WarmRelationの代表として、キャストひとりひとりの良さを見つけ、お客様に届く形にしています。</p>
-        <p>自分が前に出るのではなく、キャストが主役として立てる場所を整えるのが仕事だと考えています。</p>
-        <div class="price">
-          <img src="img/cafe.jpg" width="800" height="1000" loading="lazy" alt="カフェでグラスを手にする柴崎凌兵">
-          <p class="price-then"><small>キャストを始めたころ</small><b>1時間0円</b><span>それでも、誰も借りてくれなかった</span></p>
-          <p class="price-now"><small>今</small><b>1時間8,000円</b><span>柴崎凌兵本人をレンタルできます</span></p>
+        <p class="reveal">レンタル彼女の利用者から始まり、レンタル彼氏のキャスト、マネージャーを経て、運営に携わるようになりました。今は13年続くレンタル彼氏WarmRelationの代表として、キャストひとりひとりの良さを見つけ、お客様に届く形にしています。</p>
+        <div class="price reveal">
+          <div class="then"><small>キャストを始めたころ</small><b><span>1時間</span>0円</b><p>それでも、誰も借りてくれなかった</p></div>
+          <div class="now"><small>今</small><b><span>1時間</span>8,000円</b><p>柴崎凌兵本人をレンタルできます</p></div>
         </div>
-        <p class="press">WarmRelationは、Time Out Tokyo の記事「<a href="https://www.timeout.com/tokyo/things-to-do/quick-guide-to-japans-rental-romance-agencies" target="_blank" rel="noopener">A quick guide to Japan's rental romance agencies</a>」で紹介されています。</p>
-      </div>
-      <div class="contact reveal">
-        <h3>まずは話を<br>聞かせてください</h3>
-        <p>お店のサイト、キャストのプロデュース、撮影、どれからでも相談できます。今の状況と、目指したいところを教えてください。<span class="todo">（料金の書き方は準備中）</span></p>
-        <dl>
-          <dt>メール</dt><dd>shibasakiryohei.wr@gmail.com</dd>
-        </dl>
-        <a class="btn" href="mailto:shibasakiryohei.wr@gmail.com?subject=%E3%81%94%E7%9B%B8%E8%AB%87">メールで相談する</a>
+        <p class="press reveal">WarmRelationは、Time Out Tokyo の記事「<a href="https://www.timeout.com/tokyo/things-to-do/quick-guide-to-japans-rental-romance-agencies" target="_blank" rel="noopener">A quick guide to Japan's rental romance agencies</a>」で紹介されています。</p>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap"><span>&copy; <span id="year"></span> 柴崎凌兵</span><a href="#">ページの先頭へ</a></div>
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <img class="contact-photo reveal" src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="">
+      <div class="reveal">
+        <h2 class="big">CONTACT</h2>
+        <p class="contact-quote">自分が前に出るのではなく、<br>キャストが主役として立てる場所を整えるのが仕事だと考えています。<br>お店のサイト、キャストのプロデュース、撮影、どれからでも相談できます。</p>
+        <a class="contact-mail" href="mailto:shibasakiryohei.wr@gmail.com?subject=%E3%81%94%E7%9B%B8%E8%AB%87"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>メールで相談する</a>
+        <span class="contact-addr">shibasakiryohei.wr@gmail.com</span>
+        <span class="todo">サイト制作・プロデュース・撮影の料金は準備中です</span>
+      </div>
+    </div>
+    <div class="foot">
+      <nav aria-label="フッターメニュー">
+        <a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#profile">PROFILE</a>
+      </nav>
+      <small>&copy; <span id="year"></span> SHIBASAKI RYOHEI</small>
+    </div>
+  </div>
 </footer>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
   (function () {
-    var items = document.querySelectorAll('.reveal');
+    var root = document.documentElement, btn = document.querySelector('.menu-btn'), menu = document.getElementById('menu');
+    function setMenu(open) {
+      root.classList.toggle('menu-open', open);
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    }
+    btn.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+    var items = document.querySelectorAll('.reveal, .reveal-img');
     if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
