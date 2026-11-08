@@ -212,11 +212,15 @@
   .sasuke-title .script { position: absolute; left: 42%; top: 96px; font-size: clamp(44px, 4.6vw, 70px); transform: rotate(-8deg); }
   .sasuke-title h2 { margin: 72px 0 16px; font-weight: 300; font-size: 22px; letter-spacing: .2em; line-height: 1.8; }
   .sasuke-title p { margin: 0; font-size: 14px; }
-  .training { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .sasuke-side { position: relative; }
+  .year { position: relative; z-index: 1; margin: 0 0 -.12em; text-align: right; line-height: 1; }
+  .year small { display: block; font-size: 12px; letter-spacing: .3em; color: var(--ink-dim); margin-bottom: 6px; }
+  .year b { display: block; font-family: var(--serif); font-weight: 900; font-size: clamp(110px, 15vw, 210px); letter-spacing: .02em; line-height: .82; color: transparent; -webkit-text-stroke: 1.5px var(--purple); }
+  .training { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
   .training::before { content: ""; position: absolute; z-index: -1; left: 40px; right: -40vw; top: 40px; bottom: -40px; background: var(--block); }
-  .training li { position: relative; background: var(--white); padding: 36px 30px 32px; min-height: 190px; box-shadow: 0 1px 0 var(--line); }
+  .training li { position: relative; background: var(--white); padding: 36px 30px 32px 24px; min-height: 200px; box-shadow: 0 1px 0 var(--line); }
   .training .label { position: absolute; right: 14px; top: 16px; writing-mode: vertical-rl; color: #C4C4C4; font-size: 10px; }
-  .training b { display: block; font-size: 20px; font-weight: 500; letter-spacing: .16em; margin-bottom: 8px; }
+  .training b { display: block; font-size: 18px; font-weight: 500; letter-spacing: .16em; margin-bottom: 8px; }
   .training span { font-size: 13px; color: var(--ink-dim); }
 
   /* ── PROFILE ── */
@@ -245,6 +249,24 @@
   .press { font-size: 12px !important; color: var(--ink-dim); }
   .press a { color: var(--ink); }
 
+  /* ── CARD（名刺） ── */
+  .card-sec { background: var(--mist); padding: 130px 0 150px; }
+  .card-head { display: flex; align-items: baseline; gap: 28px; margin-bottom: 80px; }
+  .card-head p { margin: 0; font-size: 13px; letter-spacing: .3em; color: var(--ink-dim); }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .cards figure { margin: 0; }
+  .cards img {
+    width: 100%; aspect-ratio: 91 / 55; object-fit: cover; border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08), 0 24px 50px -20px rgba(60, 20, 120, .45);
+    transform: rotate(-3deg); transition: transform .5s;
+  }
+  .cards figure:nth-child(2) { margin-top: 72px; }
+  .cards figure:nth-child(2) img { transform: rotate(2.5deg); }
+  .cards figure:hover img { transform: rotate(0) translateY(-8px); }
+  .cards figcaption { margin-top: 26px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .cards figcaption b { font-size: 15px; font-weight: 500; letter-spacing: .12em; }
+  .cards figcaption span { font-size: 12px; color: var(--ink-dim); letter-spacing: .14em; }
+
   /* ── フッター（相談） ── */
   footer { background: var(--night); color: #EDEDED; padding: 130px 0 48px; }
   .contact { display: grid; grid-template-columns: auto 1fr; gap: 72px; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
@@ -272,7 +294,7 @@
   .js .script.reveal.in { transform: rotate(var(--rot, -10deg)); }
   .js .steps li.reveal:nth-child(2), .js .svc.reveal:nth-child(2), .js .training li.reveal:nth-child(2) { transition-delay: .12s; }
   .js .steps li.reveal:nth-child(3), .js .svc.reveal:nth-child(3), .js .training li.reveal:nth-child(3) { transition-delay: .24s; }
-  .js .steps li.reveal:nth-child(4), .js .training li.reveal:nth-child(4) { transition-delay: .36s; }
+  .js .steps li.reveal:nth-child(4), .js .cards figure.reveal:nth-child(2) { transition-delay: .36s; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .reveal, .js .script.reveal { opacity: 1; transform: none; transition: none; }
@@ -300,6 +322,8 @@
     .sasuke-wrap, .profile { grid-template-columns: 1fr; gap: 64px; }
     .profile-photos { width: min(560px, 100%); }
     .contact { grid-template-columns: 1fr; gap: 40px; justify-items: center; text-align: center; }
+    .cards { grid-template-columns: 1fr; gap: 56px; max-width: 560px; }
+    .cards figure:nth-child(2) { margin-top: 0; }
     .contact-photo { width: 200px; }
     .contact-quote::before { margin-inline: auto; }
   }
@@ -345,13 +369,16 @@
     .steps li { display: grid; grid-template-columns: 64px 1fr; }
     .steps li::before { grid-row: span 2; font-size: 40px; margin: 0; }
     .training { grid-template-columns: 1fr; }
+    .year { margin-bottom: -.1em; }
     .training::before { left: 24px; top: 24px; bottom: -24px; }
     .training li { min-height: 0; padding: 26px 24px; }
-    .sasuke-title .script { left: 38%; top: 50px; }
+    .sasuke-title .script { left: 22%; top: 46px; font-size: 42px; }
     .profile-photos { padding-bottom: 60px; }
     .price b { font-size: 26px; }
     .price div + div { padding-left: 18px; }
     footer { padding-top: 96px; }
+    .card-sec { padding: 96px 0 110px; }
+    .card-head { margin-bottom: 52px; }
     .contact-photo { width: 170px; }
     .contact-mail { padding: 16px 26px; }
     .foot { margin-top: 90px; flex-direction: column; align-items: start; }
@@ -370,6 +397,7 @@
     <li><a href="#flow"><small>進め方</small>FLOW</a></li>
     <li><a href="#sasuke"><small>挑戦中</small>SASUKE</a></li>
     <li><a href="#profile"><small>プロフィール</small>PROFILE</a></li>
+    <li><a href="#card"><small>名刺</small>CARD</a></li>
     <li><a href="#contact"><small>相談する</small>CONTACT</a></li>
   </ul>
 </nav>
@@ -509,15 +537,17 @@
       <div class="sasuke-title">
         <h2 class="big reveal" aria-label="SASUKE">SASUKE</h2>
         <span class="script reveal" style="--rot:-8deg" aria-hidden="true">keep climbing.</span>
-        <h3 class="jp-head reveal" style="margin-top:72px">挑戦中：SASUKE出場</h3>
-        <p class="reveal" style="margin-top:16px">仕事のほかに、SASUKEへの出場を目指してトレーニングを続けています。</p>
+        <h3 class="jp-head reveal" style="margin-top:72px">挑戦中：<br>2027年、SASUKE出場へ</h3>
+        <p class="reveal" style="margin-top:16px">仕事のほかに、2027年のSASUKE出場を目指してトレーニングを続けています。</p>
       </div>
+      <div class="sasuke-side">
+      <p class="year reveal"><small>目指すのは</small><b>2027</b></p>
       <ul class="training">
         <li class="reveal"><span class="label">Bouldering</span><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
         <li class="reveal"><span class="label">Swimming</span><b>水泳</b><span>全身の持久力</span></li>
         <li class="reveal"><span class="label">Jump rope</span><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
-        <li class="reveal"><span class="label">Body care</span><b>整体</b><span>続けられる体を整える</span></li>
       </ul>
+      </div>
     </div>
   </section>
 
@@ -545,6 +575,25 @@
       </div>
     </div>
   </section>
+
+  <section id="card" class="card-sec">
+    <div class="wrap">
+      <div class="card-head">
+        <h2 class="big reveal">CARD</h2>
+        <p class="reveal">名刺</p>
+      </div>
+      <div class="cards">
+        <figure class="reveal">
+          <img src="img/card-warmrelation.jpg" width="1200" height="725" loading="lazy" alt="WarmRelationの名刺。レンタル彼氏 WarmRelation 代表 柴崎凌兵、warmrelation.com、shibasakiryohei.wr@gmail.com、QRコード">
+          <figcaption><b>レンタル彼氏 WarmRelation</b><span>代表</span></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img src="img/card-lily.jpg" width="1200" height="725" loading="lazy" alt="Lilyの名刺。レンタル彼女 Lily プロデューサー 柴崎凌兵、renkano-lily.com、QRコード">
+          <figcaption><b>レンタル彼女 Lily</b><span>プロデューサー</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer id="contact">
@@ -561,7 +610,7 @@
     </div>
     <div class="foot">
       <nav aria-label="フッターメニュー">
-        <a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#profile">PROFILE</a>
+        <a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#profile">PROFILE</a><a href="#card">CARD</a>
       </nav>
       <small>&copy; <span id="year"></span> SHIBASAKI RYOHEI</small>
     </div>
