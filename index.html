@@ -179,15 +179,15 @@
   .cover b { position: relative; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 4.2vw, 50px); letter-spacing: .16em; line-height: 1.2; }
   .cover b small { display: block; font-family: var(--sans); font-weight: 300; font-size: 12px; letter-spacing: .4em; margin-bottom: 14px; }
   .cover::after { content: ""; position: absolute; inset: 14px; border: 1px solid rgba(255, 255, 255, .45); pointer-events: none; }
-  .cover.wr { background: linear-gradient(135deg, #FDFBFF, #EDE7F8); color: var(--ink); }
-  .cover.wr::after { border-color: rgba(34, 34, 34, .18); }
+  .cover img { position: relative; width: 58%; max-width: 400px; transition: transform .6s; }
+  .cover-link:hover .cover img { transform: scale(1.04); }
+  .cover.wr { background: radial-gradient(ellipse at 50% 40%, #0A2652, #001433 70%); }
+  .cover.wr::after { border-color: rgba(120, 200, 240, .3); }
   .cover.cr { background: radial-gradient(ellipse at 50% 120%, #4B5578, #1E2333 70%); }
   .cover.rf { background: linear-gradient(135deg, #FFF3F6, #F9DDE6); color: #8E3A55; }
   .cover.rf::after { border-color: rgba(142, 58, 85, .25); }
-  .cover.ly { background: linear-gradient(135deg, #FFFDF6, #F3E6C4); color: #6B4A1E; }
-  .cover.ly b { font-family: var(--script); font-weight: 400; font-size: clamp(56px, 8vw, 96px); letter-spacing: .02em; }
-  .cover.ly b small { font-family: var(--sans); }
-  .cover.ly::after { border-color: rgba(107, 74, 30, .25); }
+  .cover.ly { background: linear-gradient(135deg, #FBF4F4, #EFDCDD); }
+  .cover.ly::after { border-color: rgba(122, 64, 78, .25); }
   .cover.vp { background: linear-gradient(160deg, #EEF1F4, #C9D2DA); color: #2A2F35; }
   .cover.vp::after { border-color: rgba(42, 47, 53, .2); }
   .work-cap { width: min(680px, 100%); margin: 18px auto 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
@@ -280,7 +280,7 @@
   /* ── フッター（相談） ── */
   footer { background: var(--night); color: #EDEDED; padding: 130px 0 48px; }
   .contact { display: grid; grid-template-columns: auto 1fr; gap: 72px; align-items: center; justify-content: center; max-width: 900px; margin: 0 auto; }
-  .contact-photo { width: 260px; aspect-ratio: 5 / 6; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
+  .contact-photo { width: 260px; aspect-ratio: 5 / 6; border-radius: 50%; object-fit: cover; object-position: 35% 18%; }
   .contact .big { color: #fff; font-size: clamp(46px, 6vw, 80px); letter-spacing: .1em; }
   .contact-quote { margin: 26px 0 30px; font-size: 13px; line-height: 2.3; letter-spacing: .14em; color: #CFCFCF; }
   .contact-quote::before { content: "\201C"; display: block; font-family: var(--serif); font-size: 40px; line-height: .6; margin-bottom: 6px; color: #fff; }
@@ -504,7 +504,7 @@
         </article>
         <article class="svc reveal">
           <span class="label svc-label">#Photo</span>
-          <figure class="svc-figure"><img src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="カメラを構える柴崎凌兵"></figure>
+          <figure class="svc-figure"><img src="img/photographer.jpg" width="724" height="781" loading="lazy" alt="花の向こうでカメラを構えて撮影している様子"></figure>
           <h3>写真を撮る</h3>
           <p>出張撮影のカメラマンとして、サイトに載せるキャスト写真も自分で撮れます。</p>
           <ul>
@@ -522,7 +522,7 @@
       <h2 class="big reveal">WORKS</h2>
       <ul class="works-list">
         <li class="work reveal">
-          <a class="cover-link" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 WarmRelation のサイトを開く"><div class="cover wr"><b><small>レンタル彼氏</small>WARMRELATION</b></div></a>
+          <a class="cover-link" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 WarmRelation のサイトを開く"><div class="cover wr"><img src="img/logo-warmrelation.png" width="440" height="153" loading="lazy" alt="WarmRelation ウォームリレーションのロゴ"></div></a>
           <a class="more" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
           <p class="work-cap"><b>WarmRelation</b><span>Website ─ 感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span><span class="work-url">warmrelation.com</span><a class="recruit" href="https://warmrelation.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
         </li>
@@ -537,7 +537,7 @@
           <p class="work-cap"><b>レンタルフレンド by WarmRelation</b><span>Website ─ 外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span><span class="work-url">womens-ribbon.com</span><a class="recruit" href="https://womens-ribbon.com/recruit-women/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
         </li>
         <li class="work reveal">
-          <a class="cover-link" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-label="レンタル彼女 Lily のサイトを開く"><div class="cover ly"><b><small>レンタル彼女</small>Lily</b></div></a>
+          <a class="cover-link" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-label="レンタル彼女 Lily のサイトを開く"><div class="cover ly"><img src="img/logo-lily.png" width="440" height="200" loading="lazy" alt="レンタル彼女 Lily のロゴ"></div></a>
           <a class="more" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
           <p class="work-cap"><b>レンタル彼女 Lily</b><span>Website ─ 東京のレンタル彼女の公式サイト。プロデューサーとして運営にも携わっています</span><span class="work-url">renkano-lily.com</span><a class="recruit" href="https://renkano-lily.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
         </li>
@@ -587,7 +587,7 @@
   <section id="profile" class="profile-sec">
     <div class="wrap profile">
       <div class="profile-photos">
-        <img class="main reveal-img" src="img/cafe.jpg" width="800" height="1000" loading="lazy" alt="カフェでグラスを手にする柴崎凌兵">
+        <img class="main reveal-img" src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="カメラを構える柴崎凌兵">
         <img class="sub reveal" src="img/illust.jpg" width="566" height="566" loading="lazy" alt="柴崎凌兵の似顔絵イラスト">
       </div>
       <div>
@@ -614,7 +614,7 @@
 <footer id="contact">
   <div class="wrap">
     <div class="contact">
-      <img class="contact-photo reveal" src="img/camera.jpg" width="800" height="1000" loading="lazy" alt="">
+      <img class="contact-photo reveal" src="img/portrait-desk.jpg" width="900" height="1125" loading="lazy" alt="">
       <div class="reveal">
         <h2 class="big">CONTACT</h2>
         <p class="contact-quote">自分が前に出るのではなく、<br>キャストが主役として立てる場所を整えるのが仕事だと考えています。<br>お店のサイト、キャストのプロデュース、撮影、どれからでも相談できます。</p>
