@@ -21,12 +21,13 @@ main ブランチに push すると数分で反映される（ビルド工程な
 
 ## サイト制作の実績（リンク先）
 
-| 名前 | URL |
-| --- | --- |
-| レンタル彼氏 WarmRelation | https://warmrelation.com/ |
-| レンタル彼氏 CROSS ROAD | https://crossroad24.com/ |
-| レンタルフレンド by WarmRelation | https://womens-ribbon.com/ |
-| Via Photo | https://via-photo.com/ |
+| 名前 | URL | キャスト募集ページ |
+| --- | --- | --- |
+| レンタル彼氏 WarmRelation | https://warmrelation.com/ | https://warmrelation.com/recruit/ |
+| レンタル彼氏 CROSS ROAD | https://crossroad24.com/ | https://crossroad24.com/recruit/ |
+| レンタルフレンド by WarmRelation | https://womens-ribbon.com/ | https://womens-ribbon.com/recruit-women/ |
+| レンタル彼女 Lily | https://renkano-lily.com/ | https://renkano-lily.com/recruit/ |
+| Via Photo | https://via-photo.com/ | （なし） |
 
 ## デザインの決まりごと
 
@@ -34,7 +35,7 @@ main ブランチに push すると数分で反映される（ビルド工程な
 - **白ベース＋紫の差し色**（2026年11月8日、小林さんの依頼）。参考は https://ikkaaannnn.com/ のデザインの雰囲気（白地、大きな英字のセリフ見出し、写真と色の面を重ねる配置、手書き風の英字、線つきの「VISIT」リンク）。参考サイトの文章や画像はまねしない
 - ロゴは柴崎さんのビックリマン風シールのイラスト（`img/logo.jpg`、左上に少し傾けて置く）
 - メニューは右上の丸いボタンから全画面で開く。各ブロックは画面に入ると出てくる（動きを減らす設定の人には出さない）
-- 構成：ヒーロー → CAREER（歩み、4段階）→ SERVICE（できること）→ WORKS（実績）→ FLOW（進め方）→ SASUKE（挑戦中、2027年）→ PROFILE → CARD（名刺）→ CONTACT（フッター）
+- 構成：ヒーロー → CARD（名刺、2026年11月に前へ移動）→ CAREER（歩み、4段階）→ SERVICE（できること）→ WORKS（実績）→ FLOW（進め方）→ SASUKE（挑戦中、2027年）→ PROFILE → CONTACT（フッター）
 - 色は `:root` の変数だけ：白 `--white`、文字 `--ink #222`、薄紫の白 `--mist`、紫 `--purple #7B4FD8`・濃紫 `--purple-deep`・写真の裏の面 `--block #B9A2F2`、フッター `--night #222`
 - 字体：英字の大見出しは Playfair Display、手書き風は Allura、英字ラベルは Lexend Deca、日本語は Noto Sans JP（細めで字間を広く）
 - 英字見出しの下や近くに、必ず日本語の見出しか説明を添える
@@ -53,5 +54,4 @@ main ブランチに push すると数分で反映される（ビルド工程な
 - [ ] サイト制作・プロデュース・撮影の料金の載せ方（連絡先に「準備中」の注記）
 - [ ] SASUKEを目指すきっかけ
 - [ ] 名前の英字表記のゆれ：サイトとLilyの名刺は shibasaki、WarmRelationの名刺は SHIBAZAKI
-- [ ] Lilyのサイト（renkano-lily.com、名刺に記載）を実績に入れるか
 - [ ] 撮影した写真の作例（今サイトにある写真は柴崎さん本人のもの）
