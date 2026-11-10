@@ -20,6 +20,7 @@ main ブランチに push すると数分で反映される（ビルド工程な
 | --- | --- |
 | `index.html` | サイト本体。CSSも1ファイルに入っている |
 | `img/work-*.jpg` | 実績の表紙（WarmRelationのバナー、CROSS ROAD・レンタルフレンドのサイト画面）。写っているキャストの了承あり（2026年11月、小林さん経由で確認） |
+| `img/og.jpg` | LINE・メール・SNSでURLを送ったときに出る画像（1200×630） |
 | `img/logo-lily.png` | Lilyの表紙に使うロゴ（背景を透明にしたもの） |
 | `img/photographer.jpg` | カメラを構える柴崎さん本人（顔はカメラで隠れている。本人と確認済み） |
 | `img/card-*.jpg` | 名刺2枚（WarmRelation代表・Lilyプロデューサー）。入稿用PDFから仕上がりサイズ91×55mmで切り出したもの |
