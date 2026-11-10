@@ -322,6 +322,45 @@
   .cards figcaption b { font-size: 15px; font-weight: 500; letter-spacing: .12em; }
   .cards figcaption span { font-size: 12px; color: var(--ink-dim); letter-spacing: .14em; }
 
+  /* ── WHY（WarmRelationを選ぶ理由） ── */
+  .why-sec { background: var(--mist); overflow: hidden; }
+  .why-sec::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 40% 50% at 90% 10%, rgba(243, 226, 179, .4), transparent 70%); }
+  .why-head { position: relative; display: flex; align-items: end; gap: 48px; flex-wrap: wrap; margin-bottom: 72px; }
+  .why-head .big { font-size: clamp(72px, 12vw, 170px); }
+  .why-head-jp .label { color: var(--purple); }
+  .why-head-jp h3 { margin: 10px 0 8px; font-weight: 300; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.7; letter-spacing: .18em; }
+  .why-compare { position: relative; display: grid; grid-template-columns: .8fr 1.2fr; margin-bottom: 64px; }
+  .why-compare > div { position: relative; padding: 36px 40px; }
+  .why-compare small { display: block; font-size: 11px; letter-spacing: .24em; margin-bottom: 14px; }
+  .why-image { background: #fff; color: var(--ink-dim); }
+  .why-image ul { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+  .why-image li { padding: 6px 0; border-top: 1px dashed #D8D8D8; }
+  .why-image li:first-child { border-top: 0; }
+  .why-wr { color: #fff; background: linear-gradient(135deg, #2A1452, var(--purple-deep) 60%, var(--purple)); box-shadow: 0 30px 60px -30px rgba(60, 20, 120, .6); }
+  .why-wr::after { content: ""; position: absolute; left: -14px; top: 50%; width: 28px; height: 28px; margin-top: -14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(201, 163, 91, .25); }
+  .why-wr small { color: var(--gold-light); }
+  .why-wr p { margin: 0; font-weight: 300; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.8; letter-spacing: .14em; }
+  .why-wr em { font-style: normal; font-weight: 500; background: linear-gradient(transparent 62%, rgba(201, 163, 91, .55) 62%); }
+  .why-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; }
+  .why-item { position: relative; grid-column: span 2; padding: 34px 30px 30px; background: #fff; border-radius: 4px; box-shadow: 0 1px 0 var(--line); }
+  .why-item .script { display: block; font-size: 36px; margin: -8px 0 6px -.3em; }
+  .why-item h4 { margin: 0 0 10px; font-size: 17px; font-weight: 500; letter-spacing: .12em; line-height: 1.7; }
+  .why-item p { margin: 0; font-size: 13px; line-height: 2; color: var(--ink-dim); }
+  .why-price { display: flex; align-items: baseline; gap: 6px; margin: 4px 0 8px !important; color: var(--ink) !important; }
+  .why-price b { font-family: var(--serif); font-weight: 700; font-size: 46px; line-height: 1; color: var(--purple-deep); }
+  .why-price span { font-size: 13px; }
+  .why-stance { grid-column: 2 / span 4; display: grid; grid-template-columns: auto 1fr; gap: 6px 40px; align-items: center; padding: 40px 48px; color: #fff; background: var(--night); }
+  .why-stance .label { grid-column: 1 / -1; color: var(--gold-light); }
+  .why-stance h4 { margin: 0; font-size: clamp(22px, 2.4vw, 28px); font-weight: 300; letter-spacing: .18em; line-height: 1.7;
+    background: linear-gradient(180deg, #fff 35%, var(--gold-light) 80%, var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .why-stance p { color: #CFCFCF; font-size: 14px; }
+  .why-message { position: relative; margin-top: 96px; text-align: center; }
+  .why-message .script { display: block; font-size: clamp(48px, 5vw, 72px); margin-bottom: 4px; }
+  .why-message-main { margin: 0 0 36px; font-weight: 300; font-size: clamp(18px, 2.2vw, 26px); line-height: 2; letter-spacing: .16em; }
+  .why-message-main em { font-style: normal; font-weight: 500; color: var(--purple-deep); }
+  .js .why-list .reveal:nth-child(2) { transition-delay: .12s; }
+  .js .why-list .reveal:nth-child(3) { transition-delay: .24s; }
+
   /* ── RENTAL（レンタル彼氏のプロフィールへ） ── */
   .rental-sec {
     position: relative; overflow: hidden; color: #fff; padding: 150px 0;
@@ -421,6 +460,9 @@
     .steps { grid-template-columns: 1fr 1fr; gap: 48px 0; }
     .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
     .sasuke-wrap, .profile, .rental { grid-template-columns: 1fr; gap: 64px; }
+    .why-list { grid-template-columns: 1fr 1fr; }
+    .why-item { grid-column: auto; }
+    .why-item.why-stance { grid-column: 1 / -1; }
     .profile-photos { width: min(560px, 100%); }
     .contact { grid-template-columns: 1fr; gap: 40px; justify-items: center; text-align: center; }
     .cards { grid-template-columns: 1fr; gap: 56px; max-width: 560px; }
@@ -447,6 +489,13 @@
     .hero-quote, .roles-line { margin-left: 20px; margin-right: 20px; }
     .hero-rental { margin: 28px 20px 0; font-size: 12px; letter-spacing: .08em; padding: 12px 18px 12px 16px; }
     .rental-sec { padding: 100px 0; }
+    .why-head { gap: 8px; margin-bottom: 48px; }
+    .why-compare { grid-template-columns: 1fr; }
+    .why-compare > div { padding: 28px 24px; }
+    .why-wr::after { left: 50%; top: -14px; margin: 0 0 0 -14px; }
+    .why-list { grid-template-columns: 1fr; }
+    .why-stance { grid-template-columns: 1fr; padding: 32px 26px; }
+    .why-message { margin-top: 72px; }
     .rental-price b { font-size: 46px; }
     .rental-btn { padding: 16px 24px; font-size: 13px; letter-spacing: .08em; }
     .scroll { display: none; }
@@ -504,6 +553,7 @@
     <li><a href="#flow"><small>進め方</small>FLOW</a></li>
     <li><a href="#sasuke"><small>挑戦中</small>SASUKE</a></li>
     <li><a href="#profile"><small>プロフィール</small>PROFILE</a></li>
+    <li><a href="#why"><small>選ぶ理由</small>WHY</a></li>
     <li><a href="#rental"><small>レンタルする</small>RENTAL</a></li>
     <li><a href="#contact"><small>相談する</small>CONTACT</a></li>
   </ul>
@@ -704,6 +754,61 @@
     </div>
   </section>
 
+  <section id="why" class="why-sec">
+    <div class="wrap">
+      <div class="why-head">
+        <h2 class="big reveal">WHY</h2>
+        <div class="why-head-jp reveal">
+          <span class="label">Why WarmRelation</span>
+          <h3>WarmRelationの<br>レンタル彼氏を選ぶ理由</h3>
+        </div>
+      </div>
+
+      <div class="why-compare reveal">
+        <div class="why-image">
+          <small>よくあるレンタル彼氏のイメージ</small>
+          <ul><li>一緒に遊びに行くことが中心</li><li>会っている時間だけの関係</li></ul>
+        </div>
+        <div class="why-wr">
+          <small>WarmRelation のレンタル彼氏</small>
+          <p>長い期間、<br><em>彼氏のような存在</em>として関わり、支えになる。</p>
+          <span class="spark" style="right:18px;top:16px;--s:20px" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span>
+        </div>
+      </div>
+
+      <ul class="why-list">
+        <li class="why-item reveal">
+          <span class="script" aria-hidden="true">between dates</span>
+          <h4>会わない日も、つながっている</h4>
+          <p>会わないときも、お金をかけずにキャストとやり取りできます。</p>
+        </li>
+        <li class="why-item why-call reveal">
+          <span class="script" aria-hidden="true">just call</span>
+          <h4>10分500円で、電話できる</h4>
+          <p class="why-price"><span>10分</span><b>500</b><span>円</span></p>
+          <p>会えない日でも、電話で話せます。</p>
+        </li>
+        <li class="why-item reveal">
+          <span class="script" aria-hidden="true">on hard days</span>
+          <h4>つらい時にこそ、頼れる</h4>
+          <p>楽しむためだけではありません。つらい時にこそ頼りになるのが、WarmRelationのレンタル彼氏です。</p>
+        </li>
+        <li class="why-item why-stance reveal">
+          <span class="spark" style="right:22px;top:22px;--s:18px;--d:.8s" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span>
+          <span class="label">Our stance</span>
+          <h4>利益は関係なく、<br>相手に尽くす。</h4>
+          <p>それが、WarmRelationのキャストの姿勢です。</p>
+        </li>
+      </ul>
+
+      <div class="why-message reveal">
+        <span class="script" aria-hidden="true">lean on us.</span>
+        <p class="why-message-main">遠慮せず、どんどんキャストを頼ってください。<br><em>困らせてあげてください。</em></p>
+        <a class="more" href="https://warmrelation.com/" target="_blank" rel="noopener"><span>WARMRELATION</span></a>
+      </div>
+    </div>
+  </section>
+
   <section id="rental" class="rental-sec">
     <span class="rental-sheen" aria-hidden="true"></span>
     <span class="spark" style="left:8%;top:18%;--s:20px" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="left:44%;top:12%;--s:14px;--d:.7s;--c:#fff" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:10%;top:22%;--s:24px;--d:1.4s" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:30%;bottom:16%;--s:16px;--d:2s;--c:#fff" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="left:20%;bottom:12%;--s:12px;--d:1.1s;--c:#F3E2B3" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span>
@@ -747,7 +852,7 @@
     </div>
     <div class="foot">
       <nav aria-label="フッターメニュー">
-        <a href="#card">CARD</a><a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#profile">PROFILE</a><a href="#rental">RENTAL</a>
+        <a href="#card">CARD</a><a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#profile">PROFILE</a><a href="#why">WHY</a><a href="#rental">RENTAL</a>
       </nav>
       <small>&copy; <span id="year"></span> SHIBASAKI RYOHEI</small>
     </div>
