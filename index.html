@@ -51,13 +51,27 @@
   img { display: block; max-width: 100%; height: auto; }
   ::selection { background: var(--block); color: var(--ink); }
   :focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
-  .wrap { width: min(1120px, 100% - 80px); margin-inline: auto; }
+  .wrap { position: relative; z-index: 1; width: min(1120px, 100% - 80px); margin-inline: auto; }
 
   /* 英字の大見出し */
   .big {
     margin: 0; font-family: var(--serif); font-weight: 900; line-height: 1; letter-spacing: .14em;
     font-size: clamp(64px, 11vw, 150px); color: var(--ink);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .9), 0 14px 28px rgba(60, 20, 120, .16);
   }
+  /* 透明感：すりガラスの面 */
+  .glass {
+    background: linear-gradient(145deg, rgba(255, 255, 255, .78), rgba(255, 255, 255, .42));
+    -webkit-backdrop-filter: blur(16px) saturate(140%); backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, .85);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 1px 2px rgba(60, 20, 120, .06), 0 24px 50px -24px rgba(60, 20, 120, .35);
+  }
+  /* 立体感：ふわっと浮かぶ光の玉 */
+  .orb { position: absolute; z-index: 0; border-radius: 50%; filter: blur(50px); opacity: .55; pointer-events: none; animation: float 14s ease-in-out infinite alternate; }
+  .orb.p { background: radial-gradient(circle, #B9A2F2, transparent 70%); }
+  .orb.g { background: radial-gradient(circle, #F3E2B3, transparent 70%); animation-duration: 18s; }
+  .orb.b { background: radial-gradient(circle, #BFE3F7, transparent 70%); animation-duration: 16s; }
+  @keyframes float { to { transform: translate(40px, -30px) scale(1.12); } }
   .label { font-family: var(--label); font-size: 11px; font-weight: 400; letter-spacing: .3em; text-transform: uppercase; }
   .script { font-family: var(--script); font-weight: 400; color: var(--purple); line-height: 1; white-space: nowrap; pointer-events: none; }
   .jp-head { margin: 0; font-weight: 300; font-size: clamp(22px, 2.6vw, 30px); line-height: 1.8; letter-spacing: .2em; }
@@ -100,8 +114,8 @@
   .logo img { width: 100%; }
   .menu-btn {
     position: fixed; z-index: 50; right: 28px; top: 26px; width: 52px; height: 52px; border: 0; border-radius: 50%;
-    background: rgba(255, 255, 255, .9); cursor: pointer; display: grid; place-items: center;
-    box-shadow: 0 2px 14px rgba(0, 0, 0, .08);
+    background: rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); cursor: pointer; display: grid; place-items: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 0 0 1px rgba(255, 255, 255, .7), 0 8px 24px -8px rgba(60, 20, 120, .35);
   }
   .menu-btn i, .menu-btn i::before, .menu-btn i::after { display: block; width: 24px; height: 1px; background: var(--ink); position: relative; transition: transform .3s, background .3s; }
   .menu-btn i::before, .menu-btn i::after { content: ""; position: absolute; left: 0; }
@@ -183,10 +197,10 @@
   .service-head .big { margin-right: -.12em; }
   .service-head p { margin: 18px 0 0; font-size: 13px; color: var(--ink-dim); letter-spacing: .2em; }
   .service-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 40px; padding: 0 0 0 0; }
-  .service-grid::before { content: ""; position: absolute; z-index: -1; left: -40vw; right: 32%; top: 110px; bottom: -80px; background: var(--block); }
-  .svc { position: relative; padding-right: 26px; }
-  .svc-label { position: absolute; right: 0; top: 0; writing-mode: vertical-rl; color: #BDBDBD; }
-  .svc-figure { position: relative; margin: 0 0 22px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--ink); }
+  .service-grid::before { content: ""; position: absolute; z-index: -1; left: -40vw; right: 32%; top: 110px; bottom: -80px; background: linear-gradient(135deg, #C8B5F5, var(--block) 60%, #A98CEB); border-radius: 0 24px 24px 0; }
+  .svc { position: relative; padding: 16px 40px 26px 16px; border-radius: 14px; }
+  .svc-label { position: absolute; right: 12px; top: 16px; writing-mode: vertical-rl; color: #BDBDBD; }
+  .svc-figure { position: relative; margin: 0 0 22px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--ink); border-radius: 8px; box-shadow: 0 18px 30px -18px rgba(0, 0, 0, .5); }
   .svc-figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
   .svc:hover .svc-figure img { transform: scale(1.05); }
   .svc-figure.type { display: grid; place-items: center; text-align: center; color: #fff; padding: 24px; }
@@ -214,8 +228,10 @@
   .work a.cover-link { display: block; width: min(680px, 100%); margin-inline: auto; text-decoration: none; }
   .cover {
     position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; text-align: center; overflow: hidden;
-    color: #fff; transition: transform .5s;
+    color: #fff; transition: transform .5s, box-shadow .5s; border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 30px 60px -30px rgba(60, 20, 120, .45);
   }
+  .cover-link:hover .cover { box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 44px 70px -30px rgba(60, 20, 120, .55); }
   .cover-link:hover .cover { transform: translateY(-6px); }
   .cover b { position: relative; font-family: var(--serif); font-weight: 700; font-size: clamp(26px, 4.2vw, 50px); letter-spacing: .16em; line-height: 1.2; }
   .cover b small { display: block; font-family: var(--sans); font-weight: 300; font-size: 12px; letter-spacing: .4em; margin-bottom: 14px; }
@@ -268,9 +284,9 @@
   .year { position: relative; z-index: 1; margin: 0 0 -.12em; text-align: right; line-height: 1; }
   .year small { display: block; font-size: 12px; letter-spacing: .3em; color: var(--ink-dim); margin-bottom: 6px; }
   .year b { display: block; font-family: var(--serif); font-weight: 900; font-size: clamp(110px, 15vw, 210px); letter-spacing: .02em; line-height: .82; color: transparent; -webkit-text-stroke: 1.5px var(--purple); }
-  .training { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-  .training::before { content: ""; position: absolute; z-index: -1; left: 40px; right: -40vw; top: 40px; bottom: -40px; background: var(--block); }
-  .training li { position: relative; background: var(--white); padding: 36px 30px 32px 24px; min-height: 200px; box-shadow: 0 1px 0 var(--line); }
+  .training { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .training::before { content: ""; position: absolute; z-index: -1; left: 40px; right: -40vw; top: 40px; bottom: -40px; background: linear-gradient(135deg, #C8B5F5, var(--block) 60%, #A98CEB); border-radius: 24px 0 0 24px; }
+  .training li { position: relative; padding: 36px 30px 32px 24px; min-height: 200px; border-radius: 12px; }
   .training .label { position: absolute; right: 14px; top: 16px; writing-mode: vertical-rl; color: #C4C4C4; font-size: 10px; }
   .training b { display: block; font-size: 18px; font-weight: 500; letter-spacing: .16em; margin-bottom: 8px; }
   .training span { font-size: 13px; color: var(--ink-dim); }
@@ -413,9 +429,43 @@
   .cd-words .cd-last { margin: 28px 0 0; font-size: 16px; color: #fff; }
   .cd-words em { font-style: normal; font-weight: 500; background: linear-gradient(transparent 62%, rgba(201, 163, 91, .5) 62%); }
 
-  .contact-tel { display: flex; flex-wrap: wrap; align-items: center; justify-content: inherit; gap: 6px 12px; margin: 18px 0 0; font-size: 13px; letter-spacing: .1em; color: #EDEDED; }
-  .contact-tel small { font-size: 11px; color: #A8A8A8; }
-  .tel-badge { font-family: var(--label); font-size: 11px; letter-spacing: .14em; padding: 3px 10px; border-radius: 999px; color: var(--night); background: linear-gradient(110deg, var(--gold-light), var(--gold)); }
+
+  /* ── LIKES（好きなこと）と雨 ── */
+  .likes-sec { position: relative; overflow: hidden; color: #fff; padding: 150px 0;
+    background: linear-gradient(180deg, #1B2233 0%, #2A2550 55%, #3B2A6B 100%); }
+  .likes-sec::after { content: ""; position: absolute; inset: auto 0 0 0; height: 40%; pointer-events: none; background: linear-gradient(transparent, rgba(185, 162, 242, .18)); }
+  .rain-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .rain-page { position: fixed; z-index: 45; opacity: 0; transition: opacity .8s; }
+  .raining .rain-page { opacity: 1; }
+  .likes-head { position: relative; margin-bottom: 72px; }
+  .likes-head .big { color: #fff; text-shadow: 0 14px 28px rgba(0, 0, 0, .35); }
+  .likes-head .script { position: relative; display: inline-block; margin: -6px 0 0 14%; font-size: clamp(38px, 4.2vw, 60px);
+    background-image: linear-gradient(100deg, #CFE8F7 15%, #fff 45%, var(--gold-light) 70%, #CFE8F7 95%); }
+  .likes-sub { margin: 14px 0 0; font-size: 13px; letter-spacing: .3em; color: #C9C9DA; }
+  .likes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; }
+  .glass-dark {
+    background: linear-gradient(150deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .05));
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, .22); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 30px 50px -30px rgba(0, 0, 0, .6);
+  }
+  .like { position: relative; padding: 30px 26px 28px; border-radius: 14px; transition: transform .4s; }
+  .like:hover { transform: translateY(-6px); }
+  .like-icon { display: block; width: 44px; height: 44px; color: var(--gold-light); margin-bottom: 18px; }
+  .like-icon svg { display: block; width: 100%; height: 100%; }
+  .like .label { color: #BFE3F7; }
+  .like h3 { margin: 6px 0 8px; font-size: 19px; font-weight: 500; letter-spacing: .14em; line-height: 1.6; }
+  .like p { margin: 0; font-size: 13px; line-height: 2; color: #DCDCEA; }
+  .like-rain { background: linear-gradient(150deg, rgba(191, 227, 247, .28), rgba(123, 79, 216, .22)); }
+  .like-rain h3 { font-family: var(--serif); font-size: 44px; font-weight: 700; line-height: 1.2; }
+  .rain-toggle-inline { margin-top: 20px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .1); color: #fff; font: inherit; font-size: 12px; letter-spacing: .1em; cursor: pointer; transition: background .3s; }
+  .rain-toggle-inline:hover { background: rgba(255, 255, 255, .22); }
+  .rain-btn {
+    position: fixed; z-index: 50; right: 28px; top: 90px; width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+    color: var(--purple-deep); background: rgba(255, 255, 255, .6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 0 0 1px rgba(255, 255, 255, .7), 0 8px 24px -8px rgba(60, 20, 120, .35); transition: background .3s, color .3s;
+  }
+  .rain-btn svg { width: 22px; height: 22px; }
+  .rain-btn[aria-pressed="true"] { background: var(--purple-deep); color: #fff; }
 
   /* ── フッター（相談） ── */
   footer { background: var(--night); color: #EDEDED; padding: 130px 0 48px; }
@@ -454,7 +504,7 @@
     .scroll::after { animation: none; }
     .foil::after, .rental-sheen, .rental-btn::after { animation: none; opacity: 0; }
     .route-line { animation: none; }
-    .marquee-track, .cd-clock i, .cd-dots span.today, .logo.spin { animation: none; }
+    .marquee-track, .cd-clock i, .cd-dots span.today, .logo.spin, .orb { animation: none; }
     .route-line .rider, .route-line .rider svg { animation: none; left: 50%; }
     .spark { animation: none; opacity: .8; }
     .script { animation: none; }
@@ -478,8 +528,9 @@
     .steps { grid-template-columns: 1fr 1fr; gap: 48px 0; }
     .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
     .sasuke-wrap, .profile, .rental, .cd { grid-template-columns: 1fr; gap: 64px; }
+    .likes { grid-template-columns: 1fr 1fr; }
+    .like-rain { grid-column: 1 / -1; }
     .cd-main { grid-row: auto; }
-    .contact-tel { justify-content: center; }
     .profile-photos { width: min(560px, 100%); }
     .contact { grid-template-columns: 1fr; gap: 40px; justify-items: center; text-align: center; }
     .cards { grid-template-columns: 1fr; gap: 56px; max-width: 560px; }
@@ -507,6 +558,9 @@
     .hero-rental { margin: 28px 20px 0; font-size: 12px; letter-spacing: .08em; padding: 12px 18px 12px 16px; }
     .rental-sec { padding: 100px 0; }
     .cd-sec { padding: 100px 0; }
+    .likes-sec { padding: 100px 0; }
+    .likes { grid-template-columns: 1fr; }
+    .rain-btn { right: 16px; top: 74px; width: 40px; height: 40px; }
     .cd-sub { margin-top: 12px; }
     .cd-dots { gap: 3px; }
     .cd-clock { font-size: 20px; }
@@ -556,6 +610,8 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></symbol></svg>
 
 <a class="logo" href="#" aria-label="柴崎凌兵 ページの先頭へ"><span class="bubble" aria-hidden="true">押すと、きらっとします</span><span class="foil" style="--sd:1.5s"><img src="img/logo.jpg" width="240" height="240" alt="WR柴崎凌兵のシール風イラスト"></span></a>
+<canvas class="rain-canvas rain-page" data-rain="page" aria-hidden="true"></canvas>
+<button class="rain-btn" type="button" data-rain-toggle aria-pressed="false" aria-label="ページに雨を降らせる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v7a2 2 0 0 1-4 0"/></svg></button>
 <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="menu"><i></i></button>
 <nav class="menu" id="menu" aria-label="メニュー">
   <ul>
@@ -566,6 +622,7 @@
     <li><a href="#flow"><small>進め方</small>FLOW</a></li>
     <li><a href="#sasuke"><small>挑戦中</small>SASUKE</a></li>
     <li><a href="#countdown"><small>今年の残り</small>COUNTDOWN</a></li>
+    <li><a href="#likes"><small>好きなこと</small>LIKES</a></li>
     <li><a href="#profile"><small>プロフィール</small>PROFILE</a></li>
     <li><a href="#rental"><small>レンタルする</small>RENTAL</a></li>
     <li><a href="#contact"><small>相談する</small>CONTACT</a></li>
@@ -573,6 +630,7 @@
 </nav>
 
 <header class="hero">
+  <span class="orb p" style="width:420px;height:420px;left:-120px;top:20%" aria-hidden="true"></span><span class="orb g" style="width:300px;height:300px;left:30%;top:70%" aria-hidden="true"></span>
   <figure class="hero-photo reveal-img">
     <img src="img/portrait-desk.jpg" width="900" height="1125" alt="カフェのデスクでマグカップを手に座る柴崎凌兵">
   </figure>
@@ -595,7 +653,7 @@
 </header>
 
 <main>
-  <div class="marquee " aria-hidden="true"><div class="marquee-track"><div><span>RENTAL IS MY LIFE</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>売れるキャストを、プロデュースします</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>24時間いつでも、電話OK</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>移動手段まで、レンタル</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>SASUKE 2027</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div><div><span>RENTAL IS MY LIFE</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>売れるキャストを、プロデュースします</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>24時間いつでも、電話OK</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>移動手段まで、レンタル</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>SASUKE 2027</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div></div></div>
+  <div class="marquee " aria-hidden="true"><div class="marquee-track"><div><span>RENTAL IS MY LIFE</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>売れるキャストを、プロデュースします</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>移動手段まで、レンタル</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>SASUKE 2027</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>雨の日が、好きです</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div><div><span>RENTAL IS MY LIFE</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>売れるキャストを、プロデュースします</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>移動手段まで、レンタル</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>SASUKE 2027</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>雨の日が、好きです</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div></div></div>
   <section id="card" class="card-sec">
     <div class="wrap">
       <div class="card-head">
@@ -638,13 +696,14 @@
   </section>
 
   <section id="service">
+    <span class="orb b" style="width:360px;height:360px;right:-80px;top:40px" aria-hidden="true"></span>
     <div class="wrap">
       <div class="service-head">
         <h2 class="big reveal">SERVICE</h2>
         <p class="reveal">できること</p>
       </div>
       <div class="service-grid">
-        <article class="svc reveal">
+        <article class="svc glass reveal">
           <span class="label svc-label">#Website</span>
           <div class="svc-figure type site" aria-hidden="true"><b>Website<i>for your shop</i></b></div>
           <h3>お店のサイトを作る</h3>
@@ -655,7 +714,7 @@
             <li>料金・ルール・予約までの案内</li>
           </ul>
         </article>
-        <article class="svc reveal">
+        <article class="svc glass reveal">
           <span class="label svc-label">#Produce</span>
           <div class="svc-figure type cast" aria-hidden="true"><b>Produce<i>for your cast</i></b></div>
           <h3>売れるキャストを、プロデュースする</h3>
@@ -666,7 +725,7 @@
             <li>お店の運営や集客の相談</li>
           </ul>
         </article>
-        <article class="svc reveal">
+        <article class="svc glass reveal">
           <span class="label svc-label">#Photo</span>
           <figure class="svc-figure"><img src="img/photographer.jpg" width="724" height="781" loading="lazy" alt="花の向こうでカメラを構える柴崎凌兵"></figure>
           <h3>写真を撮る</h3>
@@ -682,6 +741,7 @@
   </section>
 
   <section id="works" class="works-sec">
+    <span class="orb p" style="width:460px;height:460px;left:-160px;top:30%" aria-hidden="true"></span><span class="orb g" style="width:340px;height:340px;right:-100px;top:65%" aria-hidden="true"></span>
     <div class="wrap">
       <h2 class="big reveal">WORKS</h2>
       <ul class="works-list">
@@ -725,6 +785,7 @@
   </section>
 
   <section id="sasuke" class="sasuke-sec">
+    <span class="orb b" style="width:380px;height:380px;left:10%;top:30%" aria-hidden="true"></span>
     <div class="wrap sasuke-wrap">
       <div class="sasuke-title">
         <h2 class="big reveal" aria-label="SASUKE">SASUKE</h2>
@@ -735,9 +796,9 @@
       <div class="sasuke-side">
       <p class="year reveal"><small>目指すのは</small><b>2027</b></p>
       <ul class="training">
-        <li class="reveal"><span class="label">Bouldering</span><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
-        <li class="reveal"><span class="label">Swimming</span><b>水泳</b><span>全身の持久力</span></li>
-        <li class="reveal"><span class="label">Jump rope</span><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
+        <li class="glass reveal"><span class="label">Bouldering</span><b>ボルダリング</b><span>つかむ力と、体を引き上げる力</span></li>
+        <li class="glass reveal"><span class="label">Swimming</span><b>水泳</b><span>全身の持久力</span></li>
+        <li class="glass reveal"><span class="label">Jump rope</span><b>縄跳び</b><span>リズム感と、足の軽さ</span></li>
       </ul>
       </div>
     </div>
@@ -763,6 +824,44 @@
         <p>そう思うと、中途半端な時間は過ごせないと思った。</p>
         <p class="cd-last">自分が死ぬその日までに、<br><em>絶対に悔いのない生き方をしていたい。</em></p>
       </div>
+    </div>
+  </section>
+
+  <section id="likes" class="likes-sec">
+    <canvas class="rain-canvas" data-rain="section" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="likes-head">
+        <h2 class="big reveal">LIKES</h2>
+        <span class="script reveal" style="--rot:-8deg" aria-hidden="true">i love rainy days.</span>
+        <p class="likes-sub reveal">好きなこと</p>
+      </div>
+      <ul class="likes">
+        <li class="like like-rain glass-dark reveal">
+          <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 24a18 18 0 0 1 36 0z"/><path d="M24 24v14a4 4 0 0 1-8 0"/><path d="M24 6v-2"/></svg></span>
+          <span class="label">Rain</span>
+          <h3>雨</h3>
+          <p>雨が、大好きです。</p>
+          <button class="rain-toggle-inline" type="button" data-rain-toggle>このページに、雨を降らせる</button>
+        </li>
+        <li class="like glass-dark reveal">
+          <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 16h8l3-5h14l3 5h8v22H6z"/><circle cx="24" cy="26" r="7"/></svg></span>
+          <span class="label">Camera</span>
+          <h3>カメラ</h3>
+          <p>WarmRelationのキャストの宣材写真も、自分で撮っています。</p>
+        </li>
+        <li class="like glass-dark reveal">
+          <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="12" width="38" height="24" rx="2"/><path d="M12 12v14M19 12v14M26 12v14M33 12v14M40 12v14" /><path d="M12 26v10M19 26v10M26 26v10M33 26v10M40 26v10" stroke-width="1"/></svg></span>
+          <span class="label">Piano</span>
+          <h3>ピアノ</h3>
+          <p>SixTONESの<br>「Imitation Rain」を練習中。</p>
+        </li>
+        <li class="like glass-dark reveal">
+          <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40C10 22 22 10 40 8c-2 18-14 30-30 32z"/><path d="M10 40 28 22"/></svg></span>
+          <span class="label">Organic</span>
+          <h3>オーガニックスーパー</h3>
+          <p>お気に入りの場所です。</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -823,14 +922,13 @@
         <p class="contact-quote">自分が前に出るのではなく、<br>キャストが主役として立てる場所を整えるのが仕事だと考えています。<br>お店のサイト、キャストのプロデュース、撮影、どれからでも相談できます。</p>
         <a class="contact-mail" href="mailto:shibasakiryohei.wr@gmail.com?subject=%E3%81%94%E7%9B%B8%E8%AB%87"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>メールで相談する</a>
         <span class="contact-addr">shibasakiryohei.wr@gmail.com</span>
-        <p class="contact-tel"><span class="tel-badge">24h</span>24時間いつでも、電話していただいて大丈夫です。<small>（電話番号は準備中）</small></p>
         <span class="todo">サイト制作・プロデュース・撮影の料金は準備中です</span>
         <a class="contact-rental" href="https://warmrelation.com/cast/shibasaki-ryohei/" target="_blank" rel="noopener">レンタル彼氏としての予約は、WarmRelationのキャストページから<svg class="ext" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 3H3v10h10v-3"/><path d="M9 2h5v5M14 2 7.5 8.5"/></svg></a>
       </div>
     </div>
     <div class="foot">
       <nav aria-label="フッターメニュー">
-        <a href="#card">CARD</a><a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#countdown">COUNTDOWN</a><a href="#profile">PROFILE</a><a href="#rental">RENTAL</a>
+        <a href="#card">CARD</a><a href="#career">CAREER</a><a href="#service">SERVICE</a><a href="#works">WORKS</a><a href="#flow">FLOW</a><a href="#sasuke">SASUKE</a><a href="#countdown">COUNTDOWN</a><a href="#likes">LIKES</a><a href="#profile">PROFILE</a><a href="#rental">RENTAL</a>
       </nav>
       <small>&copy; <span id="year"></span> SHIBASAKI RYOHEI</small>
     </div>
@@ -905,6 +1003,49 @@
         }
       }
       window.scrollTo({ top: 0, behavior: calm ? 'auto' : 'smooth' });
+    });
+
+    // 雨：LIKESの欄では常に、ボタンを押すとページ全体にも降る
+    function Rain(canvas, density, rgb) {
+      rgb = rgb || '214, 228, 255';
+      var ctx = canvas.getContext('2d'), drops = [], ripples = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), on = false, raf = 0;
+      function size() { var r = canvas.getBoundingClientRect(); w = r.width; h = r.height; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+      function drop(init) { var z = Math.random(); return { x: Math.random() * (w + 200) - 100, y: init ? Math.random() * h : -20 - Math.random() * 100, z: z, len: 10 + z * 18, v: 9 + z * 12 }; }
+      function fill() { var n = Math.round(w * h / 10000 * density); drops = []; for (var i = 0; i < n; i++) drops.push(drop(true)); }
+      function frame() {
+        ctx.clearRect(0, 0, w, h); ctx.lineCap = 'round';
+        for (var i = 0; i < drops.length; i++) {
+          var d = drops[i]; d.y += d.v; d.x -= d.v * .12;
+          ctx.strokeStyle = 'rgba(' + rgb + ',' + (.18 + d.z * .45) + ')'; ctx.lineWidth = .6 + d.z * .9;
+          ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + d.len * .12, d.y - d.len); ctx.stroke();
+          if (d.y > h) { if (d.z > .55 && ripples.length < 40) ripples.push({ x: d.x, y: h - 6 - Math.random() * 30, r: 1, a: .5 }); drops[i] = drop(false); }
+        }
+        for (var j = ripples.length - 1; j >= 0; j--) {
+          var r = ripples[j]; r.r += .7; r.a -= .015;
+          if (r.a <= 0) { ripples.splice(j, 1); continue; }
+          ctx.strokeStyle = 'rgba(' + rgb + ',' + r.a + ')'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.ellipse(r.x, r.y, r.r * 2.2, r.r * .6, 0, 0, Math.PI * 2); ctx.stroke();
+        }
+        raf = requestAnimationFrame(frame);
+      }
+      this.start = function () { if (on) return; on = true; size(); fill(); raf = requestAnimationFrame(frame); };
+      this.stop = function () { on = false; cancelAnimationFrame(raf); ctx.clearRect(0, 0, w, h); };
+      window.addEventListener('resize', function () { if (on) { size(); fill(); } });
+    }
+    if (!calm) {
+      var secCanvas = document.querySelector('[data-rain="section"]'), secRain = new Rain(secCanvas, 1.6);
+      new IntersectionObserver(function (es) { es.forEach(function (e) { e.isIntersecting ? secRain.start() : secRain.stop(); }); }).observe(secCanvas);
+    }
+    var pageRain = new Rain(document.querySelector('[data-rain="page"]'), .8, '110, 80, 200'), raining = false;
+    document.querySelectorAll('[data-rain-toggle]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        raining = !raining; root.classList.toggle('raining', raining);
+        raining ? pageRain.start() : setTimeout(function () { if (!raining) pageRain.stop(); }, 800);
+        document.querySelectorAll('[data-rain-toggle]').forEach(function (x) {
+          if (x.classList.contains('rain-btn')) { x.setAttribute('aria-pressed', raining); x.setAttribute('aria-label', raining ? '雨を止める' : 'ページに雨を降らせる'); }
+          else x.textContent = raining ? '雨を、止める' : 'このページに、雨を降らせる';
+        });
+      });
     });
 
     var items = document.querySelectorAll('.reveal, .reveal-img');
