@@ -196,23 +196,44 @@
   .service-head { text-align: right; margin-bottom: 72px; overflow: hidden; }
   .service-head .big { margin-right: -.12em; }
   .service-head p { margin: 18px 0 0; font-size: 13px; color: var(--ink-dim); letter-spacing: .2em; }
-  .service-grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 40px; padding: 0 0 0 0; }
-  .service-grid::before { content: ""; position: absolute; z-index: -1; left: -40vw; right: 32%; top: 110px; bottom: -80px; background: linear-gradient(135deg, #C8B5F5, var(--block) 60%, #A98CEB); border-radius: 0 24px 24px 0; }
-  .svc { position: relative; padding: 16px 40px 26px 16px; border-radius: 14px; }
-  .svc-label { position: absolute; right: 12px; top: 16px; writing-mode: vertical-rl; color: #BDBDBD; }
-  .svc-figure { position: relative; margin: 0 0 22px; aspect-ratio: 1 / 1; overflow: hidden; background: var(--ink); border-radius: 8px; box-shadow: 0 18px 30px -18px rgba(0, 0, 0, .5); }
-  .svc-figure img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s; }
-  .svc:hover .svc-figure img { transform: scale(1.05); }
-  .svc-figure.type { display: grid; place-items: center; text-align: center; color: #fff; padding: 24px; }
-  .svc-figure.type b { font-family: var(--serif); font-weight: 900; font-size: clamp(30px, 3.4vw, 46px); letter-spacing: .08em; line-height: 1.15; }
-  .svc-figure.type b i { display: block; font-family: var(--script); font-weight: 400; font-style: normal; color: var(--block); font-size: .9em; letter-spacing: 0; margin-top: 6px; }
-  .svc-figure.type.site { background: var(--ink); }
-  .svc-figure.type.cast { background: var(--purple-deep); }
-  .svc h3 { margin: 0 0 8px; font-size: 18px; font-weight: 500; letter-spacing: .14em; line-height: 1.6; }
-  .svc h3::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 10px; background: var(--purple); border-radius: 50%; vertical-align: 1px; }
-  .svc p { margin: 0 0 12px; font-size: 13px; line-height: 2; }
-  .svc ul { margin: 0; padding: 0; list-style: none; font-size: 13px; }
-  .svc li { padding: 6px 0; border-top: 1px dashed rgba(34, 34, 34, .25); line-height: 1.8; }
+  .svc-list { display: grid; gap: 130px; }
+  .svc-row { position: relative; display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; }
+  .svc-row.rev .svc-visual { order: 2; }
+  .svc-visual { position: relative; z-index: 0; }
+  .svc-visual::before { /* 写真の裏に敷く色の面（左右交互） */
+    content: ""; position: absolute; z-index: -1; left: -14%; right: 22%; top: 18%; bottom: -14%; border-radius: 24px;
+    background: linear-gradient(135deg, #D9CCF8, var(--block) 70%, #A98CEB); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6);
+  }
+  .svc-row.rev .svc-visual::before { left: 22%; right: -14%; background: linear-gradient(135deg, #F3E9CF, #E3D3F3 60%, #CDB8F2); }
+  .svc-row:nth-child(3) .svc-visual::before { background: linear-gradient(135deg, #D7ECF7, #CFC2F4 70%, #B9A2F2); }
+  .browser { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, .06), 0 40px 70px -32px rgba(60, 20, 120, .55); transform: perspective(1200px) rotateY(6deg) rotateX(2deg); transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .svc-row:hover .browser { transform: perspective(1200px) rotateY(0) rotateX(0); }
+  .browser-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; background: linear-gradient(#FAFAFC, #F0EEF5); border-bottom: 1px solid #E7E3EF; }
+  .browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #E1DBEA; }
+  .browser-bar i:first-child { background: #F2B8C6; } .browser-bar i:nth-child(2) { background: #F3E2B3; } .browser-bar i:nth-child(3) { background: #CDE8D5; }
+  .browser-bar span { margin-left: 12px; flex: 1; padding: 3px 12px; border-radius: 999px; background: #fff; font-family: var(--label); font-size: 11px; letter-spacing: .06em; color: var(--ink-dim); box-shadow: inset 0 0 0 1px #ECE8F2; }
+  .browser img { width: 100%; }
+  .produce-panel {
+    position: relative; aspect-ratio: 16 / 10; border-radius: 18px; display: grid; place-content: center; text-align: center; color: #fff;
+    background: radial-gradient(ellipse 70% 80% at 80% 10%, rgba(243, 226, 179, .35), transparent 60%), radial-gradient(ellipse 60% 70% at 0% 100%, rgba(185, 162, 242, .6), transparent 60%), linear-gradient(135deg, #2A1452, var(--purple-deep) 55%, var(--purple));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 40px 70px -32px rgba(60, 20, 120, .6);
+  }
+  .produce-panel b { font-family: var(--serif); font-weight: 900; font-size: clamp(44px, 6vw, 84px); letter-spacing: .06em; line-height: 1; text-shadow: 0 10px 30px rgba(0, 0, 0, .3); }
+  .produce-panel i { font-family: var(--script); font-style: normal; font-size: clamp(30px, 3.6vw, 50px); line-height: 1.2; color: var(--gold-light); }
+  .produce-panel small { margin-top: 14px; font-size: 12px; letter-spacing: .4em; color: rgba(255, 255, 255, .8); }
+  .photo-frame { margin: 0 0 0 10%; width: 80%; border-radius: 16px; overflow: hidden; border: 8px solid #fff; box-shadow: 0 40px 70px -32px rgba(60, 20, 120, .55); transform: rotate(-2deg); transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+  .svc-row:hover .photo-frame { transform: rotate(0); }
+  .photo-frame img { width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; object-position: 50% 30%; }
+  .svc-text { position: relative; z-index: 0; }
+  .svc-ghost { /* 文字の後ろに透ける大きな英字 */
+    position: absolute; z-index: -1; left: -.06em; top: -.62em; font-family: var(--serif); font-weight: 900; font-size: clamp(80px, 10vw, 150px); line-height: 1;
+    color: transparent; -webkit-text-stroke: 1px rgba(123, 79, 216, .22); letter-spacing: .02em; pointer-events: none; white-space: nowrap;
+  }
+  .svc-text .label { color: var(--purple); }
+  .svc-text h3 { margin: 14px 0 18px; font-size: clamp(22px, 2.4vw, 30px); font-weight: 300; letter-spacing: .16em; line-height: 1.7; }
+  .svc-text p { margin: 0 0 24px; font-size: 14px; line-height: 2.1; }
+  .svc-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .svc-tags li { padding: 7px 16px; border-radius: 999px; font-size: 12px; letter-spacing: .08em; background: rgba(255, 255, 255, .7); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px rgba(123, 79, 216, .25), 0 6px 16px -10px rgba(60, 20, 120, .4); }
 
   /* ── WORKS（実績） ── */
   .works-sec { padding-top: 180px; }
@@ -493,8 +514,8 @@
   .js .reveal-img.in { clip-path: inset(0 0 0 0); }
   .js .script.reveal { transform: rotate(var(--rot, -10deg)) translateY(20px); }
   .js .script.reveal.in { transform: rotate(var(--rot, -10deg)); }
-  .js .steps li.reveal:nth-child(2), .js .svc.reveal:nth-child(2), .js .training li.reveal:nth-child(2) { transition-delay: .12s; }
-  .js .steps li.reveal:nth-child(3), .js .svc.reveal:nth-child(3), .js .training li.reveal:nth-child(3) { transition-delay: .24s; }
+  .js .steps li.reveal:nth-child(2), .js .training li.reveal:nth-child(2) { transition-delay: .12s; }
+  .js .steps li.reveal:nth-child(3), .js .training li.reveal:nth-child(3) { transition-delay: .24s; }
   .js .steps li.reveal:nth-child(4), .js .cards figure.reveal:nth-child(2) { transition-delay: .36s; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -523,11 +544,12 @@
     .career-body .big { position: relative; top: 0; margin-left: 24px; }
     .career-script { left: 40%; top: -60px; }
     .career-text { padding: 40px 0 0 0; }
-    .service-grid { grid-template-columns: 1fr 1fr; }
-    .service-grid::before { right: 20%; }
     .steps { grid-template-columns: 1fr 1fr; gap: 48px 0; }
     .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
     .sasuke-wrap, .profile, .rental, .cd { grid-template-columns: 1fr; gap: 64px; }
+    .svc-row { grid-template-columns: 1fr; gap: 56px; }
+    .svc-row.rev .svc-visual { order: 0; }
+    .svc-list { gap: 100px; }
     .likes { grid-template-columns: 1fr 1fr; }
     .like-rain { grid-column: 1 / -1; }
     .cd-main { grid-row: auto; }
@@ -558,6 +580,10 @@
     .hero-rental { margin: 28px 20px 0; font-size: 12px; letter-spacing: .08em; padding: 12px 18px 12px 16px; }
     .rental-sec { padding: 100px 0; }
     .cd-sec { padding: 100px 0; }
+    .svc-visual::before, .svc-row.rev .svc-visual::before { left: -20px; right: 20%; top: 20%; bottom: -24px; }
+    .browser { transform: none; }
+    .photo-frame { margin-left: 4%; width: 92%; }
+    .svc-ghost { font-size: 72px; }
     .likes-sec { padding: 100px 0; }
     .likes { grid-template-columns: 1fr; }
     .rain-btn { right: 16px; top: 74px; width: 40px; height: 40px; }
@@ -578,11 +604,7 @@
     .steps-c li { grid-template-columns: 40px 1fr; gap: 2px 8px; }
     .steps-c li span { grid-column: 2; }
     .service-head { margin-bottom: 48px; }
-    .service-grid { grid-template-columns: 1fr; gap: 56px; }
-    .svc-figure { aspect-ratio: 16 / 10; }
-    .svc-figure img { object-position: 50% 30%; }
-    .service-grid::before { right: 18%; top: 140px; bottom: -40px; }
-    .works-sec { padding-top: 110px; }
+        .works-sec { padding-top: 110px; }
     .works-list { margin-top: 64px; }
     .work { margin-bottom: 72px; }
     .work .more { position: static; margin-top: 14px; }
@@ -702,39 +724,48 @@
         <h2 class="big reveal">SERVICE</h2>
         <p class="reveal">できること</p>
       </div>
-      <div class="service-grid">
-        <article class="svc glass reveal">
-          <span class="label svc-label">#Website</span>
-          <div class="svc-figure type site" aria-hidden="true"><b>Website<i>for your shop</i></b></div>
-          <h3>お店のサイトを作る</h3>
-          <p>利用者が何を見て予約を決めるかを知っているから、迷わず予約まで進めるサイトを作れます。</p>
-          <ul>
-            <li>レンタル彼氏・彼女・フレンドの公式サイト</li>
-            <li>キャストの一覧とプロフィールページ</li>
-            <li>料金・ルール・予約までの案内</li>
-          </ul>
+      <div class="svc-list">
+        <article class="svc-row reveal">
+          <div class="svc-visual">
+            <div class="browser">
+              <div class="browser-bar" aria-hidden="true"><i></i><i></i><i></i><span>womens-ribbon.com</span></div>
+              <img src="img/work-friend.jpg" width="1200" height="679" loading="lazy" alt="制作したレンタルフレンド by WarmRelation のサイトのトップ画面">
+            </div>
+          </div>
+          <div class="svc-text">
+            <span class="svc-ghost" aria-hidden="true">Website</span>
+            <span class="label">#Website</span>
+            <h3>お店のサイトを作る</h3>
+            <p>利用者が何を見て予約を決めるかを知っているから、迷わず予約まで進めるサイトを作れます。</p>
+            <ul class="svc-tags"><li>レンタル彼氏・彼女・フレンドの公式サイト</li><li>キャストの一覧とプロフィールページ</li><li>料金・ルール・予約までの案内</li></ul>
+          </div>
         </article>
-        <article class="svc glass reveal">
-          <span class="label svc-label">#Produce</span>
-          <div class="svc-figure type cast" aria-hidden="true"><b>Produce<i>for your cast</i></b></div>
-          <h3>売れるキャストを、プロデュースする</h3>
-          <p>キャストとマネージャーの両方を経験したから、その人らしさを見つけて、お客様に届く形にできます。</p>
-          <ul>
-            <li>キャストのプロデュース</li>
-            <li>プロフィール文の作成</li>
-            <li>お店の運営や集客の相談</li>
-          </ul>
+        <article class="svc-row rev reveal">
+          <div class="svc-visual">
+            <div class="produce-panel foil" aria-hidden="true">
+              <span class="spark" style="left:14%;top:18%;--s:22px" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:16%;top:26%;--s:14px;--d:.8s;--c:#fff" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:24%;bottom:18%;--s:18px;--d:1.5s" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span>
+              <b>Produce</b><i>for your cast</i><small>売れるキャストを。</small>
+            </div>
+          </div>
+          <div class="svc-text">
+            <span class="svc-ghost" aria-hidden="true">Produce</span>
+            <span class="label">#Produce</span>
+            <h3>売れるキャストを、<br>プロデュースする</h3>
+            <p>キャストとマネージャーの両方を経験したから、その人らしさを見つけて、お客様に届く形にできます。</p>
+            <ul class="svc-tags"><li>キャストのプロデュース</li><li>プロフィール文の作成</li><li>お店の運営や集客の相談</li></ul>
+          </div>
         </article>
-        <article class="svc glass reveal">
-          <span class="label svc-label">#Photo</span>
-          <figure class="svc-figure"><img src="img/photographer.jpg" width="724" height="781" loading="lazy" alt="花の向こうでカメラを構える柴崎凌兵"></figure>
-          <h3>写真を撮る</h3>
-          <p>出張撮影のカメラマンとして、サイトに載せるキャスト写真も自分で撮れます。</p>
-          <ul>
-            <li>キャストの宣材写真</li>
-            <li>お店やサービスのイメージ写真</li>
-            <li>撮影からサイト公開まで一括で</li>
-          </ul>
+        <article class="svc-row reveal">
+          <div class="svc-visual">
+            <figure class="photo-frame"><img src="img/photographer.jpg" width="724" height="781" loading="lazy" alt="花の向こうでカメラを構える柴崎凌兵"></figure>
+          </div>
+          <div class="svc-text">
+            <span class="svc-ghost" aria-hidden="true">Photo</span>
+            <span class="label">#Photo</span>
+            <h3>写真を撮る</h3>
+            <p>出張撮影のカメラマンとして、サイトに載せるキャスト写真も自分で撮れます。</p>
+            <ul class="svc-tags"><li>キャストの宣材写真</li><li>お店やサービスのイメージ写真</li><li>撮影からサイト公開まで一括で</li></ul>
+          </div>
         </article>
       </div>
     </div>
@@ -859,7 +890,7 @@
           <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40C10 22 22 10 40 8c-2 18-14 30-30 32z"/><path d="M10 40 28 22"/></svg></span>
           <span class="label">Organic</span>
           <h3>オーガニックスーパー</h3>
-          <p>お気に入りの場所です。</p>
+          <p>ビオセボン、ボンラスパイユ、オーサワジャパンのヘビーユーザー。<br>応援したくて、お金を使っています。</p>
         </li>
       </ul>
     </div>
