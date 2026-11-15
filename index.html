@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Allura&family=Lexend+Deca:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet">
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');try{if(sessionStorage.getItem('sr-intro'))document.documentElement.classList.add('seen');else sessionStorage.setItem('sr-intro','1');}catch(e){}</script>
 <style>
   :root {
     --white: #FFFFFF;
@@ -103,6 +103,22 @@
   }
   @keyframes shimmer { to { background-position: -220% 0; } }
   .gold-rule { display: block; width: 56px; height: 1px; background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold)); }
+
+  /* ── 幕開け（最初の1回だけ） ── */
+  .intro { display: none; }
+  .js .intro { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 40%, #fff, var(--mist) 70%);
+    animation: curtain 1s cubic-bezier(.77, 0, .18, 1) 1.7s forwards; }
+  .js.seen .intro { display: none; }
+  .intro-inner { display: grid; justify-items: center; gap: 18px; animation: introIn .9s cubic-bezier(.2, .8, .2, 1) both; }
+  .intro-sticker { width: 120px; border-radius: 16px; box-shadow: 0 0 0 3px #fff, 0 0 0 4px var(--gold-light), 0 30px 50px -20px rgba(60, 20, 120, .5); animation: introSpin 1.2s cubic-bezier(.2, .8, .2, 1) both; --sd: .3s; }
+  .intro-sticker img { width: 100%; }
+  .intro-name { font-family: var(--label); font-size: 13px; letter-spacing: .6em; color: var(--ink); }
+  .intro-script { font-size: 44px; margin-top: -8px; }
+  @keyframes curtain { to { transform: translateY(-100%); visibility: hidden; } }
+  @keyframes introIn { from { opacity: 0; transform: translateY(16px); } }
+  @keyframes introSpin { from { transform: rotateY(180deg) scale(.6); opacity: 0; } to { transform: rotateY(0) scale(1); opacity: 1; } }
+  .progress { position: fixed; z-index: 55; left: 0; top: 0; right: 0; height: 3px; pointer-events: none; }
+  .progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--purple), #B57BE6, var(--gold)); transform-origin: left; transform: scaleX(var(--p, 0)); box-shadow: 0 0 10px rgba(123, 79, 216, .6); }
 
   /* ── ロゴとメニュー ── */
   .logo {
@@ -187,8 +203,8 @@
   .steps-c { list-style: none; margin: 56px 0 0; padding: 0; counter-reset: c; border-top: 1px solid var(--line); }
   .steps-c li { counter-increment: c; display: grid; grid-template-columns: 52px 11em 1fr; gap: 12px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--line); }
   .steps-c li::before { content: "0" counter(c); font-family: var(--label); font-size: 12px; letter-spacing: .2em; color: var(--purple); }
-  .steps-c b { font-weight: 500; font-size: 17px; letter-spacing: .12em; }
-  .steps-c span { font-size: 13px; color: var(--ink-dim); line-height: 1.95; }
+  .steps-c b { font-weight: 500; font-size: 18px; letter-spacing: .12em; }
+  .steps-c span { font-size: 14px; color: #555; line-height: 1.95; }
   .steps-c .nw { white-space: nowrap; }
   .steps-c li:last-child b { color: var(--purple-deep); }
 
@@ -233,20 +249,31 @@
   .svc-text h3 { margin: 14px 0 18px; font-size: clamp(22px, 2.4vw, 30px); font-weight: 300; letter-spacing: .16em; line-height: 1.7; }
   .svc-text p { margin: 0 0 24px; font-size: 14px; line-height: 2.1; }
   .svc-tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .svc-tags li { padding: 7px 16px; border-radius: 999px; font-size: 12px; letter-spacing: .08em; background: rgba(255, 255, 255, .7); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px rgba(123, 79, 216, .25), 0 6px 16px -10px rgba(60, 20, 120, .4); }
+  .svc-tags li { padding: 8px 16px; border-radius: 999px; font-size: 13px; letter-spacing: .08em; background: rgba(255, 255, 255, .7); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px rgba(123, 79, 216, .25), 0 6px 16px -10px rgba(60, 20, 120, .4); }
 
   /* ── WORKS（実績） ── */
   .works-sec { padding-top: 180px; }
   .works-sec .big { margin-left: -.06em; }
-  .works-list { list-style: none; margin: 100px 0 0; padding: 0; }
-  .work { position: relative; margin-bottom: 110px; }
+  .works-sub { margin: 18px 0 0; font-size: 13px; letter-spacing: .3em; color: var(--ink-dim); }
+  .works-list { list-style: none; margin: 110px 0 0; padding: 0; display: grid; gap: 150px; }
+  .work { position: relative; display: grid; grid-template-columns: repeat(12, 1fr); align-items: end; }
   .work::before { /* 背景を横切る、波打つ点線 */
-    content: ""; position: absolute; left: -50vw; right: -50vw; top: 50%; height: 8px; z-index: -1;
+    content: ""; position: absolute; left: -50vw; right: -50vw; top: 40%; height: 8px; z-index: -1;
     background: radial-gradient(circle, #CFCFCF 1px, transparent 1.4px) 0 0 / 8px 8px;
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 4 Q10 0 20 4 T40 4' fill='none' stroke='black' stroke-width='3'/%3E%3C/svg%3E") 0 0 / 40px 8px repeat-x;
             mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8'%3E%3Cpath d='M0 4 Q10 0 20 4 T40 4' fill='none' stroke='black' stroke-width='3'/%3E%3C/svg%3E") 0 0 / 40px 8px repeat-x;
   }
-  .work a.cover-link { display: block; width: min(680px, 100%); margin-inline: auto; text-decoration: none; }
+  .work a.cover-link { grid-column: 1 / span 8; grid-row: 1; display: block; text-decoration: none; }
+  .work.rev a.cover-link { grid-column: 5 / span 8; }
+  .work-card { grid-column: 8 / span 5; grid-row: 1; position: relative; z-index: 2; margin-bottom: -56px; padding: 34px 34px 28px; border-radius: 16px; }
+  .work.rev .work-card { grid-column: 1 / span 5; }
+  .work-card .label { color: var(--purple); }
+  .work-card h3 { margin: 10px 0 12px; font-size: 22px; font-weight: 500; letter-spacing: .1em; line-height: 1.5; }
+  .work-card p { margin: 0 0 22px; font-size: 14px; line-height: 2; color: #444; }
+  .work-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+  .work-card .work-url { display: block; margin-top: 16px; }
+  .cover-hover { position: absolute; z-index: 3; inset: 0; display: grid; place-items: center; font-family: var(--label); font-size: 13px; letter-spacing: .4em; color: #fff; background: rgba(43, 20, 82, .45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); opacity: 0; transition: opacity .4s; }
+  .cover-link:hover .cover-hover { opacity: 1; }
   .cover {
     position: relative; aspect-ratio: 16 / 9; display: grid; place-items: center; text-align: center; overflow: hidden;
     color: #fff; transition: transform .5s, box-shadow .5s; border-radius: 10px;
@@ -269,13 +296,9 @@
   .cover.shot img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; }
   .cover.shot { box-shadow: 0 20px 50px -24px rgba(0, 0, 0, .35); }
   .cover.shot::after { border-color: rgba(255, 255, 255, .55); }
-  .work-cap { width: min(680px, 100%); margin: 18px auto 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
-  .work-cap b { font-size: 17px; font-weight: 500; letter-spacing: .12em; }
-  .work-cap span { font-size: 11px; color: var(--ink-dim); letter-spacing: .12em; }
-  .work .more { position: absolute; right: 0; top: calc(50% - 40px); }
   .work-url { font-family: var(--label); font-size: 11px; color: var(--purple); letter-spacing: .1em; }
   .recruit {
-    display: inline-flex; align-items: center; gap: 8px; margin-left: auto; padding: 4px 14px; border: 1px solid var(--purple);
+    display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border: 1px solid var(--purple);
     border-radius: 999px; font-size: 12px; letter-spacing: .12em; color: var(--purple-deep); text-decoration: none; transition: background .25s, color .25s;
   }
   .recruit::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
@@ -291,7 +314,7 @@
   .steps li + li { padding-left: 28px; border-left: 1px solid #DAD3E8; }
   .steps li::before { content: "0" counter(step); display: block; font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 54px; line-height: 1; color: var(--purple); margin-bottom: 20px; }
   .steps h3 { margin: 0 0 8px; font-size: 16px; font-weight: 500; letter-spacing: .14em; }
-  .steps p { margin: 0; font-size: 13px; color: var(--ink-dim); }
+  .steps p { margin: 0; font-size: 14px; color: #555; }
 
   /* ── SASUKE ── */
   .sasuke-sec { overflow: hidden; }
@@ -475,7 +498,7 @@
   .like-icon svg { display: block; width: 100%; height: 100%; }
   .like .label { color: #BFE3F7; }
   .like h3 { margin: 6px 0 8px; font-size: 19px; font-weight: 500; letter-spacing: .14em; line-height: 1.6; }
-  .like p { margin: 0; font-size: 13px; line-height: 2; color: #DCDCEA; }
+  .like p { margin: 0; font-size: 14px; line-height: 2; color: #DCDCEA; }
   .like-rain { background: linear-gradient(150deg, rgba(191, 227, 247, .28), rgba(123, 79, 216, .22)); }
   .like-rain h3 { font-family: var(--serif); font-size: 44px; font-weight: 700; line-height: 1.2; }
   .rain-toggle-inline { margin-top: 20px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .5); background: rgba(255, 255, 255, .1); color: #fff; font: inherit; font-size: 12px; letter-spacing: .1em; cursor: pointer; transition: background .3s; }
@@ -526,6 +549,7 @@
     .foil::after, .rental-sheen, .rental-btn::after { animation: none; opacity: 0; }
     .route-line { animation: none; }
     .marquee-track, .cd-clock i, .cd-dots span.today, .logo.spin, .orb { animation: none; }
+    .js .intro { display: none; }
     .route-line .rider, .route-line .rider svg { animation: none; left: 50%; }
     .spark { animation: none; opacity: .8; }
     .script { animation: none; }
@@ -548,6 +572,9 @@
     .steps li:nth-child(3) { padding-left: 0; border-left: 0; }
     .sasuke-wrap, .profile, .rental, .cd { grid-template-columns: 1fr; gap: 64px; }
     .svc-row { grid-template-columns: 1fr; gap: 56px; }
+    .work, .work.rev { grid-template-columns: 1fr; }
+    .work a.cover-link, .work.rev a.cover-link, .work-card, .work.rev .work-card { grid-column: 1; grid-row: auto; }
+    .work-card { margin: -22px 14px 0; }
     .svc-row.rev .svc-visual { order: 0; }
     .svc-list { gap: 100px; }
     .likes { grid-template-columns: 1fr 1fr; }
@@ -604,11 +631,10 @@
     .steps-c li { grid-template-columns: 40px 1fr; gap: 2px 8px; }
     .steps-c li span { grid-column: 2; }
     .service-head { margin-bottom: 48px; }
-        .works-sec { padding-top: 110px; }
-    .works-list { margin-top: 64px; }
-    .work { margin-bottom: 72px; }
-    .work .more { position: static; margin-top: 14px; }
-    .work-cap { margin-top: 14px; }
+    .works-sec { padding-top: 110px; }
+    .works-list { margin-top: 64px; gap: 72px; }
+    .work-card { padding: 26px 22px 22px; }
+    .work-card h3 { font-size: 19px; }
     .steps { grid-template-columns: 1fr; gap: 36px; }
     .steps li, .steps li + li { padding: 0; border-left: 0; }
     .steps li { display: grid; grid-template-columns: 64px 1fr; }
@@ -632,6 +658,14 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.2 5.8 11.4 12 12-6.2.6-11.4 5.8-12 12-.6-6.2-5.8-11.4-12-12C6.2 11.4 11.4 6.2 12 0z"/></symbol></svg>
 
 <a class="logo" href="#" aria-label="柴崎凌兵 ページの先頭へ"><span class="bubble" aria-hidden="true">押すと、きらっとします</span><span class="foil" style="--sd:1.5s"><img src="img/logo.jpg" width="240" height="240" alt="WR柴崎凌兵のシール風イラスト"></span></a>
+<div class="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <span class="intro-sticker foil"><img src="img/logo.jpg" width="240" height="240" alt=""></span>
+    <span class="intro-name">SHIBASAKI RYOHEI</span>
+    <span class="script intro-script">welcome to my world.</span>
+  </div>
+</div>
+<div class="progress" aria-hidden="true"><i></i></div>
 <canvas class="rain-canvas rain-page" data-rain="page" aria-hidden="true"></canvas>
 <button class="rain-btn" type="button" data-rain-toggle aria-pressed="false" aria-label="ページに雨を降らせる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v7a2 2 0 0 1-4 0"/></svg></button>
 <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="menu"><i></i></button>
@@ -775,26 +809,47 @@
     <span class="orb p" style="width:460px;height:460px;left:-160px;top:30%" aria-hidden="true"></span><span class="orb g" style="width:340px;height:340px;right:-100px;top:65%" aria-hidden="true"></span>
     <div class="wrap">
       <h2 class="big reveal">WORKS</h2>
+      <p class="works-sub reveal">これまでに作ったサイト</p>
       <ul class="works-list">
         <li class="work reveal">
-          <a class="cover-link" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 WarmRelation のサイトを開く"><div class="cover shot"><img src="img/work-warmrelation.jpg" width="1200" height="673" loading="lazy" alt="WarmRelationのバナー。レンタル彼氏ランキング第1位、西日本でレンタル彼氏を探すなら、と書かれ、スマホ画面に大阪・岡山のキャストが並ぶ"></div></a>
-          <a class="more" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
-          <p class="work-cap"><b>WarmRelation</b><span>Website ─ 感動と成長をテーマに13年続くレンタル彼氏・レンタルフレンドの公式サイト</span><span class="work-url">warmrelation.com</span><a class="recruit" href="https://warmrelation.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
+          <a class="cover-link" href="https://warmrelation.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 WarmRelation のサイトを開く"><div class="cover shot"><img src="img/work-warmrelation.jpg" width="1200" height="673" loading="lazy" alt="WarmRelationのバナー。レンタル彼氏ランキング第1位、西日本でレンタル彼氏を探すなら、と書かれ、スマホ画面に大阪・岡山のキャストが並ぶ"><span class="cover-hover" aria-hidden="true">VISIT SITE</span></div></a>
+          <div class="work-card glass">
+            <span class="label">Rental boyfriend</span>
+            <h3>WarmRelation</h3>
+            <p>感動と成長をテーマに13年続く、レンタル彼氏・レンタルフレンドの公式サイト。</p>
+            <div class="work-links"><a class="more" href="https://warmrelation.com/" target="_blank" rel="noopener"><span>VISIT</span></a><a class="recruit" href="https://warmrelation.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></div>
+            <span class="work-url">warmrelation.com</span>
+          </div>
+        </li>
+        <li class="work rev reveal">
+          <a class="cover-link" href="https://crossroad24.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 CROSS ROAD のサイトを開く"><div class="cover shot"><img src="img/work-crossroad.jpg" width="1138" height="643" loading="lazy" alt="CROSS ROADのサイトのトップ。夕暮れのビル街に「レンタル彼氏 CROSS ROAD 人生は、誰と交差するかで変わっていく。」"><span class="cover-hover" aria-hidden="true">VISIT SITE</span></div></a>
+          <div class="work-card glass">
+            <span class="label">Rental boyfriend</span>
+            <h3>CROSS ROAD</h3>
+            <p>30〜50代の大人の女性に向けた、レンタル彼氏の公式サイト。</p>
+            <div class="work-links"><a class="more" href="https://crossroad24.com/" target="_blank" rel="noopener"><span>VISIT</span></a><a class="recruit" href="https://crossroad24.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></div>
+            <span class="work-url">crossroad24.com</span>
+          </div>
         </li>
         <li class="work reveal">
-          <a class="cover-link" href="https://crossroad24.com/" target="_blank" rel="noopener" aria-label="レンタル彼氏 CROSS ROAD のサイトを開く"><div class="cover shot"><img src="img/work-crossroad.jpg" width="1138" height="643" loading="lazy" alt="CROSS ROADのサイトのトップ。夕暮れのビル街に「レンタル彼氏 CROSS ROAD 人生は、誰と交差するかで変わっていく。」"></div></a>
-          <a class="more" href="https://crossroad24.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
-          <p class="work-cap"><b>CROSS ROAD</b><span>Website ─ 30〜50代の大人の女性向けレンタル彼氏の公式サイト</span><span class="work-url">crossroad24.com</span><a class="recruit" href="https://crossroad24.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
+          <a class="cover-link" href="https://womens-ribbon.com/" target="_blank" rel="noopener" aria-label="レンタルフレンド by WarmRelation のサイトを開く"><div class="cover shot"><img src="img/work-friend.jpg" width="1200" height="679" loading="lazy" alt="レンタルフレンド by WarmRelation のサイトのトップ。「レンタルフレンド 友達代行サービス」の見出しと、キャストの写真"><span class="cover-hover" aria-hidden="true">VISIT SITE</span></div></a>
+          <div class="work-card glass">
+            <span class="label">Rental friend</span>
+            <h3>レンタルフレンド<br>by WarmRelation</h3>
+            <p>外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト。</p>
+            <div class="work-links"><a class="more" href="https://womens-ribbon.com/" target="_blank" rel="noopener"><span>VISIT</span></a><a class="recruit" href="https://womens-ribbon.com/recruit-women/" target="_blank" rel="noopener">キャスト募集ページ</a></div>
+            <span class="work-url">womens-ribbon.com</span>
+          </div>
         </li>
-        <li class="work reveal">
-          <a class="cover-link" href="https://womens-ribbon.com/" target="_blank" rel="noopener" aria-label="レンタルフレンド by WarmRelation のサイトを開く"><div class="cover shot"><img src="img/work-friend.jpg" width="1200" height="679" loading="lazy" alt="レンタルフレンド by WarmRelation のサイトのトップ。「レンタルフレンド 友達代行サービス」の見出しと、キャストの写真"></div></a>
-          <a class="more" href="https://womens-ribbon.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
-          <p class="work-cap"><b>レンタルフレンド by WarmRelation</b><span>Website ─ 外出や話し相手に男性キャストが同行する、男女で使えるサービスのサイト</span><span class="work-url">womens-ribbon.com</span><a class="recruit" href="https://womens-ribbon.com/recruit-women/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
-        </li>
-        <li class="work reveal">
-          <a class="cover-link" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-label="レンタル彼女 Lily のサイトを開く"><div class="cover ly"><img src="img/logo-lily.png" width="440" height="200" loading="lazy" alt="レンタル彼女 Lily のロゴ"></div></a>
-          <a class="more" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><span>VISIT</span></a>
-          <p class="work-cap"><b>レンタル彼女 Lily</b><span>Website ─ 東京のレンタル彼女の公式サイト。プロデューサーとして運営にも携わっています</span><span class="work-url">renkano-lily.com</span><a class="recruit" href="https://renkano-lily.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></p>
+        <li class="work rev reveal">
+          <a class="cover-link" href="https://renkano-lily.com/" target="_blank" rel="noopener" aria-label="レンタル彼女 Lily のサイトを開く"><div class="cover ly"><img src="img/logo-lily.png" width="440" height="200" loading="lazy" alt="レンタル彼女 Lily のロゴ"><span class="cover-hover" aria-hidden="true">VISIT SITE</span></div></a>
+          <div class="work-card glass">
+            <span class="label">Rental girlfriend</span>
+            <h3>レンタル彼女 Lily</h3>
+            <p>東京のレンタル彼女の公式サイト。プロデューサーとして、運営にも携わっています。</p>
+            <div class="work-links"><a class="more" href="https://renkano-lily.com/" target="_blank" rel="noopener"><span>VISIT</span></a><a class="recruit" href="https://renkano-lily.com/recruit/" target="_blank" rel="noopener">キャスト募集ページ</a></div>
+            <span class="work-url">renkano-lily.com</span>
+          </div>
         </li>
       </ul>
     </div>
@@ -890,7 +945,7 @@
           <span class="like-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40C10 22 22 10 40 8c-2 18-14 30-30 32z"/><path d="M10 40 28 22"/></svg></span>
           <span class="label">Organic</span>
           <h3>オーガニックスーパー</h3>
-          <p>ビオセボン、ボンラスパイユ、オーサワジャパンのヘビーユーザー。<br>応援したくて、お金を使っています。</p>
+          <p>ビオセボン、ボンラスパイユ、オーサワジャパンのヘビーユーザー。<br>お客様からいただいた大切なお金だから、心から応援したいと思えるお店を選んでいます。</p>
         </li>
       </ul>
     </div>
@@ -1078,6 +1133,11 @@
         });
       });
     });
+
+    // 読み進めた分だけ、上の線がのびる
+    var bar = document.querySelector('.progress i'), ticking = false;
+    function prog() { var h = document.documentElement.scrollHeight - innerHeight; bar.style.setProperty('--p', h > 0 ? (scrollY / h).toFixed(4) : 0); ticking = false; }
+    addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(prog); } }, { passive: true }); prog();
 
     var items = document.querySelectorAll('.reveal, .reveal-img');
     if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
