@@ -458,6 +458,8 @@
   @keyframes blink { 50% { opacity: .2; } }
   .cd-dots { display: grid; grid-template-columns: repeat(31, 1fr); gap: 4px; max-width: 560px; }
   .cd-dots span { aspect-ratio: 1; border-radius: 50%; background: rgba(255, 255, 255, .13); }
+  .cd-dots span { transition: transform .2s; }
+  .cd-dots span:hover { transform: scale(1.8); background: var(--gold-light); box-shadow: 0 0 8px var(--gold); }
   .cd-dots span.past { background: rgba(255, 255, 255, .5); }
   .cd-dots span.left { box-shadow: inset 0 0 0 1px rgba(255, 150, 80, .55); background: transparent; }
   .cd-dots span.today { background: var(--gold); box-shadow: 0 0 0 3px rgba(228, 80, 30, .35), 0 0 12px var(--gold); animation: pulse 1.6s ease-in-out infinite; }
@@ -509,6 +511,21 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 0 0 1px rgba(255, 255, 255, .7), 0 8px 24px -8px rgba(0, 0, 0, .35); transition: background .3s, color .3s;
   }
   .rain-btn svg { width: 22px; height: 22px; }
+  .rain-meter { position: fixed; z-index: 50; right: 80px; top: 98px; margin: 0; display: flex; align-items: baseline; gap: 8px; padding: 6px 14px; border-radius: 999px; background: rgba(255, 255, 255, .7); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 0 0 1px rgba(0, 0, 0, .08); font-size: 11px; letter-spacing: .12em; color: var(--ink-dim); transition: background .4s, color .4s; }
+  .rain-meter b { font-weight: 500; color: var(--ink); }
+  .storm .rain-meter { background: rgba(20, 20, 20, .7); color: #aaa; } .storm .rain-meter b { color: var(--gold-light); }
+  .flash { position: fixed; z-index: 44; inset: 0; pointer-events: none; background: #fff; opacity: 0; }
+  .flash.on { animation: flash 1.1s ease-out; }
+  @keyframes flash { 0% { opacity: 0; } 4% { opacity: .55; } 9% { opacity: .05; } 14% { opacity: .35; } 100% { opacity: 0; } }
+  .brolly { position: fixed; z-index: 46; left: 0; top: 0; width: 68px; height: 60px; pointer-events: none; opacity: 0; transition: opacity .4s; mix-blend-mode: difference; }
+  .storm .brolly { opacity: 1; }
+  .storm [data-rain-level="6"], .storm [data-rain-level="4"] { cursor: none; }
+  .storm [data-rain-level] a, .storm [data-rain-level] button { cursor: pointer; }
+  .sticker-rain { position: fixed; z-index: 70; inset: 0; pointer-events: none; overflow: hidden; }
+  .sticker-rain img { position: absolute; top: -90px; width: 64px; border-radius: 8px; box-shadow: 0 6px 16px rgba(0, 0, 0, .3); animation: sfall linear forwards; }
+  @keyframes sfall { to { transform: translateY(calc(100vh + 160px)) rotate(var(--r)); } }
+  .toast { position: fixed; z-index: 80; left: 50%; bottom: 40px; margin: 0; padding: 12px 22px; border-radius: 999px; background: #111; color: #fff; font-size: 13px; letter-spacing: .12em; transform: translate(-50%, 20px); opacity: 0; transition: opacity .4s, transform .4s; pointer-events: none; box-shadow: 0 0 0 1px rgba(255, 162, 92, .5); }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
   .rain-btn[aria-pressed="true"] { background: #111; color: #fff; }
 
   /* ── フッター（相談） ── */
@@ -548,7 +565,7 @@
     .scroll::after { animation: none; }
     .foil::after, .rental-sheen, .rental-btn::after { animation: none; opacity: 0; }
     .route-line { animation: none; }
-    .marquee-track, .cd-clock i, .cd-dots span.today, .logo.spin, .orb { animation: none; }
+    .marquee-track, .cd-clock i, .cd-dots span.today, .logo.spin, .orb, .flash.on { animation: none; }
     .js .intro { display: none; }
     .route-line .rider, .route-line .rider svg { animation: none; left: 50%; }
     .spark { animation: none; opacity: .8; }
@@ -614,6 +631,8 @@
     .likes-sec { padding: 100px 0; }
     .likes { grid-template-columns: 1fr; }
     .rain-btn { right: 16px; top: 74px; width: 40px; height: 40px; }
+    .rain-meter { right: 64px; top: 80px; padding: 4px 10px; font-size: 10px; }
+    .rain-meter span { display: none; }
     .cd-sub { margin-top: 12px; }
     .cd-dots { gap: 3px; }
     .cd-clock { font-size: 20px; }
@@ -678,6 +697,11 @@
 <div class="progress" aria-hidden="true"><i></i></div>
 <canvas class="rain-canvas rain-page" data-rain="page" aria-hidden="true"></canvas>
 <button class="rain-btn" type="button" data-rain-toggle aria-pressed="false" aria-label="雨を降らせる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v7a2 2 0 0 1-4 0"/></svg></button>
+<p class="rain-meter" aria-live="polite"><span>今日の天気</span><b>小雨</b></p>
+<div class="flash" aria-hidden="true"></div>
+<span class="brolly" aria-hidden="true"><svg viewBox="0 0 68 60" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 30a30 26 0 0 1 60 0c-5-4-10-4-15 0-5-4-10-4-15 0-5-4-10-4-15 0-5-4-10-4-15 0z" fill="rgba(255,255,255,.12)"/><path d="M34 30v20a5 5 0 0 1-10 0"/><path d="M34 4V1"/></svg></span>
+<div class="sticker-rain" aria-hidden="true"></div>
+<p class="toast" role="status"></p>
 <button class="menu-btn" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="menu"><i></i></button>
 <nav class="menu" id="menu" aria-label="メニュー">
   <ul>
@@ -901,7 +925,7 @@
   </section>
 
   <div class="marquee rev" aria-hidden="true"><div class="marquee-track"><div><span>今日が最後かもしれない</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>悔いのない一日を</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>ONE DAY AT A TIME</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>会いたい人がいれば、どこへでも</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div><div><span>今日が最後かもしれない</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>悔いのない一日を</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>ONE DAY AT A TIME</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i><span>会いたい人がいれば、どこへでも</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></i></div></div></div>
-  <section id="countdown" class="cd-sec">
+  <section id="countdown" class="cd-sec" data-rain-level="4">
     <span class="ember" style="left:8%;animation-delay:0s;--ex:40px" aria-hidden="true"></span><span class="ember" style="left:18%;animation-delay:2.4s;--ex:-20px" aria-hidden="true"></span><span class="ember" style="left:31%;animation-delay:4.8s;--ex:30px" aria-hidden="true"></span><span class="ember" style="left:46%;animation-delay:1.2s;--ex:-35px" aria-hidden="true"></span><span class="ember" style="left:58%;animation-delay:3.6s;--ex:25px" aria-hidden="true"></span><span class="ember" style="left:67%;animation-delay:5.6s;--ex:-15px" aria-hidden="true"></span><span class="ember" style="left:79%;animation-delay:0.6s;--ex:45px" aria-hidden="true"></span><span class="ember" style="left:90%;animation-delay:3s;--ex:-30px" aria-hidden="true"></span>
     <div class="wrap cd">
       <div class="cd-head">
@@ -924,7 +948,7 @@
     </div>
   </section>
 
-  <section id="likes" class="likes-sec">
+  <section id="likes" class="likes-sec" data-rain-level="6">
     <div class="wrap">
       <div class="likes-head">
         <h2 class="big reveal">LIKES</h2>
@@ -982,7 +1006,7 @@
     </div>
   </section>
 
-  <section id="rental" class="rental-sec">
+  <section id="rental" class="rental-sec" data-rain-level="2.2">
     <span class="rental-sheen" aria-hidden="true"></span>
     <span class="spark" style="left:8%;top:18%;--s:20px" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="left:44%;top:12%;--s:14px;--d:.7s;--c:#fff" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:10%;top:22%;--s:24px;--d:1.4s" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="right:30%;bottom:16%;--s:16px;--d:2s;--c:#fff" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span><span class="spark" style="left:20%;bottom:12%;--s:12px;--d:1.1s;--c:#FFA25C" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#star"/></svg></span>
     <div class="wrap rental">
@@ -1009,7 +1033,7 @@
 
 </main>
 
-<footer id="contact">
+<footer id="contact" data-rain-level="2.2">
   <div class="wrap">
     <div class="contact">
       <img class="contact-photo reveal" src="img/portrait-desk.jpg" width="900" height="1125" loading="lazy" alt="">
@@ -1068,7 +1092,7 @@
       var total = Math.round((end - start) / 864e5), todayIdx = Math.floor((new Date(y, now.getMonth(), now.getDate()) - start) / 864e5);
       document.querySelectorAll('.cd-year').forEach(function (el) { el.textContent = y; });
       var dots = document.getElementById('cd-dots'), html = '';
-      for (var i = 0; i < total; i++) html += '<span class="' + (i < todayIdx ? 'past' : i === todayIdx ? 'today' : 'left') + '"></span>';
+      for (var i = 0; i < total; i++) { var dt = new Date(y, 0, 1 + i); html += '<span class="' + (i < todayIdx ? 'past' : i === todayIdx ? 'today' : 'left') + '" title="' + (dt.getMonth() + 1) + '月' + dt.getDate() + '日' + (i === todayIdx ? '（今日）' : i === total - 1 ? '（大みそか）' : '') + '"></span>'; }
       dots.innerHTML = html;
       dots.setAttribute('aria-label', y + '年の' + total + '日のうち、' + todayIdx + '日が過ぎ、今日を入れて残り' + (total - todayIdx) + '日');
       var pad = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -1084,6 +1108,23 @@
 
     // ロゴを押すと、くるっと回って星が散る
     var logo = document.querySelector('.logo');
+    var taps = 0, tapTimer = 0, toast = document.querySelector('.toast');
+    function say(t) { toast.textContent = t; toast.classList.add('show'); clearTimeout(say.t); say.t = setTimeout(function () { toast.classList.remove('show'); }, 2600); }
+    logo.addEventListener('click', function () {
+      taps++; clearTimeout(tapTimer); tapTimer = setTimeout(function () { taps = 0; }, 1500);
+      if (taps === 3) say('あと2回、押してみてください');
+      if (taps >= 5 && !calm) {
+        taps = 0; say('シールの雨です。あたり！');
+        var layer = document.querySelector('.sticker-rain');
+        for (var i = 0; i < 26; i++) {
+          var im = document.createElement('img'); im.src = 'img/logo.jpg'; im.alt = '';
+          im.style.left = Math.random() * 100 + 'vw'; im.style.setProperty('--r', (Math.random() * 720 - 360) + 'deg');
+          im.style.animationDuration = (2.2 + Math.random() * 2) + 's'; im.style.animationDelay = Math.random() * 1.2 + 's';
+          im.style.width = (44 + Math.random() * 40) + 'px';
+          layer.appendChild(im); setTimeout(function (n) { n.remove(); }.bind(null, im), 4800);
+        }
+      }
+    });
     logo.addEventListener('click', function (e) {
       e.preventDefault();
       if (!calm) {
@@ -1102,34 +1143,68 @@
     });
 
     // 雨：LIKESの欄では常に、ボタンを押すとページ全体にも降る
-    function Rain(canvas, density, rgb) {
-      rgb = rgb || '214, 228, 255';
-      var ctx = canvas.getContext('2d'), drops = [], ripples = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), on = false, raf = 0;
-      function size() { var r = canvas.getBoundingClientRect(); w = r.width; h = r.height; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
-      function drop(init) { var z = Math.random(); return { x: Math.random() * (w + 200) - 100, y: init ? Math.random() * h : -20 - Math.random() * 100, z: z, len: 10 + z * 18, v: 9 + z * 12 }; }
-      function fill() { var n = Math.round(w * h / 10000 * density); drops = []; for (var i = 0; i < n; i++) drops.push(drop(true)); }
+    // 雨：ページ全体でずっと降る。欄ごとに降り方が変わり、黒い欄では土砂降りになる
+    var LEVELS = [[0, '晴れ'], [1, '小雨'], [2.2, '本降り'], [4, '大雨'], [6, '土砂降り']];
+    function levelName(l) { var n = LEVELS[0][1]; for (var i = 0; i < LEVELS.length; i++) if (l >= LEVELS[i][0] - .01) n = LEVELS[i][1]; return n; }
+    function Rain(canvas, density) {
+      var ctx = canvas.getContext('2d'), drops = [], ripples = [], w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), on = false, raf = 0, MAX = 6;
+      this.level = 1; this.target = 1; this.mx = -999; this.my = -999; this.umbrella = false; var self = this;
+      function size() { w = innerWidth; h = innerHeight; canvas.width = w * dpr; canvas.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+      function drop(init) { var z = Math.random(); return { x: Math.random() * (w + 300) - 100, y: init ? Math.random() * h : -20 - Math.random() * 160, z: z, len: 10 + z * 18, v: 9 + z * 12 }; }
+      function fill() { var n = Math.round(w * h / 10000 * density * MAX); drops = []; for (var i = 0; i < n; i++) drops.push(drop(true)); }
+      function splash(x, y, a) { if (ripples.length < 90) ripples.push({ x: x, y: y, r: 1, a: a }); }
       function frame() {
+        self.level += (self.target - self.level) * .03;
+        var L = self.level, n = Math.floor(drops.length * Math.min(L, MAX) / MAX), speed = 1 + (L - 1) * .18, slant = .12 + L * .035, uw = 58, uy = self.my - 26;
         ctx.clearRect(0, 0, w, h); ctx.lineCap = 'round';
-        for (var i = 0; i < drops.length; i++) {
-          var d = drops[i]; d.y += d.v; d.x -= d.v * .12;
-          ctx.strokeStyle = 'rgba(' + rgb + ',' + (.18 + d.z * .45) + ')'; ctx.lineWidth = .6 + d.z * .9;
-          ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + d.len * .12, d.y - d.len); ctx.stroke();
-          if (d.y > h) { if (d.z > .55 && ripples.length < 40) ripples.push({ x: d.x, y: h - 6 - Math.random() * 30, r: 1, a: .5 }); drops[i] = drop(false); }
+        for (var i = 0; i < n; i++) {
+          var d = drops[i]; d.y += d.v * speed; d.x -= d.v * speed * slant;
+          // 傘の下には降らない
+          if (self.umbrella && d.y > uy && d.y < uy + 24 && Math.abs(d.x - self.mx) < uw) { if (Math.random() < .5) splash(d.x, uy + 2, .35); drops[i] = drop(false); continue; }
+          var len = d.len * (1 + (L - 1) * .12);
+          ctx.strokeStyle = 'rgba(255, 255, 255,' + (.16 + d.z * .45) + ')'; ctx.lineWidth = .6 + d.z * .9 + (L > 4 ? .3 : 0);
+          ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + len * slant, d.y - len); ctx.stroke();
+          if (d.y > h) { if (d.z > .5 && L > 3) splash(d.x, h - 6 - Math.random() * 40, .5); drops[i] = drop(false); }
         }
         for (var j = ripples.length - 1; j >= 0; j--) {
           var r = ripples[j]; r.r += .7; r.a -= .015;
           if (r.a <= 0) { ripples.splice(j, 1); continue; }
-          ctx.strokeStyle = 'rgba(' + rgb + ',' + r.a + ')'; ctx.lineWidth = 1;
+          ctx.strokeStyle = 'rgba(255, 255, 255,' + r.a + ')'; ctx.lineWidth = 1;
           ctx.beginPath(); ctx.ellipse(r.x, r.y, r.r * 2.2, r.r * .6, 0, 0, Math.PI * 2); ctx.stroke();
         }
+        if (L > 5.2 && Math.random() < .004) thunder();
         raf = requestAnimationFrame(frame);
       }
+      this.splash = function (x, y) { for (var k = 0; k < 3; k++) splash(x + (k - 1) * 6, y, .6 - k * .1); };
       this.start = function () { if (on) return; on = true; size(); fill(); raf = requestAnimationFrame(frame); };
       this.stop = function () { on = false; cancelAnimationFrame(raf); ctx.clearRect(0, 0, w, h); };
       window.addEventListener('resize', function () { if (on) { size(); fill(); } });
     }
-    var pageRain = new Rain(document.querySelector('[data-rain="page"]'), .7, '255, 255, 255'), raining = false;
-    // 雨は、ページ全体でずっと降っている（傘のボタンで止められる）
+    var pageRain = new Rain(document.querySelector('[data-rain="page"]'), .55), raining = false;
+    var meter = document.querySelector('.rain-meter b'), flash = document.querySelector('.flash');
+    function thunder() { flash.classList.remove('on'); void flash.offsetWidth; flash.classList.add('on'); }
+
+    // いま見ている欄の雨の強さ（data-rain-level）に、だんだん近づける
+    var zones = Array.prototype.slice.call(document.querySelectorAll('[data-rain-level]'));
+    function zone() {
+      var mid = innerHeight / 2, lv = 1, um = false;
+      zones.forEach(function (z) { var r = z.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) { lv = +z.getAttribute('data-rain-level'); um = lv >= 4; } });
+      pageRain.target = lv; pageRain.umbrella = um && fine; root.classList.toggle('storm', um && raining && fine);
+      if (meter) meter.textContent = raining ? levelName(lv) : '晴れ';
+    }
+    addEventListener('scroll', zone, { passive: true });
+
+    // 土砂降りの欄では、マウスが傘になる
+    var brolly = document.querySelector('.brolly');
+    addEventListener('pointermove', function (e) {
+      pageRain.mx = e.clientX; pageRain.my = e.clientY;
+      if (brolly) brolly.style.transform = 'translate(' + (e.clientX - 34) + 'px,' + (e.clientY - 52) + 'px)';
+    }, { passive: true });
+    // 黒い欄をクリックすると、水たまりに波紋
+    document.querySelectorAll('[data-rain-level]').forEach(function (z) {
+      z.addEventListener('click', function (e) { if (raining && !e.target.closest('a,button')) pageRain.splash(e.clientX, e.clientY); });
+    });
+
     function setRain(on) {
       raining = on; root.classList.toggle('raining', on);
       on ? pageRain.start() : setTimeout(function () { if (!raining) pageRain.stop(); }, 1000);
@@ -1137,9 +1212,10 @@
         if (x.classList.contains('rain-btn')) { x.setAttribute('aria-pressed', on); x.setAttribute('aria-label', on ? '雨を止める' : '雨を降らせる'); }
         else x.textContent = on ? '雨を、止める' : 'また、雨を降らせる';
       });
+      zone();
     }
     document.querySelectorAll('[data-rain-toggle]').forEach(function (b) { b.addEventListener('click', function () { setRain(!raining); }); });
-    if (!calm) setRain(true);
+    if (!calm) setRain(true); else zone();
 
     // 読み進めた分だけ、上の線がのびる
     var bar = document.querySelector('.progress i'), ticking = false;
